@@ -1,0 +1,46 @@
+/*
+ * For Kvman
+ * Powered By KK Studio
+ */
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.container {
+    max-width: 960px;
+    min-height: 388px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: #007bff;
+}
+
+.header-nav a {
+    color: #343a40;
+}
+
+.header-nav a:hover {
+    color: #ffffff;
+    background-color: #007bff;
+}
+
+.footer {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center {
+    text-align: center;
+}
