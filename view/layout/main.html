@@ -2,6 +2,19 @@
 <html lang="zh-cmn-Hans">
 {% include "head.html" %}
 <body>
+    <!-- Top Header -->
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">Kvman</h5>
+        <nav class="my-2 my-md-0 mr-md-3 header-nav">
+            <a class="p-2" href="/">控制台</a>
+            <a class="p-2" href="#">虚拟机</a>
+            <a class="p-2" href="#">存储</a>
+            <a class="p-2" href="#">网络</a>
+            <a class="p-2" href="#">设置</a>
+        </nav>
+        <a class="btn btn-outline-primary" href="/user/login">登录</a>
+    </div>
+    <!-- End Top Header -->
     {% block body %}{% end %}
     {% include "footer.html" %}
 </body>
