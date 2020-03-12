@@ -1,7 +1,7 @@
 Kvm Man
 =========
 
-Kvm Virtual machine Manager
+Kvman = Kvm Man = Kvm Virtual machine Manager
 
 
 ## Version
