@@ -71,7 +71,7 @@ class App(tornado.web.Application):
 class Kvman():
 
     def __init__(self,processes=4):
-        self.__version__ = '1.0.6'
+        self.__version__ = '1.0.0'
         self.host = options.host
         self.port = options.port
         self.urls = route
