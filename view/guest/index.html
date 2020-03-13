@@ -26,7 +26,7 @@
             <td><a href="/guest/detail?name={{ d.name }}" data-toggle="tooltip" title="{{ d.title }}">{{ d.name }}</a></td>
             <td>{{ d['cpu'] }}</td>
             <td>{{ d['mem'] }}</td>
-            <td>{{ '+'.join(d.hdd) }}</td>
+            <td>{{ '<br>'.join(d.hdd) }}</td>
             <td>{{ '<br>'.join(d.network) }}</td>
             <td>{{ d['desc'] }}</td>
             <td>{{ status[d['status']] }}</td>
