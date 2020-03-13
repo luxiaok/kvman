@@ -37,9 +37,10 @@ class kvm:
                 'name': i.name(),
                 'title': title,
                 'desc': desc,
+                'os_type': '',
                 'cpu': '',
                 'mem': '',
-                'disk': '',
+                'hdd': '',
                 'network': '',
                 'status': i.isActive()
             }
