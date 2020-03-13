@@ -22,6 +22,22 @@ class kvm:
         self.conn.close()
 
 
+    # disks = xml.getElementsByTagName('disk')
+    def getHdd(self,disks):
+        hdd = []
+        type_to_src = {'file': 'file', 'block': 'dev'}
+        if len(disks) > 0:
+            for d in disks:
+                if d.getAttribute('device') == 'disk':  # disk or cdrom
+                    hdd_type = d.getAttribute('type') # file or block
+                    hddNodes = d.childNodes
+                    for n in hddNodes:
+                        if n.nodeName == 'source':
+                            hdd.append(n.getAttribute(type_to_src[hdd_type]))  # hdd src, eg: /kvm/images/guest.img
+        return hdd
+
+
+
     def getGuests(self):
         guests = []
         doms = self.conn.listAllDomains(0)
@@ -33,6 +49,7 @@ class kvm:
             tag_desc = xml.getElementsByTagName('description')
             desc = tag_desc[0].childNodes[0].nodeValue
             state,maxmem,mem,cpus,cpu_time = i.info()
+            hdd = self.getHdd(xml.getElementsByTagName('disk'))
             dom = {
                 'id': i.ID(),
                 'name': i.name(),
@@ -41,7 +58,7 @@ class kvm:
                 'os_type': i.OSType(),
                 'cpu': cpus,
                 'mem': str(mem/1024/1024) + ' GB' ,
-                'hdd': '',
+                'hdd': hdd,
                 'network': '',
                 'status': i.isActive()
             }
