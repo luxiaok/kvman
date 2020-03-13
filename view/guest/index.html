@@ -23,7 +23,7 @@
         {% for d in guests %}
         <tr>
             <!--<th scope="row">{{ d['id'] }}</th>-->
-            <td>{{ d['name'] }}</td>
+            <td><a href="/guest/detail?name={{ d.name }}">{{ d['name'] }}</a></td>
             <td>{{ d['title'] }}</td>
             <td>{{ d['cpu'] }}</td>
             <td>{{ d['mem'] }}</td>
