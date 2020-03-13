@@ -46,3 +46,7 @@ a:hover {
 .center {
     text-align: center;
 }
+
+.table-middle td {
+    vertical-align: middle;
+}
