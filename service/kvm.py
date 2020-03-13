@@ -37,7 +37,7 @@ class kvm:
                 'name': i.name(),
                 'title': title,
                 'desc': desc,
-                'os_type': '',
+                'os_type': i.OSType(),
                 'cpu': '',
                 'mem': '',
                 'hdd': '',
