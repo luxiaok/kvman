@@ -14,8 +14,8 @@
             <th scope="col">内存</th>
             <th scope="col">硬盘</th>
             <th scope="col">网卡</th>
-            <th scope="col">状态</th>
             <th scope="col">备注</th>
+            <th scope="col">状态</th>
             <th scope="col">操作</th>
         </tr>
         </thead>
@@ -28,8 +28,8 @@
             <td>{{ d['mem'] }}</td>
             <td>{{ '+'.join(d.hdd) }}</td>
             <td>{{ d['network'] }}</td>
-            <td>{{ status[d['status']] }}</td>
             <td>{{ d['desc'] }}</td>
+            <td>{{ status[d['status']] }}</td>
             <td>
                 <div class="btn-group">
                     <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
