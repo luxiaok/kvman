@@ -10,11 +10,12 @@ from config.settings import kvm as kconfig
 class kvm:
 
     def __init__(self):
-        self.conn = self.openConnect()
+        uri = 'qemu:///system'
+        self.conn = self.openConnect(uri)
 
 
-    def openConnect(self):
-        return libvirt.openReadOnly(None)
+    def openConnect(self,uri):
+        return libvirt.openReadOnly(uri)
 
 
     def close(self):
