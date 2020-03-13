@@ -24,7 +24,7 @@ class kvm:
 
     def getGuests(self):
         guests = []
-        doms = self.conn.listAllDomains()
+        doms = self.conn.listAllDomains(0)
         for i in doms:
             raw_xml = i.XMLDesc(0)
             xml = minidom.parseString(raw_xml)
