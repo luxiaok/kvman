@@ -42,6 +42,25 @@ class kvm:
         return hdd
 
 
+    def getNetwork(self,interfaces):
+        net = []
+        for i in interfaces:
+            type = i.getAttribute('type')
+            iNodes = i.childNodes
+            mac,link,drive = ('','','')
+            for tag in iNodes:
+                if tag.nodeName == 'mac':
+                    mac = tag.getAttribute('address')
+                elif tag.nodeName == 'source':
+                    link = tag.getAttribute(type) # kvm network pool name,eg: default,br0,...
+                elif tag.nodeName == 'model':
+                    drive = tag.getAttribute('type') # e1000,virtio,...
+                else:
+                    pass
+            net.append('%s -> %s' % (link,mac))
+        return net
+
+
     def getGuests(self):
         guests = []
         doms = self.conn.listAllDomains(0)
@@ -54,6 +73,7 @@ class kvm:
             desc = tag_desc[0].childNodes[0].nodeValue
             state,maxmem,mem,cpus,cpu_time = i.info()
             hdd = self.getHdd(xml.getElementsByTagName('disk'))
+            network = self.getNetwork(xml.getElementsByTagName('interface'))
             dom = {
                 'id': i.ID(),
                 'name': i.name(),
@@ -63,7 +83,7 @@ class kvm:
                 'cpu': cpus,
                 'mem': str(mem/1024/1024) + ' GB' ,
                 'hdd': hdd,
-                'network': '',
+                'network': network,
                 'status': i.isActive()
             }
             guests.append(dom)
