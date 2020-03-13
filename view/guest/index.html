@@ -1,4 +1,4 @@
-{% extends "../layout/main.html" %}
+{% extends "layout/main.html" %}
 {% block body %}
 <div class="row mb-3">
     <h5>虚拟机实例</h5>
@@ -20,19 +20,21 @@
         </tr>
         </thead>
         <tbody>
+        {% for d in guests %}
         <tr>
-            <th scope="row">1</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th scope="row">{{ d['id'] }}</th>
+            <td>{{ d['name'] }}</td>
+            <td>{{ d['os_type'] }}</td>
+            <td>{{ d['cpu'] }}</td>
+            <td>{{ d['mem'] }}</td>
+            <td>{{ d['hdd'] }}</td>
+            <td>{{ d['network'] }}</td>
+            <td><span {{ d['status'] and 'style=color:green;' }}>{{ d['status'] and '运行中' }}</span></td>
+            <td>{{ d['desc'] }}</td>
             <td></td>
         </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
-{% end %}
+{% endblock %}

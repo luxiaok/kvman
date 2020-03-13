@@ -19,7 +19,7 @@ from handler.page import Page404Handler
 from config.settings import *
 from handler import route
 from ui_modules import UIModules
-#from Template import TemplateLoader # For Jinja2
+from Template import TemplateLoader # For Jinja2
 from tornado.options import define, options
 
 define("host", default='0.0.0.0', help="Listen on the given IP", type=str)
@@ -37,14 +37,14 @@ class App(tornado.web.Application):
         settings['default_handler_class'] = Page404Handler  # 404
 
         # Don't Support for Jinja2
-        settings['ui_modules'] = UIModules
+        #settings['ui_modules'] = UIModules
         #tornado.web.Application.__init__(self, handlers, **settings)
-        super(App, self).__init__(handlers, **settings)
+        #super(App, self).__init__(handlers, **settings)
 
         # Support for Jinja2
-        #tpl_loader = TemplateLoader(settings['template_path'], False)
-        #tornado.web.Application.__init__(self, handlers, template_loader=tpl_loader.Loader(), **settings)
-        #super(App, self).__init__(handlers, template_loader=tpl_loader.Loader(), **settings)
+        tpl_loader = TemplateLoader(settings['template_path'], False)
+        tornado.web.Application.__init__(self, handlers, template_loader=tpl_loader.Loader(), **settings)
+        super(App, self).__init__(handlers, template_loader=tpl_loader.Loader(), **settings)
 
         #每10秒执行一次
         #tornado.ioloop.PeriodicCallback(self.test, 1 * 10 * 1000).start()

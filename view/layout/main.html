@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
-{% include "head.html" %}
+{% include "layout/head.html" %}
 <body>
     <!-- Top Header -->
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
@@ -16,8 +16,8 @@
     </div>
     <!-- End Top Header -->
     <div class="container">
-        {% block body %}{% end %}
+        {% block body %}{% endblock %}
     </div>
-    {% include "footer.html" %}
+    {% include "layout/footer.html" %}
 </body>
 </html>
