@@ -4,7 +4,7 @@
 
 import libvirt
 from xml.dom import minidom
-from config.settings import kvm as kconfig
+from config.settings import config
 
 
 class kvm:
