@@ -57,7 +57,7 @@ class kvm:
                     drive = tag.getAttribute('type') # e1000,virtio,...
                 else:
                     pass
-            net.append('%s -> %s' % (link,mac))
+            net.append('%s -> %s' % (mac,link))
         return net
 
 
