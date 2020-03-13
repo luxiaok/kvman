@@ -13,5 +13,5 @@ class IndexHandler(BaseHandler):
     def get(self):
         k = kvm()
         guests = k.getGuests()
-        status = ['',u'<span style="color:green;">未运行</span>']
+        status = ['',u'<span style="color:green;">运行中</span>']
         self.render('guest/index.html',guests=guests,status=status)
