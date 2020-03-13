@@ -10,7 +10,6 @@
         <tr>
             <!--<th scope="col">#</th>-->
             <th scope="col">名称</th>
-            <th scope="col">系统</th>
             <th scope="col">CPUs</th>
             <th scope="col">内存</th>
             <th scope="col">硬盘</th>
@@ -24,8 +23,7 @@
         {% for d in guests %}
         <tr>
             <!--<th scope="row">{{ d['id'] }}</th>-->
-            <td><a href="/guest/detail?name={{ d.name }}">{{ d['name'] }}</a></td>
-            <td>{{ d['title'] }}</td>
+            <td><a href="/guest/detail?name={{ d.name }}" class="" title="{{ d.title }}">{{ d.name }}</a></td>
             <td>{{ d['cpu'] }}</td>
             <td>{{ d['mem'] }}</td>
             <td>{{ '+'.join(d.hdd) }}</td>
