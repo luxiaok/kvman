@@ -31,7 +31,20 @@
             <td>{{ d['network'] }}</td>
             <td>{{ status[d['status']] }}</td>
             <td>{{ d['desc'] }}</td>
-            <td></td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        操作
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
+                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-power-off"></i> 关机</a>
+                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-refresh"></i> 重启</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-trash"></i> 销毁</a>
+                    </div>
+                </div>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
