@@ -32,14 +32,15 @@ class kvm:
             title = tag_title[0].childNodes[0].nodeValue
             tag_desc = xml.getElementsByTagName('description')
             desc = tag_desc[0].childNodes[0].nodeValue
+            state,maxmem,mem,cpus,cpu_time = i.info()
             dom = {
                 'id': i.ID(),
                 'name': i.name(),
                 'title': title,
                 'desc': desc,
                 'os_type': i.OSType(),
-                'cpu': '',
-                'mem': '',
+                'cpu': cpus,
+                'mem': mem,
                 'hdd': '',
                 'network': '',
                 'status': i.isActive()
