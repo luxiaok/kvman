@@ -11,4 +11,5 @@ class IndexHandler(BaseHandler):
     #@Auth
     def get(self):
         #self.log.info('Hello,Index page!') # Log Test
+        self.title = u'控制台'
         self.render('index/index.html',version=self.app_version)
