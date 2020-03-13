@@ -22,3 +22,10 @@ class CreateGuestHandler(BaseHandler):
     def get(self):
         self.render('guest/create.html')
 
+
+class DetailHandler(BaseHandler):
+
+    def get(self):
+        name = self.get_argument('name')
+        self.render('guest/detail.html',name=name)
+
