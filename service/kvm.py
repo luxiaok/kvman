@@ -40,7 +40,7 @@ class kvm:
                 'desc': desc,
                 'os_type': i.OSType(),
                 'cpu': cpus,
-                'mem': mem,
+                'mem': str(mem/1024/1024) + ' GB' ,
                 'hdd': '',
                 'network': '',
                 'status': i.isActive()
