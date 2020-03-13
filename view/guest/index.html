@@ -29,7 +29,7 @@
             <td>{{ d['mem'] }}</td>
             <td>{{ d['hdd'] }}</td>
             <td>{{ d['network'] }}</td>
-            <td><span {{ d['status'] and 'style=color:green;' }}>{{ d['status'] and '运行中' }}</span></td>
+            <td>{{ status[d['status']] }}</td>
             <td>{{ d['desc'] }}</td>
             <td></td>
         </tr>
