@@ -11,7 +11,7 @@ Kvman = Kvm Man = Kvm Virtual machine Manager
 ![Kvm-Man](static/img/kvman-overview.jpg)
 
 
-## Dependency Component
+## Dependency Components
 
 - [Python](http://www.python.org)：2.7.x
 
