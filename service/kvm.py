@@ -67,9 +67,9 @@ class kvm:
             raw_xml = i.XMLDesc(0)
             xml = minidom.parseString(raw_xml)
             tag_title = xml.getElementsByTagName('title')
-            title = tag_title[0].childNodes[0].nodeValue
+            title = tag_title[0].childNodes[0].nodeValue if len(tag_title) > 0 else ''
             tag_desc = xml.getElementsByTagName('description')
-            desc = tag_desc[0].childNodes[0].nodeValue
+            desc = tag_desc[0].childNodes[0].nodeValue if len(tag_desc) > 0 else ''
             state,maxmem,mem,cpus,cpu_time = i.info()
             hdd = self.getHdd(xml.getElementsByTagName('disk'))
             network = self.getNetwork(xml.getElementsByTagName('interface'))
