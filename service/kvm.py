@@ -78,7 +78,7 @@ class kvm:
                 'name': i.name(),
                 'title': title,
                 'desc': desc,
-                'os_type': i.OSType(),
+                'os_type': i.OSType(), # hvm, useless
                 'cpu': cpus,
                 'mem': str(mem/1024/1024) + ' GB' ,
                 'hdd': hdd,
