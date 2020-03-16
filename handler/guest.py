@@ -32,6 +32,15 @@ class IndexHandler(BaseHandler):
         self.render('guest/index.html',guests=guests,status=status,state=guest_status)
 
 
+class StartHandler(BaseHandler):
+
+    def post(self):
+        name = self.get_argument('name')
+        k = kvm()
+        result = k.startGuest(name)
+        self.jsonReturn({'code':0,'result':result})
+
+
 class CreateGuestHandler(BaseHandler):
 
     def get(self):
