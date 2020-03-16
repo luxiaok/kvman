@@ -23,7 +23,6 @@ class IndexHandler(BaseHandler):
 
     #@Auth
     def get(self):
-        print guest_status
         k = kvm()
         guests = k.getGuests()
         k.close()
