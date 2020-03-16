@@ -91,3 +91,13 @@ class kvm:
             guests.append(dom)
         return guests
 
+
+    def startGuest(self,name):
+        dom = self.conn.lookupByName(name)
+        if not dom:
+            return False
+        if dom.create():
+            return True
+        else:
+            return False
+
