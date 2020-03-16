@@ -12,6 +12,9 @@ class kvm:
     def __init__(self):
         uri = 'qemu:///system'
         self.conn = self.openConnect(uri)
+        #print self.conn.getVersion() # Qemu
+        #print self.conn.getLibVersion() # Libvirt
+        #print self.conn.getSysinfo() # System Infomation
         self._code = 0
         self._msg = 'success'
 
