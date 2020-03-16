@@ -101,3 +101,15 @@ class kvm:
         else:
             return True
 
+
+    def shutdownGuest(self,name,force=False):
+        dom = self.conn.lookupByName(name)
+        if not dom:
+            return False
+        if force:
+            result = dom.destroy()
+        else:
+            result = dom.shutdown()
+        return result
+
+
