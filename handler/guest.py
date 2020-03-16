@@ -37,7 +37,7 @@ class StartHandler(BaseHandler):
         name = self.get_argument('name')
         k = kvm()
         result = k.startGuest(name)
-        self.jsonReturn({'code':0,'result':result})
+        self.jsonReturn({'code':0,'result':result,'msg':k._msg})
 
 
 class ShutdownHandler(BaseHandler):
@@ -48,7 +48,7 @@ class ShutdownHandler(BaseHandler):
         force = False if force=='no' else True
         k = kvm()
         result = k.shutdownGuest(name,force)
-        self.jsonReturn({'code':0,'result':result})
+        self.jsonReturn({'code':0,'result':result,'msg':k._msg})
 
 
 class CreateGuestHandler(BaseHandler):
