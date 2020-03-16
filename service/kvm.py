@@ -96,8 +96,8 @@ class kvm:
         dom = self.conn.lookupByName(name)
         if not dom:
             return False
-        if dom.create():
-            return True
-        else:
+        if dom.create() < 0:
             return False
+        else:
+            return True
 
