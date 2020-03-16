@@ -74,6 +74,7 @@ class kvm:
             state,maxmem,mem,cpus,cpu_time = i.info()
             hdd = self.getHdd(xml.getElementsByTagName('disk'))
             network = self.getNetwork(xml.getElementsByTagName('interface'))
+            state,reason = i.state()
             dom = {
                 'id': i.ID(),
                 'name': i.name(),
@@ -84,6 +85,7 @@ class kvm:
                 'mem': str(mem/1024/1024) + ' GB' ,
                 'hdd': hdd,
                 'network': network,
+                'state': state,
                 'status': i.isActive()
             }
             guests.append(dom)
