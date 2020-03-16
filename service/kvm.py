@@ -15,7 +15,8 @@ class kvm:
 
 
     def openConnect(self,uri):
-        return libvirt.openReadOnly(uri)
+        #return libvirt.openReadOnly(uri)
+        return libvirt.open(uri)
 
 
     def close(self):
