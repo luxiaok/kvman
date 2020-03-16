@@ -12,6 +12,8 @@ class kvm:
     def __init__(self):
         uri = 'qemu:///system'
         self.conn = self.openConnect(uri)
+        self._code = 0
+        self._msg = 'success'
 
 
     def openConnect(self,uri):
@@ -28,6 +30,8 @@ class kvm:
             dom = self.conn.lookupByName(name)
         except:
             dom = None
+            self._code = -1
+            self._msg = 'Not found guest: ' + name
         return dom
 
 
