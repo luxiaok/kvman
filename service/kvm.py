@@ -23,6 +23,14 @@ class kvm:
         self.conn.close()
 
 
+    def getGuest(self,name):
+        try:
+            dom = self.conn.lookupByName(name)
+        except:
+            dom = None
+        return dom
+
+
     # disks = xml.getElementsByTagName('disk')
     def getHdd(self,disks):
         hdd = []
