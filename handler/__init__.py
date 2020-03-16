@@ -4,6 +4,7 @@
 import index
 import guest
 import storage
+import network
 import page
 import user
 
@@ -13,6 +14,7 @@ route = [
     (r'/guest/create',guest.CreateGuestHandler),
     (r'/guest/detail',guest.DetailHandler),
     (r'/storage',storage.IndexHandler),
+    (r'/network',network.IndexHandler),
     (r'/user/login',user.LoginHandler),
     (r'/user/register',user.RegisterHandler),
     (r'/page/404.html',page.Page404Handler),
