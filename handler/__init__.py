@@ -5,6 +5,7 @@ import index
 import guest
 import storage
 import network
+import monitor
 import page
 import user
 
