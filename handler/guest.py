@@ -13,6 +13,7 @@ class IndexHandler(BaseHandler):
     def get(self):
         k = kvm()
         guests = k.getGuests()
+        k.close()
         status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
         self.title = u'虚拟机实例'
         self.render('guest/index.html',guests=guests,status=status)
