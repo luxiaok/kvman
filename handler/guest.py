@@ -40,6 +40,17 @@ class StartHandler(BaseHandler):
         self.jsonReturn({'code':0,'result':result})
 
 
+class ShutdownHandler(BaseHandler):
+
+    def post(self):
+        name = self.get_argument('name')
+        force = self.get_argument('force','no')
+        force = False if force=='no' else True
+        k = kvm()
+        result = k.shutdownGuest(name,force)
+        self.jsonReturn({'code':0,'result':result})
+
+
 class CreateGuestHandler(BaseHandler):
 
     def get(self):

@@ -16,6 +16,7 @@ route = [
     (r'/guest/create',guest.CreateGuestHandler),
     (r'/guest/detail',guest.DetailHandler),
     (r'/guest/start',guest.StartHandler),
+    (r'/guest/shutdown',guest.ShutdownHandler),
     (r'/storage',storage.IndexHandler),
     (r'/network',network.IndexHandler),
     (r'/monitor',monitor.IndexHandler),
