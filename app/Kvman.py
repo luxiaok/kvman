@@ -84,7 +84,7 @@ class Kvman():
         else:
             self.processes = 1
         self.log.info('Tornado Web Server: %s' % tornado.version)
-        self.log.info('Kvman %s' % self.__version__)  # 启动时打印版本号
+        self.log.info('Kvm-Man %s' % self.__version__)  # 启动时打印版本号
         self.log.info('Listen Port: %s' % self.port)
 
     def init_log(self):
