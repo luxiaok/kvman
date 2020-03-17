@@ -28,6 +28,17 @@ class kvm:
         self.conn.close()
 
 
+    def getVersion(self):
+        lv = str(self.conn.getLibVersion())
+        qv = str(self.conn.getVersion())
+        libvirt_version = [str(lv[0]),str(int(lv[1:4])),str(int(lv[4:]))]
+        qemu_version = [str(qv[0]),str(int(qv[1:4])),str(int(qv[4:]))]
+        return {
+            'libvirt': '.'.join(libvirt_version),
+            'qemu': '.'.join(qemu_version)
+        }
+
+
     def getGuest(self,name):
         try:
             dom = self.conn.lookupByName(name)
