@@ -15,6 +15,7 @@ class kvm:
         #print self.conn.getVersion() # Qemu
         #print self.conn.getLibVersion() # Libvirt
         #print self.conn.getSysinfo() # System Infomation
+        #print self.conn.getHostname() # Hostname for Kvm Server
         self._code = 0
         self._msg = 'success'
 
