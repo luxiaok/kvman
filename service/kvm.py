@@ -140,3 +140,14 @@ class kvm:
         return result
 
 
+    def rebootGuest(self,name):
+        dom = self.getGuest(name)
+        if not dom:
+            return False
+        if dom.reboot() == 0:
+            return True
+        else:
+            self._code = -1
+            self._msg = 'Reboot fail'
+            return False
+

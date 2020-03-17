@@ -51,6 +51,15 @@ class ShutdownHandler(BaseHandler):
         self.jsonReturn({'code':0,'result':result,'msg':k._msg})
 
 
+class RebootHandler(BaseHandler):
+
+    def post(self):
+        name = self.get_argument('name')
+        k = kvm()
+        result = k.rebootGuest(name)
+        self.jsonReturn({'code':0,'result':result,'msg':k._msg})
+
+
 class CreateGuestHandler(BaseHandler):
 
     def get(self):
