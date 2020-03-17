@@ -9,6 +9,17 @@ from config.settings import config
 
 class kvm:
 
+
+    VIR_DOMAIN_NOSTATE = libvirt.VIR_DOMAIN_NOSTATE
+    VIR_DOMAIN_RUNNING = libvirt.VIR_DOMAIN_RUNNING
+    VIR_DOMAIN_BLOCKED = libvirt.VIR_DOMAIN_BLOCKED
+    VIR_DOMAIN_PAUSED = libvirt.VIR_DOMAIN_PAUSED
+    VIR_DOMAIN_SHUTDOWN = libvirt.VIR_DOMAIN_SHUTDOWN
+    VIR_DOMAIN_SHUTOFF = libvirt.VIR_DOMAIN_SHUTOFF
+    VIR_DOMAIN_CRASHED = libvirt.VIR_DOMAIN_CRASHED
+    VIR_DOMAIN_PMSUSPENDED = libvirt.VIR_DOMAIN_PMSUSPENDED
+
+
     def __init__(self):
         uri = 'qemu:///system'
         self.conn = self.openConnect(uri)
