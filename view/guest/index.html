@@ -54,6 +54,7 @@
 {% block footer %}
 <script>
 $(function () {
+
     //开机
     $('.start-btn').click(function () {
         var name = $(this).data('name'),
@@ -64,11 +65,11 @@ $(function () {
             return false;
         }
         layer.confirm(msg, {icon: 3, title: '开机提示'}, function (index) {
-            //do something
             layer.msg('已开机！');
             layer.close(index);
         });
     });
+
     //关机
     $('.halt-btn').click(function () {
         var name = $(this).data('name'),
@@ -79,11 +80,11 @@ $(function () {
             return false;
         }
         layer.confirm(msg, {icon: 3, title: '关机提示'}, function (index) {
-            //do something
             layer.msg('正在关机……');
             layer.close(index);
         });
     });
+
     //重启
     $('.reboot-btn').click(function () {
         var name = $(this).data('name'),
@@ -94,11 +95,11 @@ $(function () {
             return false;
         }
         layer.confirm(msg, {icon: 3, title: '重启提示'}, function (index) {
-            //do something
             layer.msg('正在重启……');
             layer.close(index);
         });
     });
+
 });
 </script>
 {% endblock %}
