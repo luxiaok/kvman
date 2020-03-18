@@ -38,6 +38,7 @@ class StartHandler(BaseHandler):
         name = self.get_argument('name')
         k = kvm()
         result = k.startGuest(name)
+        k.close()
         self.jsonReturn({'code':0,'result':result,'msg':k._msg})
 
 
@@ -49,6 +50,7 @@ class ShutdownHandler(BaseHandler):
         force = False if force=='no' else True
         k = kvm()
         result = k.shutdownGuest(name,force)
+        k.close()
         self.jsonReturn({'code':0,'result':result,'msg':k._msg})
 
 
@@ -58,6 +60,7 @@ class RebootHandler(BaseHandler):
         name = self.get_argument('name')
         k = kvm()
         result = k.rebootGuest(name)
+        k.close()
         self.jsonReturn({'code':0,'result':result,'msg':k._msg})
 
 
