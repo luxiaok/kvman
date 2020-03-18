@@ -74,18 +74,22 @@ $(function () {
                     var code = resp['code'],
                         msg = resp['msg'];
                     if (code === 0) {
+                        layer.close(index);
                         layer.msg(msg);
+                        location.reload();
                     } else if (code < 0) {
+                        layer.close(index);
                         layer.msg(msg);
                     } else {
+                        layer.close(index);
                         layer.alert('开机失败，请稍后再试！', {title: '开机提示', icon: 3});
                     }
                 },
                 error: function () {
+                    layer.close(index);
                     layer.alert('系统繁忙，请稍后再试！', {title: '开机提示', icon: 3});
                 }
             });
-            layer.close(index);
         });
     });
 
@@ -108,18 +112,22 @@ $(function () {
                     var code = resp['code'],
                         msg = resp['msg'];
                     if (code === 0) {
+                        layer.close(index);
                         layer.msg(msg);
+                        location.reload();
                     } else if (code < 0) {
+                        layer.close(index);
                         layer.msg(msg);
                     } else {
+                        layer.close(index);
                         layer.alert('关机失败，请稍后再试！', {title: '关机提示', icon: 3});
                     }
                 },
                 error: function () {
+                    layer.close(index);
                     layer.alert('系统繁忙，请稍后再试！', {title: '关机提示', icon: 3});
                 }
             });
-            layer.close(index);
         });
     });
 
