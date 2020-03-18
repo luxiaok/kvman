@@ -71,7 +71,7 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.application.redis
 
     # 返回Json
-    def jsonReturn(self,data):
+    def returnJson(self,data):
         self.set_header('Content-Type', 'application/json')
         self.write(data)
 

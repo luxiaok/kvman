@@ -45,7 +45,7 @@ class StartHandler(BaseHandler):
             code = -1
             msg = u'开机失败：%s' % k._msg
         k.close()
-        self.jsonReturn({'code': code, 'msg': msg})
+        self.returnJson({'code': code, 'msg': msg})
 
 
 class ShutdownHandler(BaseHandler):
@@ -63,7 +63,7 @@ class ShutdownHandler(BaseHandler):
             code = -1
             msg = u'关机失败：%s' % k._msg
         k.close()
-        self.jsonReturn({'code': code, 'msg': msg})
+        self.returnJson({'code': code, 'msg': msg})
 
 
 class RebootHandler(BaseHandler):
@@ -73,7 +73,7 @@ class RebootHandler(BaseHandler):
         k = kvm()
         result = k.rebootGuest(name)
         k.close()
-        self.jsonReturn({'code':0,'result':result,'msg':k._msg})
+        self.returnJson({'code':0,'result':result,'msg':k._msg})
 
 
 class CreateGuestHandler(BaseHandler):
@@ -89,4 +89,3 @@ class DetailHandler(BaseHandler):
         name = self.get_argument('name')
         self.title = u'虚拟机详情 - ' + name
         self.render('guest/detail.html',name=name)
-
