@@ -65,7 +65,26 @@ $(function () {
             return false;
         }
         layer.confirm(msg, {icon: 3, title: '开机提示'}, function (index) {
-            layer.msg('已开机！');
+            $.ajax({
+                type: "POST",
+                url: "/guest/start",
+                data: {name: name},
+                dataType: "json",
+                success: function (resp) {
+                    var code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        layer.msg(msg);
+                    } else if (code < 0) {
+                        layer.msg(msg);
+                    } else {
+                        layer.alert('开机失败，请稍后再试！', {title: '开机提示', icon: 3});
+                    }
+                },
+                error: function () {
+                    layer.alert('系统繁忙，请稍后再试！', {title: '开机提示', icon: 3});
+                }
+            });
             layer.close(index);
         });
     });
