@@ -99,7 +99,26 @@ $(function () {
             return false;
         }
         layer.confirm(msg, {icon: 3, title: '关机提示'}, function (index) {
-            layer.msg('正在关机……');
+            $.ajax({
+                type: "POST",
+                url: "/guest/shutdown",
+                data: {name: name, force: 'no'},
+                dataType: "json",
+                success: function (resp) {
+                    var code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        layer.msg(msg);
+                    } else if (code < 0) {
+                        layer.msg(msg);
+                    } else {
+                        layer.alert('关机失败，请稍后再试！', {title: '关机提示', icon: 3});
+                    }
+                },
+                error: function () {
+                    layer.alert('系统繁忙，请稍后再试！', {title: '关机提示', icon: 3});
+                }
+            });
             layer.close(index);
         });
     });
