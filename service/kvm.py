@@ -148,7 +148,12 @@ class kvm:
             result = dom.destroy()
         else:
             result = dom.shutdown()
-        return result
+        if result == 0:
+            return True
+        else:
+            self._code = -1
+            self._msg = 'Halt failed'
+            return False
 
 
     def rebootGuest(self,name):
