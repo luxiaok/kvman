@@ -36,12 +36,12 @@
                         操作
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-television"></i> 远程连接</a>
-                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
-                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-power-off"></i> 关机</a>
-                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-refresh"></i> 重启</a>
+                        <a class="dropdown-item console-btn" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-television"></i> 远程连接</a>
+                        <a class="dropdown-item start-btn" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
+                        <a class="dropdown-item halt-btn" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-power-off"></i> 关机</a>
+                        <a class="dropdown-item reboot-btn" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-refresh"></i> 重启</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-trash"></i> 销毁</a>
+                        <a class="dropdown-item destroy-btn" href="javascript:void(0);" data-name="{{ d.name }}"><i class="fa fa-fw fa-trash"></i> 销毁</a>
                     </div>
                 </div>
             </td>
@@ -50,4 +50,40 @@
         </tbody>
     </table>
 </div>
+{% endblock %}
+{% block footer %}
+<script>
+$(function () {
+    //开机
+    $('.start-btn').click(function () {
+        var name = $(this).data('name');
+        var msg = '您确将虚拟机 ' + name + ' 开机吗？';
+        layer.confirm(msg, {icon: 3, title: '开机提示'}, function (index) {
+            //do something
+            layer.msg('已开机！');
+            layer.close(index);
+        });
+    });
+    //关机
+    $('.halt-btn').click(function () {
+        var name = $(this).data('name');
+        var msg = '您确将虚拟机 ' + name + ' 关机吗？';
+        layer.confirm(msg, {icon: 3, title: '关机提示'}, function (index) {
+            //do something
+            layer.msg('正在关机……');
+            layer.close(index);
+        });
+    });
+    //重启
+    $('.reboot-btn').click(function () {
+        var name = $(this).data('name');
+        var msg = '您确将虚拟机 ' + name + ' 重启吗？';
+        layer.confirm(msg, {icon: 3, title: '重启提示'}, function (index) {
+            //do something
+            layer.msg('正在重启……');
+            layer.close(index);
+        });
+    });
+});
+</script>
 {% endblock %}
