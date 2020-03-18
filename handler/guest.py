@@ -56,8 +56,14 @@ class ShutdownHandler(BaseHandler):
         force = False if force=='no' else True
         k = kvm()
         result = k.shutdownGuest(name,force)
+        if result:
+            code = 0
+            msg = u'正在关机……'
+        else:
+            code = -1
+            msg = u'关机失败：%s' % k._msg
         k.close()
-        self.jsonReturn({'code':0,'result':result,'msg':k._msg})
+        self.jsonReturn({'code': code, 'msg': msg})
 
 
 class RebootHandler(BaseHandler):
