@@ -38,8 +38,14 @@ class StartHandler(BaseHandler):
         name = self.get_argument('name')
         k = kvm()
         result = k.startGuest(name)
+        if result:
+            code = 0
+            msg = u'已开机！'
+        else:
+            code = -1
+            msg = u'开机失败：%s' % k._msg
         k.close()
-        self.jsonReturn({'code':0,'result':result,'msg':k._msg})
+        self.jsonReturn({'code': code, 'msg': msg})
 
 
 class ShutdownHandler(BaseHandler):
