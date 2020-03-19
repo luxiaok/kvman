@@ -29,4 +29,4 @@ Kvman = Kvm Man = Kvm Virtual machine Manager
 
 - [Libvirt](https://github.com/libvirt/libvirt-python): 2.0+
 
-- python-pam
+- [python-pam](https://atlee.ca/software/pam/module-pam.html) `yum install python-pam`
