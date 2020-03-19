@@ -7,6 +7,7 @@ import guest
 import storage
 import network
 import monitor
+import setting
 import page
 import user
 
@@ -21,6 +22,7 @@ route = [
     (r'/storage',storage.IndexHandler),
     (r'/network',network.IndexHandler),
     (r'/monitor',monitor.IndexHandler),
+    (r'/setting',setting.IndexHandler),
     (r'/user/login',user.LoginHandler),
     (r'/user/register',user.RegisterHandler),
     (r'/page/404.html',page.Page404Handler),
