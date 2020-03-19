@@ -1,0 +1,29 @@
+{% extends "layout/main.html" %}
+{% block body %}
+<div class="row mt-5">
+    <h3 style="width: 100%; text-align: center">登录KvMan</h3>
+    <form style="width: 100%;">
+        <div class="form-group row center mt-4">
+            <div class="col-sm-4"></div>
+            <label for="username" class="col-sm-1 col-form-label">用户名</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+            </div>
+        </div>
+        <div class="form-group row center">
+            <div class="col-sm-4"></div>
+            <label for="password" class="col-sm-1 col-form-label">密  码</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="password" placeholder="请输入密码">
+            </div>
+        </div>
+        <div class="form-group row center mt-4">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-primary" style="width: 100%;"><i class="fa fa-fw fa-sign-in"></i> 登 录</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
