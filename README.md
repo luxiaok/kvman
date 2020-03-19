@@ -28,3 +28,5 @@ Kvman = Kvm Man = Kvm Virtual machine Manager
 - [Redis-Py](https://github.com/andymccurdy/redis-py)：2.10+
 
 - [Libvirt](https://github.com/libvirt/libvirt-python): 2.0+
+
+- python-pam
