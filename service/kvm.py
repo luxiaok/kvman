@@ -51,9 +51,13 @@ class kvm:
         }
 
 
-    # num = xxxxx KB
+    # num = xxxxx bytes
     def formatNum(self,num):
         s = num / 1024.0
+        if s < 1024:
+            human_num = int(s) if s == int(s) else "%.2f" % s
+            return "%s %s" % (human_num,'KB')
+        s = s / 1024
         if s < 1024:
             human_num = int(s) if s == int(s) else "%.2f" % s
             return "%s %s" % (human_num,'MB')
@@ -136,7 +140,7 @@ class kvm:
                 'desc': desc,
                 'os_type': i.OSType(), # hvm, useless
                 'cpu': cpus,
-                'mem': self.formatNum(mem),
+                'mem': self.formatNum( mem * 1024 ), # unit: KiB
                 'hdd': hdd,
                 'network': network,
                 'state': state,
