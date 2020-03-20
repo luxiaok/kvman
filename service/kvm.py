@@ -55,16 +55,16 @@ class kvm:
     def formatNum(self,num):
         s = num / 1024
         if s < 1024:
-            return [s,'KB']
+            return "%.2f %s" % (s,'KB')
         s = s / 1024
         if s < 1024:
-            return [s,'MB']
+            return "%.2f %s" % (s,'MB')
         s = s / 1024
         if s < 1024:
-            return [s, 'GB']
+            return "%.2f %s" % (s,'GB')
         s = s / 1024
         if s < 1024:
-            return [s, 'TB']
+            return "%.2f %s" % (s,'TB')
 
 
     def getGuest(self,name):
