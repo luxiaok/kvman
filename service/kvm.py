@@ -51,20 +51,20 @@ class kvm:
         }
 
 
-    # num = xxxxx bytes
+    # num = xxxxx KB
     def formatNum(self,num):
-        s = num / 1024
+        s = num / 1024.0
         if s < 1024:
-            return "%.2f %s" % (s,'KB')
+            human_num = int(s) if s == int(s) else "%.2f" % s
+            return "%s %s" % (human_num,'MB')
         s = s / 1024
         if s < 1024:
-            return "%.2f %s" % (s,'MB')
+            human_num = int(s) if s == int(s) else "%.2f" % s
+            return "%s %s" % (human_num, 'GB')
         s = s / 1024
         if s < 1024:
-            return "%.2f %s" % (s,'GB')
-        s = s / 1024
-        if s < 1024:
-            return "%.2f %s" % (s,'TB')
+            human_num = int(s) if s == int(s) else "%.2f" % s
+            return "%s %s" % (human_num, 'TB')
 
 
     def getGuest(self,name):
@@ -136,7 +136,7 @@ class kvm:
                 'desc': desc,
                 'os_type': i.OSType(), # hvm, useless
                 'cpu': cpus,
-                'mem': str(mem/1024/1024) + ' GB' ,
+                'mem': self.formatNum(mem),
                 'hdd': hdd,
                 'network': network,
                 'state': state,
