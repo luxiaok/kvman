@@ -5,7 +5,6 @@
 
 import tornado
 import time
-import hashlib
 from app.Session import Session
 from random import Random
 
