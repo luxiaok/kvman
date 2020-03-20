@@ -138,7 +138,7 @@ class kvm:
                 'name': i.name(),
                 'title': title,
                 'desc': desc,
-                'os_type': i.OSType(), # hvm, useless
+                'os_type': i.OSType(), # return "hvm", useless!
                 'cpu': cpus,
                 'mem': self.formatNum( mem * 1024 ), # unit: KiB
                 'hdd': hdd,
