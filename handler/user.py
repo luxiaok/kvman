@@ -3,6 +3,7 @@
 # Powered By KK Studio
 
 from BaseHandler import BaseHandler
+import pam
 
 class LoginHandler(BaseHandler):
 
@@ -16,6 +17,15 @@ class LoginHandler(BaseHandler):
         username = self.get_argument("username", None)
         password = self.get_argument("password", None)
         remember = self.get_argument("remember", "no")
+        if not username or not password:
+            return self.returnJson({'code':-1,'msg':u'用户名或密码错误(-1)！'})
+        if pam.authenticate(username,password):
+            return self.returnJson({'code': 0, 'msg': u'验证成功！'})
+        else:
+            if username == 'root':
+                return self.returnJson({'code': 0, 'msg': u'用户名或密码错误(您的系统可能禁止root登录)！'})
+            else:
+                return self.returnJson({'code':-1,'msg':u'用户名或密码错误(-2)！'})
         #self.create_session(self,data,remember)
 
     def create_session(self,data,remember):
