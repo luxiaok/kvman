@@ -51,6 +51,22 @@ class kvm:
         }
 
 
+    # num = xxxxx bytes
+    def formatNum(self,num):
+        s = num / 1024
+        if s < 1024:
+            return [s,'KB']
+        s = s / 1024
+        if s < 1024:
+            return [s,'MB']
+        s = s / 1024
+        if s < 1024:
+            return [s, 'GB']
+        s = s / 1024
+        if s < 1024:
+            return [s, 'TB']
+
+
     def getGuest(self,name):
         try:
             dom = self.conn.lookupByName(name)
