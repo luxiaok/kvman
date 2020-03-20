@@ -6,7 +6,6 @@
 import tornado
 import time
 from app.Session import Session
-from random import Random
 
 
 class BaseHandler(tornado.web.RequestHandler):
