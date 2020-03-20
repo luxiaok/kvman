@@ -94,9 +94,9 @@ class kvm:
                         hdd_path = n.getAttribute(type_to_path[hdd_type])  # hdd src, eg: /kvm/images/guest.img
                         vol = self.conn.storageVolLookupByPath(hdd_path)
                         info = vol.info()
-                        total = info[1] / 1024.0 / 1024 / 1024
-                        used = info[2] / 1024.0 / 1024 / 1024
-                        hdd.append("%.2f G / %.2f G" % (used, total))
+                        total = self.formatNum(info[1])
+                        used = self.formatNum(info[2])
+                        hdd.append("%s / %s" % (used, total))
         return hdd
 
 
