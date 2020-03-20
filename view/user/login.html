@@ -27,3 +27,53 @@
     </form>
 </div>
 {% endblock %}
+{% block footer %}
+<script>
+$(function () {
+
+    //登录
+    $('#login_btn').click(function () {
+        var username = $('#username').val().trim(),
+            password = $('#password').val().trim();
+        if (username==='') {
+            layer.alert('请输入用户名！', {title:'登录提示',icon: 2}, function (index) {
+                layer.close(index);
+                $('#username').focus();
+            });
+            return false;
+        }
+        if (password==='') {
+            layer.alert('请输入密码！', {title:'登录提示',icon: 2}, function (index) {
+                layer.close(index);
+                $('#password').focus();
+            });
+            return false;
+        }
+        var loading = layer.load(1,{shade:[0.4,'#000']});
+        $.ajax({
+            type: "POST",
+            url: "/user/login",
+            data: {username: username, password: password},
+            dataType: "json",
+            success: function (resp) {
+                var code = resp['code'],
+                    msg = resp['msg'];
+                layer.close(loading);
+                if (code === 0) {
+                    layer.msg(msg);
+                } else if (code < 0) {
+                    layer.msg(msg);
+                } else {
+                    layer.alert('登录失败，请稍后再试！', {title: '登录提示', icon: 3}); //icon = ?
+                }
+            },
+            error: function () {
+                layer.close(loading);
+                layer.alert('系统繁忙，请稍后再试！', {title: '登录提示', icon: 3}); // icon = ?
+            }
+        });
+    });
+
+});
+</script>
+{% endblock %}
