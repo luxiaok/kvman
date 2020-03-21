@@ -23,7 +23,7 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 - [Jinja2](http://jinja.pocoo.org/)：2.9+
 
-- [MySQL-python](http://pypi.python.org/pypi/MySQL-python)：1.2.5+
+- [MySQL-python](https://pypi.org/project/MySQL-python/)：1.2.5+
 
 - [Redis-Py](https://github.com/andymccurdy/redis-py)：2.10+
 
