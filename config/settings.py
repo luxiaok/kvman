@@ -4,7 +4,7 @@
 
 config = {
     'db': {
-        'host': '127.0.0.1',
+        'host': 'db.xk.com',
         'port': 3306,
         'db': 'kvman',
         'user': 'test',
