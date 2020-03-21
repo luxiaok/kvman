@@ -18,7 +18,7 @@ config = {
         'db': '0'
     },
     'kvm': {
-        'host': 'kvm.xk.com',
+        'host': 'kvm-server.xk.com',
         'port': '16509',
         'username': 'qemu',
         'password': 'Qemu.I23'
