@@ -4,12 +4,12 @@
 # Index Page
 
 from BaseHandler import BaseHandler
-#from tornado.web import authenticated as Auth
+from tornado.web import authenticated as Auth
 from service.kvm import kvm
 
 class IndexHandler(BaseHandler):
 
-    #@Auth
+    @Auth
     def get(self):
         #self.log.info('Hello,Index page!') # Log Test
         k = kvm()
