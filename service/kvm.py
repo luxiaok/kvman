@@ -187,3 +187,10 @@ class kvm:
             self._msg = 'Reboot fail'
             return False
 
+
+    def getStoragePools(self):
+        storages = self.conn.listAllStoragePools()
+        #print storages[1].name()
+        #print storages[1].info()
+        #print storages[1].listVolumes()
+        return storages
