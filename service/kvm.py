@@ -189,8 +189,19 @@ class kvm:
 
 
     def getStoragePools(self):
-        storages = self.conn.listAllStoragePools()
-        #print storages[1].name()
-        #print storages[1].info()
-        #print storages[1].listVolumes()
+        storages = []
+        pools = self.conn.listAllStoragePools()
+        for i in pools:
+            info = i.info()
+            sp = {
+                'name': i.name(),
+                'size': self.formatNum(info[1]),
+                'used': self.formatNum(info[2]),
+                'free': self.formatNum(info[3]),
+                'vol_num': i.numOfVolumes(),
+                'vols': i.listVolumes(),
+                'autostart': i.isActive(),
+                'state': info[0]
+            }
+            storages.append(sp)
         return storages
