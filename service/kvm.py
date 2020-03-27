@@ -190,7 +190,7 @@ class kvm:
 
     def getStoragePools(self):
         storages = []
-        pools = self.conn.listAllStoragePools()
+        pools = self.conn.listAllStoragePools(0)
         for i in pools:
             info = i.info()
             sp = {
