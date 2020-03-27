@@ -16,13 +16,15 @@
         </tr>
         </thead>
         <tbody>
+        {% for i in storages %}
         <tr>
-            <th>1</th>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.used }} / {{ i.size }}</td>
+            <td>{{ i.autostart }}</td>
+            <td>{{ i.state }}</td>
+            <td>--</td>
         </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
