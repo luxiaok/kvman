@@ -15,4 +15,4 @@ class IndexHandler(BaseHandler):
         k = kvm()
         storages = k.getStoragePools()
         self.title = u'存储'
-        self.render('storage/index.html')
+        self.render('storage/index.html',storages=storages)
