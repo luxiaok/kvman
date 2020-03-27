@@ -10,6 +10,7 @@
         <tr>
             <th scope="col">名称</th>
             <th scope="col">容量</th>
+            <th scope="col">镜像数量</th>
             <th scope="col">自动启动</th>
             <th scope="col">状态</th>
             <th scope="col">操作</th>
@@ -21,6 +22,7 @@
             <td>{{ i.name }}</td>
             <td>{{ i.used }} / {{ i.size }}</td>
             <td>{{ i.autostart }}</td>
+            <td>{{ i.vol_num }}</td>
             <td>{{ i.state }}</td>
             <td>--</td>
         </tr>
