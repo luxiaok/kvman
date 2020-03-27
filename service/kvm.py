@@ -200,7 +200,8 @@ class kvm:
                 'free': self.formatNum(info[3]),
                 'vol_num': i.numOfVolumes(),
                 'vols': i.listVolumes(),
-                'autostart': i.isActive(),
+                'autostart': i.autostart(),
+                'active': i.isActive(),
                 'state': info[0]
             }
             storages.append(sp)
