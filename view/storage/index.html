@@ -23,7 +23,7 @@
             <td>{{ i.used }} / {{ i.size }}</td>
             <td>{{ i.vol_num }}</td>
             <td>{% if i.autostart == 1 %}<i class="fa fa-check"></i>{% endif %}</td>
-            <td>{{ i.state }}</td>
+            <td>{% if i.state == 2 %}<span style="color:green;">running</span>{% endif %}</td>
             <td>--</td>
         </tr>
         {% endfor %}
