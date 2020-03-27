@@ -22,7 +22,7 @@
             <td>{{ i.name }}</td>
             <td>{{ i.used }} / {{ i.size }}</td>
             <td><a href="/storage/vol?pool={{ i.name }}">{{ i.vol_num }}</a></td>
-            <td>{% if i.autostart == 1 %}<i class="fa fa-check"></i>{% endif %}</td>
+            <td>{% if i.autostart %}<i class="fa fa-check"></i>{% endif %}</td>
             <td>{% if i.state == 2 %}<span style="color:green;">running</span>{% endif %}</td>
             <td>--</td>
         </tr>
