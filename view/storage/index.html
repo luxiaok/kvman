@@ -19,7 +19,7 @@
         <tbody>
         {% for i in storages %}
         <tr>
-            <td>{{ i.name }}</td>
+            <td><a href="/storage/volume?pool={{ i.name }}">{{ i.name }}</a></td>
             <td>{{ i.used }} / {{ i.size }}</td>
             <td><a href="/storage/volume?pool={{ i.name }}">{{ i.vol_num }}</a></td>
             <td>{% if i.autostart %}<i class="fa fa-check"></i>{% endif %}</td>
