@@ -1,0 +1,32 @@
+{% extends "layout/main.html" %}
+{% block body %}
+<div class="row mt-4 mb-3">
+    <div class="col-sm"><h5>存储卷</h5></div>
+    <div class="col-sm"><div class="float-right"><a href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i> 新建存储卷</a></div></div>
+</div>
+<div class="rom mb-3">
+    <table class="table table-hover table-middle">
+        <thead>
+        <tr>
+            <th scope="col">名称</th>
+            <th scope="col">路径</th>
+            <th scope="col">格式</th>
+            <th scope="col">容量</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in vols %}
+        <tr>
+            <td>{{ i.name }}</td>
+            <td>{{ i.used }} / {{ i.size }}</td>
+            <td><a href="/storage/vol?pool={{ i.name }}">{{ i.vol_num }}</a></td>
+            <td>{% if i.autostart %}<i class="fa fa-check"></i>{% endif %}</td>
+            <td>{% if i.state == 2 %}<span style="color:green;">running</span>{% endif %}</td>
+            <td>--</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
