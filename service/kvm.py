@@ -195,6 +195,7 @@ class kvm:
             info = i.info()
             sp = {
                 'name': i.name(),
+                'uuid': i.UUIDString(),
                 'size': self.formatNum(info[1]),
                 'used': self.formatNum(info[2]),
                 'free': self.formatNum(info[3]),
