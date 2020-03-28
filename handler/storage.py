@@ -22,6 +22,6 @@ class VolumeHandler(BaseHandler):
 
     #@Auth
     def get(self):
-        k = kvm()
+        #k = kvm()
         self.title = u'存储卷'
         self.render('storage/volume.html')
