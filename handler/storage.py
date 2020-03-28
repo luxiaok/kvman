@@ -16,3 +16,12 @@ class IndexHandler(BaseHandler):
         storages = k.getStoragePools()
         self.title = u'存储'
         self.render('storage/index.html',storages=storages)
+
+
+class VolumeHandler(BaseHandler):
+
+    #@Auth
+    def get(self):
+        k = kvm()
+        self.title = u'存储卷'
+        self.render('storage/index.html')
