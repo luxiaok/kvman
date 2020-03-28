@@ -20,6 +20,7 @@ route = [
     (r'/guest/shutdown',guest.ShutdownHandler),
     (r'/guest/reboot',guest.RebootHandler),
     (r'/storage',storage.IndexHandler),
+    (r'/storage/volume',storage.VolumeHandler),
     (r'/network',network.IndexHandler),
     (r'/monitor',monitor.IndexHandler),
     (r'/setting',setting.IndexHandler),
