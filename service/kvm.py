@@ -207,3 +207,8 @@ class kvm:
             }
             storages.append(sp)
         return storages
+
+
+    def getStorageVols(self,pool):
+        vols = []
+        return vols
