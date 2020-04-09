@@ -219,8 +219,8 @@ class kvm:
             _vl = {
                 'name': i,
                 'type': info[0],
-                'total': info[1],
-                'used': info[2]
+                'total': self.formatNum(info[1]),
+                'used': self.formatNum(info[2])
             }
             vols.append(_vl)
         return vols
