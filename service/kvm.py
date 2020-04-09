@@ -214,8 +214,13 @@ class kvm:
         pl = self.conn.storagePoolLookupByName(pool)
         vls = pl.listVolumes()
         for i in vls:
+            vol = pl.storageVolLookupByName(i)
+            info = vol.info()
             _vl = {
-                'name': i
+                'name': i,
+                'type': info[0],
+                'total': info[1],
+                'used': info[2]
             }
             vols.append(_vl)
         return vols
