@@ -211,4 +211,11 @@ class kvm:
 
     def getStorageVols(self,pool):
         vols = []
+        pl = self.conn.storagePoolLookupByName(pool)
+        vls = pl.listVolumes()
+        for i in vls:
+            _vl = {
+                'name': i
+            }
+            vols.append(_vl)
         return vols
