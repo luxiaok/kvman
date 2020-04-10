@@ -30,3 +30,5 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 - [Libvirt](https://github.com/libvirt/libvirt-python): 2.0+
 
 - [python-pam](https://atlee.ca/software/pam/module-pam.html) `yum install python-pam`
+
+> pip install tornado==5.1.1 Jinja2 SQLAlchemy
