@@ -31,4 +31,4 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 - [python-pam](https://atlee.ca/software/pam/module-pam.html) `yum install python-pam`
 
-> pip install tornado==5.1.1 Jinja2 SQLAlchemy
+> pip install tornado==5.1.1 Jinja2 SQLAlchemy redis
