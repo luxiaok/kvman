@@ -17,12 +17,6 @@ config = {
         'password': '',
         'db': '0'
     },
-    'kvm': {
-        'host': 'kvm-server.xk.com',
-        'port': '16509',
-        'username': 'qemu',
-        'password': 'Qemu.I23'
-    },
     'app_settings': dict(
         template_path = 'view',
         static_path = 'static',
