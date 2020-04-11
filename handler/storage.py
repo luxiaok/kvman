@@ -26,4 +26,4 @@ class VolumeHandler(BaseHandler):
         k = kvm()
         vols = k.getStorageVols(pool)
         self.title = u'存储卷'
-        self.render('storage/volume.html',vols=vols)
+        self.render('storage/volume.html',vols=vols,pool=pool)
