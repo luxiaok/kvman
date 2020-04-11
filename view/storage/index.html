@@ -24,7 +24,11 @@
             <td><a href="/storage/volume?pool={{ i.name }}">{{ i.vol_num }}</a></td>
             <td>{% if i.autostart %}<i class="fa fa-check"></i>{% endif %}</td>
             <td>{% if i.state == 2 %}<span style="color:green;">running</span>{% endif %}</td>
-            <td>--</td>
+            <td>
+                <a href="javascript:void(0);" class="edit-pool" data-pool="{{ i.name }}">编辑</a>
+                |
+                <a href="javascript:void(0);" class="delete-pool" data-pool="{{ i.name }}">删除</a>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
