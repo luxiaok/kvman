@@ -15,7 +15,7 @@
         <tr>
             <th scope="col">名称</th>
             <th scope="col">路径</th>
-            <th scope="col">格式</th>
+            <th scope="col">类型</th>
             <th scope="col">容量</th>
             <th scope="col">操作</th>
         </tr>
@@ -25,9 +25,9 @@
         <tr>
             <td>{{ i.name }}</td>
             <td>{{ i.path }}</td>
-            <td>{{ i.format }}</td>
-            <td>{{ i.used }} / {{ i.size }}</td>
-            <td></td>
+            <td>{{ i.type }}</td>
+            <td>{{ i.used }} / {{ i.total }}</td>
+            <td>--</td>
         </tr>
         {% endfor %}
         </tbody>
