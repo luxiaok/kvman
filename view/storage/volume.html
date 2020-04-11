@@ -27,7 +27,7 @@
             <td>{{ i.path }}</td>
             <td>{{ i.type }}</td>
             <td>{{ i.used }} / {{ i.total }}</td>
-            <td>--</td>
+            <td><a href="javascript:void(0);" data-pool="" data-vol="{{ i.name }}">删除</a></td>
         </tr>
         {% endfor %}
         </tbody>
