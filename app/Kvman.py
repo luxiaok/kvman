@@ -18,7 +18,7 @@ from tornado.log import gen_log, LogFormatter
 from handler.page import Page404Handler
 from config.settings import *
 from handler import route
-from ui_modules import UIModules
+#from ui_modules import UIModules
 from Template import TemplateLoader # For Jinja2
 from tornado.options import define, options
 
