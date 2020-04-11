@@ -219,6 +219,7 @@ class kvm:
             _vl = {
                 'name': i,
                 'type': info[0],
+                'path': vol.path(),
                 'total': self.formatNum(info[1]),
                 'used': self.formatNum(info[2])
             }
