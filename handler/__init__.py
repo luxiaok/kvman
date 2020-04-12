@@ -3,6 +3,7 @@
 # Powered By KK Studio
 
 import index
+import server
 import guest
 import storage
 import network
@@ -13,6 +14,7 @@ import user
 
 route = [
     (r'/',index.IndexHandler),
+    (r'/server',server.IndexHandler),
     (r'/guest',guest.IndexHandler),
     (r'/guest/create',guest.CreateGuestHandler),
     (r'/guest/detail',guest.DetailHandler),
