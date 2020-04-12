@@ -93,3 +93,12 @@ class BaseHandler(tornado.web.RequestHandler):
         self.cookie_name = self.settings.get('cookie_name')
         self.sid = self.get_secure_cookie(self.cookie_name)
         self.session = Session(prefix, self.sid, expires, self.redis)
+
+
+    # 获取 kvm 配置
+    def get_kvm_config(self,name=None):
+        if name:
+            config = self.redis.hget(name)
+        else:
+            config = self.redis.hgetall()
+        return config
