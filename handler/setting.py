@@ -4,6 +4,8 @@
 
 from BaseHandler import BaseHandler
 #from tornado.web import authenticated as Auth
+import time
+import json
 
 
 class IndexHandler(BaseHandler):
@@ -21,4 +23,15 @@ class IndexHandler(BaseHandler):
         hostname = self.get_argument('hostname')
         qemu_username = self.get_argument('qemu_username')
         qemu_password = self.get_argument('qemu_password')
+
+
+    # 初始化时创建用户
+    def create_user(self,username,password):
+        data = {
+            'uid': 1000,
+            'username': username,
+            'password': password,
+            'reg_time': int(time.time())
+        }
+        self.redis.hset(self.users_key,username,json.dumps(data))
 
