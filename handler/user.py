@@ -35,18 +35,6 @@ class LoginHandler(BaseHandler):
         #self.create_session(self,data,remember)
     '''
 
-    def create_user(self,username,password):
-        #username = self.get_argument("username", None)
-        #password = self.get_argument("password", None)
-        data = {
-            'uid': 1000,
-            'username': username,
-            'password': password,
-            'reg_time': int(time.time())
-        }
-        self.redis.hset(self.users_key,username,json.dumps(data))
-
-
     def post(self):
         username = self.get_argument("username", None)
         password = self.get_argument("password", None)
