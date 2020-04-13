@@ -10,7 +10,7 @@ from tornado.web import authenticated as Auth
 
 class IndexHandler(BaseHandler):
 
-    @Auth
+    #@Auth
     def get(self):
         #k = kvm()
         self.title = u'服务器'
