@@ -35,7 +35,12 @@
     <div class="form-group row">
         <label for="protocol" class="col-sm-1 col-form-label">连接协议</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" id="protocol">
+            <select class="form-control" id="protocol">
+                <option value="">-- 请选择连接协议 --</option>
+                <option value="qemu">qemu</option>
+                <option value="qemu+ssh">qemu+ssh</option>
+                <option value="qemu+tcp">qemu+tcp</option>
+            </select>
         </div>
     </div>
     <div class="form-group row">
