@@ -3,7 +3,7 @@
 # Powered By KK Studio
 
 from BaseHandler import BaseHandler
-import pam
+#import pam
 
 class LoginHandler(BaseHandler):
 
@@ -13,6 +13,8 @@ class LoginHandler(BaseHandler):
         next = self.get_argument("next", "/")
         self.render('user/login.html', next=next)
 
+    # For PAM
+    '''
     def post(self):
         username = self.get_argument("username", None)
         password = self.get_argument("password", None)
@@ -27,6 +29,7 @@ class LoginHandler(BaseHandler):
             else:
                 return self.returnJson({'code':-1,'msg':u'用户名或密码错误(-2)！'})
         #self.create_session(self,data,remember)
+    '''
 
     def create_session(self,data,remember):
         sid = self.session.gen_session_id()
