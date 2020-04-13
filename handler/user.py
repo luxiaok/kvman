@@ -17,7 +17,7 @@ class LoginHandler(BaseHandler):
         next = self.get_argument("next", "/")
         self.render('user/login.html', next=next)
 
-    # For PAM
+    # For PAM Authentication
     '''
     def post(self):
         username = self.get_argument("username", None)
