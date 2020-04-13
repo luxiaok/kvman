@@ -7,6 +7,8 @@ from BaseHandler import BaseHandler
 
 class LoginHandler(BaseHandler):
 
+    users_key = 'kvman_users'
+
     def get(self):
         if not self.session.isGuest:
             return self.redirect('/') # 已登录则跳转到首页
@@ -30,6 +32,18 @@ class LoginHandler(BaseHandler):
                 return self.returnJson({'code':-1,'msg':u'用户名或密码错误(-2)！'})
         #self.create_session(self,data,remember)
     '''
+
+    def post(self):
+        username = self.get_argument("username", None)
+        password = self.get_argument("password", None)
+        remember = self.get_argument("remember", "no")
+        if not username or not password: # 参数为空
+            return self.returnJson({'code': -1, 'msg': u'用户名或密码错误(-1)！'})
+        user_data = self.redis.hget(self.users_key,username)
+        if not user_data: # 用户不存在
+            return self.returnJson({'code': -2, 'msg': u'用户名或密码错误(-2)！'})
+
+
 
     def create_session(self,data,remember):
         sid = self.session.gen_session_id()
