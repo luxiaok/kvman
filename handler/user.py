@@ -42,6 +42,8 @@ class LoginHandler(BaseHandler):
         user_data = self.redis.hget(self.users_key,username)
         if not user_data: # 用户不存在
             return self.returnJson({'code': -2, 'msg': u'用户名或密码错误(-2)！'})
+        print user_data
+        return self.returnJson({'code': 0, 'msg': u'Successful'})
 
 
 
