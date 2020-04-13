@@ -4,6 +4,8 @@
 
 from BaseHandler import BaseHandler
 #import pam
+import time
+import json
 
 class LoginHandler(BaseHandler):
 
@@ -33,6 +35,17 @@ class LoginHandler(BaseHandler):
         #self.create_session(self,data,remember)
     '''
 
+    def create_user(self,username,password):
+        #username = self.get_argument("username", None)
+        #password = self.get_argument("password", None)
+        data = {
+            'username': username,
+            'password': password,
+            'reg_time': int(time.time())
+        }
+        self.redis.hset(self.users_key,username,json.dumps(data))
+
+
     def post(self):
         username = self.get_argument("username", None)
         password = self.get_argument("password", None)
@@ -42,8 +55,11 @@ class LoginHandler(BaseHandler):
         user_data = self.redis.hget(self.users_key,username)
         if not user_data: # 用户不存在
             return self.returnJson({'code': -2, 'msg': u'用户名或密码错误(-2)！'})
-        print user_data
-        return self.returnJson({'code': 0, 'msg': u'Successful'})
+        user = json.loads(user_data)
+        if user['password'] == password:
+            return self.returnJson({'code': 0, 'msg': u'Successful'})
+        else: # 密码错误
+            return self.returnJson({'code': -3, 'msg': u'用户名或密码错误(-3)！'})
 
 
 
