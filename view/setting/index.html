@@ -3,7 +3,46 @@
 <div class="row mt-4 mb-3">
     <h5>系统设置</h5>
 </div>
-<div class="row mb-3 text-center">
-    <h6 style="width: 100%;">暂无配置</h6>
-</div>
+<h6>用户设置</h6>
+<form class="pr-5 pl-5">
+    <div class="form-group row">
+        <label for="uid" class="col-sm-1 col-form-label">UID</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" id="uid" value="" placeholder="系统自动生成">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="username" class="col-sm-1 col-form-label">用户名</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="username">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="password" class="col-sm-1 col-form-label">密 码</label>
+        <div class="col-sm-5">
+            <input type="password" class="form-control" id="password">
+        </div>
+    </div>
+</form>
+<h6>KVM服务器设置</h6>
+<form class="pr-5 pl-5">
+    <div class="form-group row">
+        <label for="name" class="col-sm-1 col-form-label">名称</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" id="name" value="default">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="protocol" class="col-sm-1 col-form-label">连接协议</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="protocol">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="hostname" class="col-sm-1 col-form-label">主机名</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="hostname" placeholder="主机名或IP地址">
+        </div>
+    </div>
+</form>
 {% endblock %}
