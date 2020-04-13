@@ -39,6 +39,7 @@ class LoginHandler(BaseHandler):
         #username = self.get_argument("username", None)
         #password = self.get_argument("password", None)
         data = {
+            'uid': 1000,
             'username': username,
             'password': password,
             'reg_time': int(time.time())
