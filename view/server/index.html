@@ -1,6 +1,59 @@
 {% extends "layout/main.html" %}
 {% block body %}
-<div class="mb-3 text-center" style="padding-top: 128px;">
-    <h2>服务器节点</h2>
+<div class="row mt-4 mb-3">
+    <div class="col-sm"><h5>KVM服务器</h5></div>
+    <div class="col-sm"><div class="float-right"><a href="/guest/create" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i> 新增服务器</a></div></div>
 </div>
+<div class="row mb-3">
+    <table class="table table-hover table-middle">
+        <thead>
+        <tr>
+            <!--<th scope="col">#</th>-->
+            <th scope="col">名称</th>
+            <th scope="col">IP地址</th>
+            <th scope="col">CPU</th>
+            <th scope="col">存储</th>
+            <th scope="col">内存</th>
+            <th scope="col">备注</th>
+            <th scope="col">状态</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for d in data %}
+        <tr>
+            <!--<th scope="row">{{ d['id'] }}</th>-->
+            <td><a href="/guest/detail?name={{ d.name }}" data-toggle="tooltip" title="{{ d.title }}">{{ d.name }}</a></td>
+            <td>{{ d['cpu'] }}</td>
+            <td>{{ d['mem'] }}</td>
+            <td>{{ '<br>'.join(d.hdd) }}</td>
+            <td>{{ '<br>'.join(d.network) }}</td>
+            <td>{{ d['desc'] }}</td>
+            <td>{{ state[d['state']] }}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        管理
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item console-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-television"></i> 远程连接</a>
+                        <a class="dropdown-item start-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
+                        <a class="dropdown-item halt-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-power-off"></i> 关机</a>
+                        <a class="dropdown-item reboot-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-refresh"></i> 重启</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item destroy-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-trash"></i> 销毁</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block footer %}
+<script>
+$(function () {
+});
+</script>
 {% endblock %}
