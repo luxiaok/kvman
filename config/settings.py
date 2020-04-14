@@ -27,6 +27,7 @@ config = {
         session_prefix = "kvman_session_",
         session_expires = 7200,
         login_url = "/user/login",
+        users_key = "kvman_users",
         default_lang = "en_US",
         debug = True,
         autoreload = True
