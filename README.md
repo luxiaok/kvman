@@ -19,8 +19,6 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 - [Tornado](http://www.tornadoweb.org/)：5.0+
 
-- [SQLAlchemy](http://www.sqlalchemy.org/)：1.1.9+
-
 - [Jinja2](http://jinja.pocoo.org/)：2.9+
 
 - [MySQL-python](https://pypi.org/project/MySQL-python/)：1.2.5+
