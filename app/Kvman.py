@@ -62,6 +62,10 @@ class App(tornado.web.Application):
         # Load Locale
         self.__load_locale(settings['default_lang'])
 
+        # Running installation
+        if options.install == 1:
+            self.install()
+
 
     #def test(self):
     #    self.log.info('Test')
@@ -85,8 +89,12 @@ class App(tornado.web.Application):
             print "Install successful!"
             print "Username: %s" % data['username']
             print "Password: %s" % data['password']
+            print "Run [python run.py] to start Kvman."
+            exit(0)
         else:
             print "Install failure!!"
+            print "Please check your environments and try again to run install"
+            exit(255)
 
 
 
