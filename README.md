@@ -26,4 +26,4 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 - [Libvirt](https://github.com/libvirt/libvirt-python): 2.0+
 
 
-> pip install tornado==5.1.1 Jinja2 SQLAlchemy redis
+> pip install tornado==5.1.1 Jinja2 redis
