@@ -4,7 +4,6 @@
 
 from BaseHandler import BaseHandler
 #import pam
-import time
 import json
 
 class LoginHandler(BaseHandler):
