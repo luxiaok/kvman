@@ -84,7 +84,7 @@ class App(tornado.web.Application):
             'password': '123456',
             'reg_time': int(time.time())
         }
-        result = self.redis.hset(self.users_key, data['username'], json.dumps(data))
+        result = self.redis.hset(self.settings['users_key'], data['username'], json.dumps(data))
         if result:
             print "Install successful!"
             print "Username: %s" % data['username']
