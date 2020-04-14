@@ -13,6 +13,13 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 ## Dependency Components
 
+### Based environments
+
+* CentOS 7.7 x86_64
+
+* Python 2.7.xx
+
+
 ### Install Kvm requirements
 
 ```
@@ -20,6 +27,7 @@ yum update -y
 yum install -y centos-release-qemu-ev
 yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libvirt libvirt-python virt-install
 ```
+
 
 ### Python requirements
 
