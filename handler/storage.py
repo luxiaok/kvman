@@ -2,14 +2,13 @@
 # -*- coding:utf-8 -*-
 # Powered By KK Studio
 
-
 from BaseHandler import BaseHandler
-#from tornado.web import authenticated as Auth
+from tornado.web import authenticated as Auth
 from service.kvm import kvm
 
 class IndexHandler(BaseHandler):
 
-    #@Auth
+    @Auth
     def get(self):
         #self.log.info('Hello,Index page!') # Log Test
         k = kvm()
@@ -20,7 +19,7 @@ class IndexHandler(BaseHandler):
 
 class VolumeHandler(BaseHandler):
 
-    #@Auth
+    @Auth
     def get(self):
         pool = self.get_argument('pool')
         k = kvm()
