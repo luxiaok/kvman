@@ -13,6 +13,14 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 ## Dependency Components
 
+### Install Kvm requirements
+
+```
+yum update -y
+yum install -y centos-release-qemu-ev
+yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libvirt libvirt-python virt-install
+```
+
 ### Python requirements
 
 - [Python](http://www.python.org)：2.7.x
@@ -26,7 +34,6 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 - [Redis-Py](https://github.com/andymccurdy/redis-py)：2.10+
 
 - [Libvirt](https://github.com/libvirt/libvirt-python): 2.0+
-
 
 > pip install tornado==5.1.1 supervisor==3.3.5 Jinja2 redis
 
