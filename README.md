@@ -35,6 +35,8 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 - [Libvirt](https://github.com/libvirt/libvirt-python): 2.0+
 
+- [Supervisor](https://pypi.org/project/setuptools): 3.0+
+
 > pip install tornado==5.1.1 supervisor==3.3.5 Jinja2 redis
 
 
