@@ -12,6 +12,8 @@ import tornado.locale
 import tornado.options
 import platform
 import logging
+import time
+import json
 #import db
 from cache import RCache
 from tornado.log import gen_log, LogFormatter
@@ -68,6 +70,25 @@ class App(tornado.web.Application):
     def __load_locale(self,default_lang):
         tornado.locale.load_translations('locale')
         tornado.locale.set_default_locale(default_lang)
+
+
+    def install(self):
+        # 默认用户信息
+        data = {
+            'uid': 1000,
+            'username': 'admin',
+            'password': '123456',
+            'reg_time': int(time.time())
+        }
+        result = self.redis.hset(self.users_key, data['username'], json.dumps(data))
+        if result:
+            print "Install successful!"
+            print "Username: %s" % data['username']
+            print "Password: %s" % data['password']
+        else:
+            print "Install failure!!"
+
+
 
 class Kvman():
 
