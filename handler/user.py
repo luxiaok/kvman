@@ -46,10 +46,10 @@ class LoginHandler(BaseHandler):
             return self.returnJson({'code': -2, 'msg': u'用户名或密码错误(-2)！'})
         user = json.loads(user_data)
         if user['password'] == password:
+            self.create_session(user,remember) # 创建会话
             return self.returnJson({'code': 0, 'msg': u'Successful'})
         else: # 密码错误
             return self.returnJson({'code': -3, 'msg': u'用户名或密码错误(-3)！'})
-
 
 
     def create_session(self,data,remember):
