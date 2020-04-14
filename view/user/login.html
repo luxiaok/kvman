@@ -20,7 +20,7 @@
         <div class="form-group row center mt-4">
             <div class="col-sm-5"></div>
             <div class="col-sm-3">
-                <button type="button" class="btn btn-primary" style="width: 100%;" id="login_btn"><i class="fa fa-fw fa-sign-in"></i> 登 录</button>
+                <button type="button" class="btn btn-primary" style="width: 100%;" id="login_btn" data-next="{{ next }}"><i class="fa fa-fw fa-sign-in"></i> 登 录</button>
             </div>
         </div>
 
@@ -60,7 +60,8 @@ $(function () {
                     msg = resp['msg'];
                 layer.close(loading);
                 if (code === 0) {
-                    layer.msg(msg);
+                    //layer.msg(msg);
+                    location.href = $('#login_btn').data('next'); //跳转到登录前的页面
                 } else if (code < 0) {
                     layer.msg(msg);
                 } else {
