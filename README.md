@@ -13,6 +13,8 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 ## Dependency Components
 
+### Python requirements
+
 - [Python](http://www.python.org)：2.7.x
 
 - [Torweb](https://github.com/xkstudio/Torweb)：1.0+
