@@ -24,6 +24,7 @@ from tornado.options import define, options
 
 define("host", default='0.0.0.0', help="Listen on the given IP", type=str)
 define("port", default=8081, help="Run on the given port", type=int)
+define("install", default=0, help="Install for init: 1 - run install", type=int)
 
 # Call options.*** should be after the parse_command_line()
 tornado.options.parse_command_line()
