@@ -27,3 +27,14 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 
 > pip install tornado==5.1.1 supervisor==3.3.5 Jinja2 redis
+
+
+## Run Kvman
+
+* Install
+
+> python run.py --install=1
+
+* Run Kvman
+
+> python run.py [--port=8080]
