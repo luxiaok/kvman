@@ -3,19 +3,19 @@
 # Powered By KK Studio
 
 from BaseHandler import BaseHandler
-#from tornado.web import authenticated as Auth
+from tornado.web import authenticated as Auth
 import time
 import json
 
 
 class IndexHandler(BaseHandler):
 
-    #@Auth
+    @Auth
     def get(self):
         self.title = u'系统设置'
         self.render('setting/index.html')
 
-
+    @Auth
     def post(self):
         username = self.get_argument('username')
         password = self.get_argument('password')
