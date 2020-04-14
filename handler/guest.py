@@ -5,7 +5,7 @@
 
 from BaseHandler import BaseHandler
 from service.kvm import kvm
-#from tornado.web import authenticated as Auth
+from tornado.web import authenticated as Auth
 
 
 guest_status = {
@@ -22,7 +22,7 @@ guest_status = {
 
 class IndexHandler(BaseHandler):
 
-    #@Auth
+    @Auth
     def get(self):
         k = kvm()
         guests = k.getGuests()
@@ -34,6 +34,7 @@ class IndexHandler(BaseHandler):
 
 class StartHandler(BaseHandler):
 
+    @Auth
     def post(self):
         name = self.get_argument('name')
         k = kvm()
@@ -50,6 +51,7 @@ class StartHandler(BaseHandler):
 
 class ShutdownHandler(BaseHandler):
 
+    @Auth
     def post(self):
         name = self.get_argument('name')
         force = self.get_argument('force','no')
@@ -68,6 +70,7 @@ class ShutdownHandler(BaseHandler):
 
 class RebootHandler(BaseHandler):
 
+    @Auth
     def post(self):
         name = self.get_argument('name')
         k = kvm()
@@ -78,6 +81,7 @@ class RebootHandler(BaseHandler):
 
 class CreateGuestHandler(BaseHandler):
 
+    @Auth
     def get(self):
         self.title = u'创建虚拟机'
         self.render('guest/create.html')
@@ -85,6 +89,7 @@ class CreateGuestHandler(BaseHandler):
 
 class DetailHandler(BaseHandler):
 
+    @Auth
     def get(self):
         name = self.get_argument('name')
         self.title = u'虚拟机详情 - ' + name
