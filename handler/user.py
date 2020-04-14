@@ -36,6 +36,8 @@ class LoginHandler(BaseHandler):
     '''
 
     def post(self):
+        if not self.session.isGuest: # 已登录
+            return self.returnJson({'code': -1, 'msg': u'重复登录！'})
         username = self.get_argument("username", None)
         password = self.get_argument("password", None)
         remember = self.get_argument("remember", "no")
