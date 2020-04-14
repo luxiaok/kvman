@@ -6,9 +6,9 @@ from BaseHandler import BaseHandler
 #import pam
 import json
 
-class LoginHandler(BaseHandler):
+users_key = 'kvman_users'
 
-    users_key = 'kvman_users'
+class LoginHandler(BaseHandler):
 
     def get(self):
         if not self.session.isGuest:
@@ -42,7 +42,7 @@ class LoginHandler(BaseHandler):
         remember = self.get_argument("remember", "no")
         if not username or not password: # 参数为空
             return self.returnJson({'code': -1, 'msg': u'用户名或密码错误(-1)！'})
-        user_data = self.redis.hget(self.users_key,username)
+        user_data = self.redis.hget(users_key,username)
         if not user_data: # 用户不存在
             return self.returnJson({'code': -2, 'msg': u'用户名或密码错误(-2)！'})
         user = json.loads(user_data)
