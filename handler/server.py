@@ -5,12 +5,12 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
-#from service.kvm import kvm
+from service.kvm import kvm
 
 
 class IndexHandler(BaseHandler):
 
-    #@Auth
+    @Auth
     def get(self):
         #k = kvm()
         self.title = u'服务器'
