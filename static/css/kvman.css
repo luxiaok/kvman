@@ -3,8 +3,9 @@
  * Powered By KK Studio
  */
 
-html {
+body {
     font-size: 14px;
+    font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
 }
 
 @media (min-width: 768px) {
