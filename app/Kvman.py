@@ -14,7 +14,6 @@ import platform
 import logging
 import time
 import json
-#import db
 from cache import RCache
 from tornado.log import gen_log, LogFormatter
 from handler.page import Page404Handler
