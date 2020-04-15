@@ -4,10 +4,13 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
+from service.kvm import kvm
 
 class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
+        k = kvm()
+        networks = k.getNetworks()
         self.title = u'网络'
-        self.render('network/index.html')
+        self.render('network/index.html',data=networks)
