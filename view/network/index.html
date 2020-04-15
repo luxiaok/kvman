@@ -20,14 +20,12 @@
         <tbody>
         {% for d in data %}
         <tr>
-            <!--<th scope="row">{{ d['id'] }}</th>-->
-            <td><a href="/guest/detail?name={{ d.name }}" data-toggle="tooltip" title="{{ d.title }}">{{ d.name }}</a></td>
-            <td>{{ d['cpu'] }}</td>
-            <td>{{ d['mem'] }}</td>
-            <td>{{ '<br>'.join(d.hdd) }}</td>
-            <td>{{ '<br>'.join(d.network) }}</td>
-            <td>{{ d['desc'] }}</td>
-            <td>{{ state[d['state']] }}</td>
+            <!--<th scope="row">{{ d['uuid'] }}</th>-->
+            <td><a href="javascript:void(0);" data-toggle="tooltip" title="UUID：{{ d.uuid }}">{{ d.name }}</a></td>
+            <td>{{ d.network }}</td>
+            <td>{{ d.netmask }}</td>
+            <td>{{ d.dhcp }}</td>
+            <td>{% if d['active'] %}<span style="color:green;">running</span>{% endif %}</td>
             <td></td>
         </tr>
         {% endfor %}
