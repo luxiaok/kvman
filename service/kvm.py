@@ -232,7 +232,6 @@ class kvm:
         networks = []
         for i in nts:
             network = self.conn.networkLookupByName(i)
-            print dir(network)
             data = {
                 'name': i,
                 'uuid': network.UUIDString(),
@@ -243,6 +242,5 @@ class kvm:
                 'active': network.isActive()
             }
             networks.append(data)
-        print networks
         return networks
 
