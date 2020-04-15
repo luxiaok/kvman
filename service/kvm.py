@@ -147,7 +147,7 @@ class kvm:
                 'status': i.isActive()
             }
             guests.append(dom)
-        return guests
+        return sorted(guests)
 
 
     def startGuest(self,name):
