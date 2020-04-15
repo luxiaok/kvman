@@ -3,14 +3,6 @@
 # Powered By KK Studio
 
 config = {
-    'db': {
-        'host': 'db.xk.com',
-        'port': 3306,
-        'db': 'kvman',
-        'user': 'test',
-        'passwd': 'test',
-        'charset': 'utf8'
-    },
     'redis': {
         'host': '127.0.0.1',
         'port': 6379,
