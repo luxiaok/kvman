@@ -10,6 +10,7 @@
         <tr>
             <!--<th scope="col">#</th>-->
             <th scope="col">名称</th>
+            <th scope="col">桥接名称</th>
             <th scope="col">网段</th>
             <th scope="col">子网掩码</th>
             <th scope="col">DHCP</th>
@@ -22,6 +23,7 @@
         <tr>
             <!--<th scope="row">{{ d['uuid'] }}</th>-->
             <td><a href="javascript:void(0);" data-toggle="tooltip" title="UUID：{{ d.uuid }}">{{ d.name }}</a></td>
+            <td>{{ d.bridge }}</td>
             <td>{{ d.network }}</td>
             <td>{{ d.netmask }}</td>
             <td>{{ d.dhcp }}</td>
