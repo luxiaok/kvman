@@ -225,3 +225,24 @@ class kvm:
             }
             vols.append(_vl)
         return vols
+
+
+    def getNetworks(self):
+        nts = self.conn.listNetworks()
+        networks = []
+        for i in nts:
+            network = self.conn.networkLookupByName(i)
+            print dir(network)
+            data = {
+                'name': i,
+                'uuid': network.UUIDString(),
+                'bridge': network.bridgeName(),
+                'network': '',
+                'netmask': '255.255.255.0',
+                'dhcp': '-',
+                'active': network.isActive()
+            }
+            networks.append(data)
+        print networks
+        return networks
+
