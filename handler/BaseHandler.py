@@ -95,10 +95,11 @@ class BaseHandler(tornado.web.RequestHandler):
         self.session = Session(prefix, self.sid, expires, self.redis)
 
 
-    # 获取 kvm 配置
-    def get_kvm_config(self,name=None):
+    # 获取 Kvm Server 配置
+    def get_kvm_server(self,name=None):
+        key = self.application.settings['kvm_servers_key']
         if name:
-            config = self.redis.hget(name)
+            servers = self.redis.hget(key,name)
         else:
-            config = self.redis.hgetall()
-        return config
+            servers = self.redis.hgetall(key)
+        return servers
