@@ -228,9 +228,9 @@ class kvm:
 
 
     def getNetworks(self):
-        nts = self.conn.listNetworks()
+        net_lists = self.conn.listNetworks()
         networks = []
-        for i in nts:
+        for i in net_lists:
             network = self.conn.networkLookupByName(i)
             data = {
                 'name': i,
