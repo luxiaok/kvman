@@ -10,7 +10,7 @@
         <tr>
             <!--<th scope="col">#</th>-->
             <th scope="col">名称</th>
-            <th scope="col">IP地址</th>
+            <th scope="col">主机名</th>
             <th scope="col">CPU</th>
             <th scope="col">存储</th>
             <th scope="col">内存</th>
@@ -22,29 +22,15 @@
         <tbody>
         {% for d in data %}
         <tr>
-            <!--<th scope="row">{{ d['id'] }}</th>-->
-            <td><a href="/guest/detail?name={{ d.name }}" data-toggle="tooltip" title="{{ d.title }}">{{ d.name }}</a></td>
-            <td>{{ d['cpu'] }}</td>
-            <td>{{ d['mem'] }}</td>
-            <td>{{ '<br>'.join(d.hdd) }}</td>
-            <td>{{ '<br>'.join(d.network) }}</td>
-            <td>{{ d['desc'] }}</td>
-            <td>{{ state[d['state']] }}</td>
-            <td>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        管理
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item console-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-television"></i> 远程连接</a>
-                        <a class="dropdown-item start-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
-                        <a class="dropdown-item halt-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-power-off"></i> 关机</a>
-                        <a class="dropdown-item reboot-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-refresh"></i> 重启</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item destroy-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-trash"></i> 销毁</a>
-                    </div>
-                </div>
-            </td>
+            <!--<th scope="row"></th>-->
+            <td><a href="javascript:void(0);" data-toggle="tooltip" title="{{ d.hostname }}">{{ d.name }}</a></td>
+            <td>{{ d.hostname }}</td>
+            <td>{{ d.cpu }}</td>
+            <td>{{ d.storage }}</td>
+            <td>{{ d.mem }}</td>
+            <td>{{ d.comments }}</td>
+            <td></td>
+            <td>--</td>
         </tr>
         {% endfor %}
         </tbody>

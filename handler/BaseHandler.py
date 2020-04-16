@@ -107,8 +107,8 @@ class BaseHandler(tornado.web.RequestHandler):
                 servers = None
         else:
             servers = self.redis.hgetall(key)
-            s = {}
             if servers:
-                for i in servers:
-                    servers[i] = json.loads(servers[i])
+                servers = [json.loads(servers[i]) for i in servers]
+            else:
+                servers = []
         return servers
