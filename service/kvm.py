@@ -241,7 +241,7 @@ class kvm:
                 'bridge': network.bridgeName(),
                 'ip': ip[0].getAttribute('address'),
                 'netmask': ip[0].getAttribute('netmask'),
-                'dhcp': '-',
+                'dhcp': len(network.DHCPLeases()),
                 'active': network.isActive()
             }
             networks.append(data)
