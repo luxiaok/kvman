@@ -5,6 +5,7 @@
 
 import tornado
 import time
+import json
 from app.Session import Session
 
 
@@ -100,6 +101,14 @@ class BaseHandler(tornado.web.RequestHandler):
         key = self.application.settings['kvm_servers_key']
         if name:
             servers = self.redis.hget(key,name)
+            if servers:
+                servers = json.loads(servers)
+            else:
+                servers = None
         else:
             servers = self.redis.hgetall(key)
+            s = {}
+            if servers:
+                for i in servers:
+                    servers[i] = json.loads(servers[i])
         return servers
