@@ -76,6 +76,17 @@ class App(tornado.web.Application):
 
 
     def install(self):
+        # 默认Kvm服务器配置
+        kvm_server = {
+            'name': 'default',
+            'hostname': 'localhost',
+            'port': 16509,
+            'protocol': 'qemu',
+            'username': None,
+            'password': None,
+            'comments': 'Default kvm server'
+        }
+        self.redis.hset(self.settings['kvm_servers_key'], kvm_server['name'], json.dumps(kvm_server))
         # 默认用户信息
         data = {
             'uid': 1000,
