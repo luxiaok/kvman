@@ -15,4 +15,4 @@ class IndexHandler(BaseHandler):
         #k = kvm()
         servers = self.get_kvm_server()
         self.title = u'服务器'
-        self.render('server/index.html',servers=servers)
+        self.render('server/index.html',data=servers)
