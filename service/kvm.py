@@ -232,12 +232,15 @@ class kvm:
         networks = []
         for i in net_lists:
             network = self.conn.networkLookupByName(i)
+            raw_xml = network.XMLDesc(0)
+            xml = minidom.parseString(raw_xml)
+            ip = xml.getElementsByTagName('ip')
             data = {
                 'name': i,
                 'uuid': network.UUIDString(),
                 'bridge': network.bridgeName(),
-                'network': '',
-                'netmask': '255.255.255.0',
+                'ip': ip[0].getAttribute('address'),
+                'netmask': ip[0].getAttribute('netmask'),
                 'dhcp': '-',
                 'active': network.isActive()
             }
