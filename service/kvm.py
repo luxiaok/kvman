@@ -100,7 +100,7 @@ class kvm:
         return hdd
 
 
-    def getNetwork(self,interfaces):
+    def getInterfaces(self,interfaces):
         net = []
         for i in interfaces:
             type = i.getAttribute('type')
@@ -131,7 +131,7 @@ class kvm:
             desc = tag_desc[0].childNodes[0].nodeValue if len(tag_desc) > 0 else ''
             state,maxmem,mem,cpus,cpu_time = i.info()
             hdd = self.getHdd(xml.getElementsByTagName('disk'))
-            network = self.getNetwork(xml.getElementsByTagName('interface'))
+            network = self.getInterfaces(xml.getElementsByTagName('interface'))
             state,reason = i.state()
             dom = {
                 'id': i.ID(),
