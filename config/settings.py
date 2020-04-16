@@ -20,6 +20,7 @@ config = {
         session_expires = 7200,
         login_url = "/user/login",
         users_key = "kvman_users",
+        kvm_servers_key = "kvman_kvm_servers",
         default_lang = "en_US",
         debug = True,
         autoreload = True
