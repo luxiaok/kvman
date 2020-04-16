@@ -13,5 +13,6 @@ class IndexHandler(BaseHandler):
     @Auth
     def get(self):
         #k = kvm()
+        servers = self.get_kvm_server()
         self.title = u'服务器'
-        self.render('server/index.html')
+        self.render('server/index.html',servers=servers)
