@@ -10,10 +10,11 @@
         <tr>
             <!--<th scope="col">#</th>-->
             <th scope="col">名称</th>
+            <th scope="col">协议</th>
             <th scope="col">主机名</th>
-            <th scope="col">CPU</th>
-            <th scope="col">存储</th>
-            <th scope="col">内存</th>
+            <th scope="col">端口</th>
+            <th scope="col">用户名</th>
+            <th scope="col">虚拟机</th>
             <th scope="col">备注</th>
             <th scope="col">状态</th>
             <th scope="col">操作</th>
@@ -24,13 +25,18 @@
         <tr>
             <!--<th scope="row"></th>-->
             <td><a href="javascript:void(0);" data-toggle="tooltip" title="{{ d.hostname }}">{{ d.name }}</a></td>
+            <td>{{ d.protocol }}</td>
             <td>{{ d.hostname }}</td>
-            <td>{{ d.cpu }}</td>
-            <td>{{ d.storage }}</td>
-            <td>{{ d.mem }}</td>
+            <td>{{ d.port }}</td>
+            <td>{{ d.username or '' }}</td>
+            <td>{{ d.guests or '0' }}</td>
             <td>{{ d.comments }}</td>
             <td></td>
-            <td>--</td>
+            <td>
+                <a href="javascript:void(0);" data-name="{{ d.name }}">编辑</a>
+                |
+                <a href="javascript:void(0);" data-name="{{ d.name }}">删除</a>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
