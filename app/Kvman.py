@@ -90,6 +90,7 @@ class App(tornado.web.Application):
         # 默认用户信息
         data = {
             'uid': 1000,
+            'nickname': 'Admin',
             'username': 'admin',
             'password': '123456',
             'reg_time': int(time.time())
