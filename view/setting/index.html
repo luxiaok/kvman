@@ -12,6 +12,12 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="role" class="col-sm-1 col-form-label">角色</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" id="role" value="{% if user.role==1 %}超级管理员{% else %}普通用户{% endif %}">
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="nickname" class="col-sm-1 col-form-label">昵称</label>
         <div class="col-sm-5">
             <input type="text" class="form-control" id="nickname" value="{{ user.nickname }}">

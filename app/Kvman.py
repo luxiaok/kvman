@@ -93,6 +93,8 @@ class App(tornado.web.Application):
             'nickname': 'Admin',
             'username': 'admin',
             'password': '123456',
+            'role': 1, # Administrator
+            'status': 10, # Active status
             'reg_time': int(time.time())
         }
         result = self.redis.hset(self.settings['users_key'], data['username'], json.dumps(data))
