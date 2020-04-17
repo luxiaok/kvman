@@ -8,13 +8,19 @@
     <div class="form-group row">
         <label for="uid" class="col-sm-1 col-form-label">UID</label>
         <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" id="uid" value="" placeholder="系统自动生成">
+            <input type="text" readonly class="form-control-plaintext" id="uid" value="{{ user.uid }}" placeholder="系统自动生成">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="nickname" class="col-sm-1 col-form-label">昵称</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="nickname" value="{{ user.nickname }}">
         </div>
     </div>
     <div class="form-group row">
         <label for="username" class="col-sm-1 col-form-label">用户名</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" id="username" value="admin">
+            <input type="text" class="form-control" id="username" value="{{ user.username }}">
         </div>
     </div>
     <div class="form-group row">
