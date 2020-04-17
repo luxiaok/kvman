@@ -92,5 +92,7 @@ class DetailHandler(BaseHandler):
     @Auth
     def get(self):
         name = self.get_argument('name')
+        k = kvm()
+        guest = k.getGuest(name)
         self.title = u'虚拟机详情 - ' + name
         self.render('guest/detail.html',name=name)
