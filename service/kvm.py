@@ -63,6 +63,10 @@ class kvm:
         }
 
 
+    def getGuestsNum(self):
+        return len(self.conn.listAllDomains(0))
+
+
     # num = xxxxx bytes
     def formatNum(self,num):
         s = num / 1024.0
