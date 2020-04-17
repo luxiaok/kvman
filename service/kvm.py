@@ -238,6 +238,7 @@ class kvm:
             data = {
                 'name': i,
                 'uuid': network.UUIDString(),
+                'autostart': network.autostart(),
                 'bridge': network.bridgeName(),
                 'ip': ip[0].getAttribute('address'),
                 'netmask': ip[0].getAttribute('netmask'),
