@@ -29,7 +29,7 @@
             <td>{{ d.hostname }}</td>
             <td>{{ d.port }}</td>
             <td>{{ d.username or '' }}</td>
-            <td>{{ d.guests or '0' }}</td>
+            <td><a href="/guest?server={{ d.name }}">{{ d.guests or '' }}</a></td>
             <td>{{ d.comments }}</td>
             <td></td>
             <td>
