@@ -16,7 +16,7 @@
     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
         <div class="btn-group" role="group">
             <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">
-                {{ handler.session.data.username }}
+                {{ handler.session.data.nickname or handler.session.data.username }}
             </button>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-item" href="/setting"><i class="fa fa-fw fa-cog"></i> 系统设置</a>
