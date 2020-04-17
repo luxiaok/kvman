@@ -12,7 +12,9 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        #k = kvm()
         servers = self.get_kvm_server()
+        for i in servers:
+            k = kvm(config=i)
+            i['guests'] = k.getGuestsNum()
         self.title = u'服务器'
         self.render('server/index.html',data=servers)
