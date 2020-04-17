@@ -31,6 +31,16 @@ class kvm:
         self._msg = 'success'
 
 
+    def getUri(self,config=None):
+        if not config:
+            return None
+        if config['protocol'] == 'qemu' and config['hostname'] in ['localhost','127.0.0.1']:
+            uri = 'qemu:///system'
+        else:
+            uri = '%s://%s:%s/system' % (config['protocol'],config['hostname'],config['port'])
+        return uri
+
+
     def openConnect(self,uri):
         #return libvirt.openReadOnly(uri)
         return libvirt.open(uri)
