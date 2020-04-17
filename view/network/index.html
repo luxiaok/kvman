@@ -28,7 +28,7 @@
             <td>{{ d.ip }}</td>
             <td>{{ d.netmask }}</td>
             <td>{{ d.dhcp or '' }}</td>
-            <td>{% if d.autostart %}<i class="fa fa-check"></i>{% endif %}</td>
+            <td>{% if d.autostart %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td>{% if d['active'] %}<span style="color:green;">running</span>{% endif %}</td>
             <td>--</td>
         </tr>
