@@ -98,7 +98,7 @@ class kvm:
 
 
     # disks = xml.getElementsByTagName('disk')
-    def getHdd(self,disks):
+    def getDisk(self,disks):
         hdd = []
         type_to_path = {'file': 'file', 'block': 'dev'}
         for d in disks:
@@ -146,7 +146,7 @@ class kvm:
             tag_desc = xml.getElementsByTagName('description')
             desc = tag_desc[0].childNodes[0].nodeValue if len(tag_desc) > 0 else ''
             state,maxmem,mem,cpus,cpu_time = i.info()
-            hdd = self.getHdd(xml.getElementsByTagName('disk'))
+            hdd = self.getDisk(xml.getElementsByTagName('disk'))
             network = self.getInterfaces(xml.getElementsByTagName('interface'))
             state,reason = i.state()
             dom = {
