@@ -14,6 +14,7 @@
             <th scope="col">IP地址</th>
             <th scope="col">子网掩码</th>
             <th scope="col">DHCP</th>
+            <th scope="col">自动启动</th>
             <th scope="col">状态</th>
             <th scope="col">操作</th>
         </tr>
@@ -27,6 +28,7 @@
             <td>{{ d.ip }}</td>
             <td>{{ d.netmask }}</td>
             <td>{{ d.dhcp or '' }}</td>
+            <td>{% if d.autostart %}<i class="fa fa-check"></i>{% endif %}</td>
             <td>{% if d['active'] %}<span style="color:green;">running</span>{% endif %}</td>
             <td>--</td>
         </tr>
