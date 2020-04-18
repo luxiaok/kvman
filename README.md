@@ -60,6 +60,19 @@ libvirt libvirt-python virt-install
 > python run.py [--port=8080]
 
 
+## Configure for Supervisor
+
+```
+[program:kvman]
+command=/usr/bin/python2.7 run.py --port=8080 2>&1 >> /tmp/kvman.log
+autorestart=false
+autostart=false
+directory=/var/www/kvman
+redirect_stderr=true
+stdout_logfile=/tmp/kvman.log
+```
+
+
 ## Related Links
 
 - [QEMU](https://www.qemu.org/download/)
