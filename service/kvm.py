@@ -167,6 +167,11 @@ class kvm:
         return sorted(guests,key=lambda guest : guest['name']) # Sort by Name
 
 
+    def setAutostart(self,name,flag):
+        guest = self.getGuest(name)
+        return guest.setAutostart(flag)
+
+
     def startGuest(self,name):
         dom = self.getGuest(name)
         if not dom:
