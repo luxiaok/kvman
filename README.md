@@ -57,3 +57,18 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 * Run Kvman
 
 > python run.py [--port=8080]
+
+
+## Related Links
+
+- [QEMU](https://www.qemu.org/download/)
+
+- [Libvirt](http://libvirt.org/sources/)
+
+- [VirtIO for Windows](https://docs.fedoraproject.org/en-US/quick-docs/creating-windows-virtual-machines-using-virtio-drivers/index.html)
+
+- [Qemu-Guest-Agent](https://wiki.qemu.org/Features/GuestAgent)
+
+- [OSX-KVM](https://github.com/kholia/OSX-KVM)
+
+- [Linux-Kvm](https://www.linux-kvm.org/)
