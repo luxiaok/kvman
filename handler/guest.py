@@ -32,6 +32,18 @@ class IndexHandler(BaseHandler):
         self.render('guest/index.html',guests=guests,status=status,state=guest_status)
 
 
+class AutostartHandler(BaseHandler):
+
+    @Auth
+    def post(self):
+        name = self.get_argument('name')
+        flag = self.get_argument('flag') # 0 or 1
+        k = kvm()
+        k.setAutostart(name,int(flag))
+        k.close()
+        self.returnJson({'code': 0, 'msg': u'操作成功！'})
+
+
 class StartHandler(BaseHandler):
 
     @Auth
