@@ -62,7 +62,7 @@ $(function () {
     $('.start-btn').click(function () {
         var name = $(this).data('name'),
             status = $(this).data('status'),
-            msg = '您确将虚拟机 ' + name + ' 开机吗？';
+            msg = '您确定要将虚拟机 ' + name + ' 开机吗？';
         if (status===1) {
             layer.alert('该虚拟机已是开机状态！', {title:'开机提示',icon: 1});
             return false;
@@ -100,7 +100,7 @@ $(function () {
     $('.halt-btn').click(function () {
         var name = $(this).data('name'),
             status = $(this).data('status'),
-            msg = '您确将虚拟机 ' + name + ' 关机吗？';
+            msg = '您确定要将虚拟机 ' + name + ' 关机吗？';
         if (status===0) {
             layer.alert('该虚拟机已是关机状态！', {title:'关机提示',icon: 1});
             return false;
@@ -138,7 +138,7 @@ $(function () {
     $('.reboot-btn').click(function () {
         var name = $(this).data('name'),
             status = $(this).data('status'),
-            msg = '您确将虚拟机 ' + name + ' 重启吗？';
+            msg = '您确定要将虚拟机 ' + name + ' 重启吗？';
         if (status===0) {
             layer.alert('该虚拟机暂未开机！', {title:'重启提示',icon: 1});
             return false;
