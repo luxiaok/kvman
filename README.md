@@ -25,8 +25,7 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 ```
 yum update -y
 yum install -y centos-release-qemu-ev
-yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev \
-libvirt libvirt-python virt-install
+yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libvirt libvirt-python virt-install
 ```
 
 
