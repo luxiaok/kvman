@@ -30,17 +30,15 @@ class kvm:
         ifaces = guest.interfaceAddresses(libvirt.VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_AGENT, 0)
         ip = {}
         for (name, val) in ifaces.iteritems():
-            ip[name] = {}
+            ip[name] = {'name': name}
             if val['hwaddr']:
                 ip[name]['mac'] = val['hwaddr']
             if val['addrs']:
                 for ipaddr in val['addrs']:
                     if ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
-                        #print ipaddr['addr'] + " VIR_IP_ADDR_TYPE_IPV4"
-                        ip[name]['ipv4'] = ipaddr['addr']
+                        ip[name]['ipv4'] = {'address': ipaddr['addr'], 'netmask': ipaddr['prefix']}
                     elif ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV6:
-                        #print ipaddr['addr'] + " VIR_IP_ADDR_TYPE_IPV6"
-                        ip[name]['ipv6'] = ipaddr['addr']
+                        ip[name]['ipv6'] = {'address': ipaddr['addr'], 'netmask': ipaddr['prefix']}
         host['ip'] = ip
         return host
 
