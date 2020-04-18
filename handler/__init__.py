@@ -18,6 +18,7 @@ route = [
     (r'/guest',guest.IndexHandler),
     (r'/guest/create',guest.CreateGuestHandler),
     (r'/guest/detail',guest.DetailHandler),
+    (r'/guest/autostart',guest.AutostartHandler),
     (r'/guest/start',guest.StartHandler),
     (r'/guest/shutdown',guest.ShutdownHandler),
     (r'/guest/reboot',guest.RebootHandler),
