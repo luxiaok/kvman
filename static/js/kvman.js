@@ -12,7 +12,8 @@ $(function () {
 
     //定义Kvman全局变量
     kvman = {
-        foo: 'bar'
+        foo: 'bar',
+        uri: window.location.pathname //当前页面的URI，不包含问号后面的参数
     };
 
 
@@ -49,4 +50,6 @@ $(function () {
         var len_num = Math.pow(10,len);
         return parseInt(_org_num*len_num);
     };
+
+    kvman.log('Request ' + kvman.uri);
 });
