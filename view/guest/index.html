@@ -149,6 +149,48 @@ $(function () {
         });
     });
 
+
+    //自动启动
+    $('.autostart-btn').click(function () {
+        var name = $(this).data('name'),
+            autostart = $(this).data('autostart'),
+            msg,flag;
+        if (autostart===0) {
+            msg = '您确定要将虚拟机 ' + name + ' 设置为自动启动吗？';
+            flag = 1;
+        } else {
+            msg = '您确定取消虚拟机 ' + name + ' 的自动启动吗？';
+            flag = 0;
+        }
+        layer.confirm(msg, {icon: 3, title: '操作提示'}, function (index) {
+            $.ajax({
+                type: "POST",
+                url: "/guest/autostart",
+                data: {name: name, flag: flag},
+                dataType: "json",
+                success: function (resp) {
+                    var code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        layer.close(index);
+                        layer.msg(msg);
+                        location.reload();
+                    } else if (code < 0) {
+                        layer.close(index);
+                        layer.msg(msg);
+                    } else {
+                        layer.close(index);
+                        layer.alert('设置失败，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                    }
+                },
+                error: function () {
+                    layer.close(index);
+                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                }
+            });
+        });
+    });
+
 });
 </script>
 {% endblock %}
