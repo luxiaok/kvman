@@ -159,6 +159,7 @@ class kvm:
                 'mem': self.formatNum( mem * 1024 ), # unit: KiB
                 'hdd': hdd,
                 'network': network,
+                'autostart': i.autostart(),
                 'state': state,
                 'status': i.isActive()
             }
