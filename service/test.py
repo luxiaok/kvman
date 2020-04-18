@@ -19,6 +19,20 @@ class kvm:
         guest = self.getGuest(name)
         print guest.hostname()
 
+    # 获取虚拟机信息
+    def getGuestInfo(self,name):
+        guest = self.getGuest(name)
+        print "Hostname: %s" % guest.hostname()
+        ifaces = guest.interfaceAddresses(libvirt.VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_AGENT, 0)
+        for (name, val) in ifaces.iteritems():
+            if val['addrs']:
+                for ipaddr in val['addrs']:
+                    if ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
+                        print ipaddr['addr'] + " VIR_IP_ADDR_TYPE_IPV4"
+                    elif ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV6:
+                        print ipaddr['addr'] + " VIR_IP_ADDR_TYPE_IPV6"
+
+
 if __name__ == '__main__':
     k = kvm()
-    k.getHostname(sys.argv[1])
+    k.getGuestInfo(sys.argv[1])
