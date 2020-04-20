@@ -45,6 +45,10 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 - [Supervisor](https://pypi.org/project/setuptools): 3.0+
 
+- [noVNC](https://github.com/novnc/noVNC)
+
+- [websockify](https://github.com/novnc/websockify)
+
 > pip install tornado==5.1.1 supervisor==3.3.5 Jinja2 redis
 
 
