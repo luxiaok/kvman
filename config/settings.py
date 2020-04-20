@@ -21,6 +21,7 @@ config = {
         login_url = "/user/login",
         users_key = "kvman_users",
         kvm_servers_key = "kvman_kvm_servers",
+        kvman_console_token_key_pre = "kvman_console_token_",
         default_lang = "en_US",
         debug = True,
         autoreload = True
