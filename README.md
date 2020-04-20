@@ -58,15 +58,15 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 ## Run Kvman
 
-* Install
+#### Install
 
 > python run.py --install=1
 
-* Run Kvman
+#### Run Kvman
 
 > python run.py [--port=8080]
 
-* Run Console Server
+#### Run Console Server
 
 > python vendor/console.py --token-plugin console.Token 6080
 
