@@ -49,7 +49,11 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 - [websockify](https://github.com/novnc/websockify)
 
-> pip install tornado==5.1.1 supervisor==3.3.5 Jinja2 redis
+- simplejson
+
+- numpy **v1.16.6**
+
+> pip install tornado==5.1.1 supervisor==3.3.5 numpy==1.16.6 simplejson Jinja2 redis
 
 
 ## Run Kvman
