@@ -66,6 +66,12 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 > python run.py [--port=8080]
 
+* Run VNC Websocket Server
+
+```shell
+cd vendor
+python vnc.py --token-plugin TokenRedis --token-source 127.0.0.1:6379 6080
+```
 
 ## Configure for Supervisor
 
