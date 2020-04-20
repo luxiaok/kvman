@@ -11,7 +11,7 @@ import simplejson
 from settings import config
 from websockify.websocketproxy import websockify_init
 
-class Token(object):
+class Token:
 
     def __init__(self, src):
         # token-source == src
