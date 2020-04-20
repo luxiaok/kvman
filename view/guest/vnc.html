@@ -122,7 +122,8 @@
         const host = readQueryVariable('host', window.location.hostname);
         let port = readQueryVariable('port', window.location.port);
         const password = readQueryVariable('password');
-        const path = readQueryVariable('path', 'websockify');
+        const token = readQueryVariable('token', null);
+        const path = 'websockify?token=' + token;
 
         // | | |         | | |
         // | | | Connect | | |
