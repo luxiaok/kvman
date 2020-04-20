@@ -90,4 +90,3 @@ stdout_logfile=/tmp/kvman.log
 ## License
 
 This project is under the GPLv3 License. See the [LICENSE](LICENSE) file for the full license text.
-
