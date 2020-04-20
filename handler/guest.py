@@ -110,8 +110,9 @@ class DetailHandler(BaseHandler):
         self.render('guest/detail.html',name=name)
 
 
-class VncHandler(BaseHandler):
+# 远程连接
+class ConsoleHandler(BaseHandler):
 
     @Auth
     def get(self):
-        self.render('guest/vnc.html')
+        self.render('guest/console.html')

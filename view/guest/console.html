@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
-    <title>Kvm-Man VNC</title>
+    <title>Kvm-Man Console</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <style>
@@ -40,15 +40,15 @@
     </style>
 
     <!-- Promise polyfill for IE11 -->
-    <script src="{{ static_url('vnc/vendor/promise.js') }}"></script>
+    <script src="{{ static_url('console/vendor/promise.js') }}"></script>
 
     <!-- ES2015/ES6 modules polyfill -->
-    <script nomodule src="{{ static_url('vnc/vendor/browser-es-module-loader/dist/browser-es-module-loader.js') }}"></script>
+    <script nomodule src="{{ static_url('console/vendor/browser-es-module-loader/dist/browser-es-module-loader.js') }}"></script>
 
     <!-- actual script modules -->
     <script type="module" crossorigin="anonymous">
         // RFB holds the API to connect and communicate with a VNC server
-        import RFB from '/static/vnc/core/rfb.js';
+        import RFB from '/static/console/core/rfb.js';
 
         let rfb;
         let desktopName;
