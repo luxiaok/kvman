@@ -76,11 +76,19 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 ```
 [program:kvman]
 command=/usr/bin/python2.7 run.py --port=8080 2>&1 >> /tmp/kvman.log
-autorestart=false
-autostart=false
+autorestart=true
+autostart=true
 directory=/var/www/kvman
 redirect_stderr=true
 stdout_logfile=/tmp/kvman.log
+
+[program:kvman_console]
+command=/usr/bin/python2.7 vendor/console.py --token-plugin console.Token 6080 2>&1 >> /tmp/kvman_console.log
+autorestart=true
+autostart=true
+directory=/var/www/kvman
+redirect_stderr=true
+stdout_logfile=/tmp/kvman_console.log
 ```
 
 
