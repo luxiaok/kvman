@@ -108,3 +108,10 @@ class DetailHandler(BaseHandler):
         guest = k.getGuest(name)
         self.title = u'虚拟机详情 - ' + name
         self.render('guest/detail.html',name=name)
+
+
+class VncHandler(BaseHandler):
+
+    @Auth
+    def get(self):
+        self.render('guest/vnc.html')

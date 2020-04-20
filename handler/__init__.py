@@ -22,6 +22,7 @@ route = [
     (r'/guest/start',guest.StartHandler),
     (r'/guest/shutdown',guest.ShutdownHandler),
     (r'/guest/reboot',guest.RebootHandler),
+    (r'/guest/vnc',guest.VncHandler),
     (r'/storage',storage.IndexHandler),
     (r'/storage/volume',storage.VolumeHandler),
     (r'/network',network.IndexHandler),
