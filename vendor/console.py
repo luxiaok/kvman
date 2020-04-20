@@ -17,12 +17,14 @@ class Token(object):
         # token-source == src
         self._server = config['redis']['host']
         self._port = config['redis']['port']
+        self._db = config['redis']['db']
+        self._password = config['redis']['password']
         self._key_pre = config['app_settings']['kvman_console_token_key_pre']
 
 
     def lookup(self, token):
 
-        client = redis.Redis(host=self._server,port=self._port)
+        client = redis.Redis(self._server,self._port,self._db,self._password)
         key = self._key_pre + token
         stuff = client.get(key)
         if stuff is None:
