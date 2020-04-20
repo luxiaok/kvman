@@ -191,6 +191,18 @@ $(function () {
         });
     });
 
+
+    //远程连接
+    $('.console-btn').click(function () {
+        var name = $(this).data('name'),
+            status = $(this).data('status');
+        if (status!==1) {
+            layer.alert('该主机未开机，无法连接！', {title: '远程连接提示', icon: 2});
+            return false;
+        }
+        window.open('/guest/console?port=6080&token='+name);
+    });
+
 });
 </script>
 {% endblock %}
