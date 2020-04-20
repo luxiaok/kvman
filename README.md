@@ -68,7 +68,7 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 * Run Console Server
 
-> python vendor/console.py --token-plugin TokenRedis --token-source 127.0.0.1:6379 6080
+> python vendor/console.py --token-plugin console.Token 6080
 
 
 ## Configure for Supervisor
