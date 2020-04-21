@@ -97,6 +97,18 @@ class kvm:
         return dom
 
 
+    def getVncPort(self,name):
+        guest = self.getGuest(name)
+        raw_xml = guest.XMLDesc(0)
+        xml = minidom.parseString(raw_xml)
+        graphics = xml.getElementsByTagName('graphics')
+        port = None
+        for i in graphics:
+            if i.getAttribute('type') == 'vnc':
+                port = i.getAttribute('port')
+        return port
+
+
     # disks = xml.getElementsByTagName('disk')
     def getDisk(self,disks):
         hdd = []
