@@ -152,3 +152,14 @@ class ConsoleHandler(BaseHandler):
             'port': 6080 # WebSocket Port
         }
         self.returnJson({'code': 0, 'data': ret, 'msg': 'success'})
+
+
+# 退出远程连接
+class ConsoleExitHandler(BaseHandler):
+
+    @Auth
+    def post(self):
+        token = self.get_argument('token')
+        key = "%s%s" % (self.application.settings['kvman_console_token_key_pre'], token)
+        self.redis.delete(key)
+        return self.returnJson({'code': 0, 'msg': 'success'})
