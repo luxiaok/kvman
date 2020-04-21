@@ -3,10 +3,8 @@ Kvm Man
 
 Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
+Version: v1.0.0-Beta
 
-## Version
-
-**v1.0.0-Beta**
 
 ![Kvm-Man](static/img/kvman-overview.png)
 
