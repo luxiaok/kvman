@@ -83,7 +83,7 @@ redirect_stderr=true
 stdout_logfile=/tmp/kvman.log
 
 [program:kvman_console]
-command=/usr/bin/python2.7 vendor/console.py --token-plugin console.Token 6080 2>&1 >> /tmp/kvman_console.log
+command=/usr/bin/python2.7 vendor/console.py --token-plugin console.Token 6080
 autorestart=true
 autostart=true
 directory=/var/www/kvman
