@@ -203,7 +203,7 @@ $(function () {
         $.ajax({
             type: "POST",
             url: "/guest/console",
-            data: {name: name},
+            data: {guest: name},
             dataType: "json",
             success: function (resp) {
                 var code = resp['code'],
@@ -218,7 +218,6 @@ $(function () {
                 }
             },
             error: function () {
-                layer.close(index);
                 layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
             }
         });
