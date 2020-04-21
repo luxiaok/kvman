@@ -117,7 +117,14 @@ class ConsoleHandler(BaseHandler):
 
     @Auth
     def get(self):
-        self.render('guest/console.html')
+        token = self.get_argument('token')
+        key = "%s%s" % (self.application.settings['kvman_console_token_key_pre'],token)
+        stuff = self.redis.get(key)
+        guest = ''
+        if stuff:
+            data = json.loads(stuff)
+            guest = data['guest']
+        self.render('guest/console.html',guest=guest)
 
 
     # 生成远程访问的Token
