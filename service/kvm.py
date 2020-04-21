@@ -108,6 +108,10 @@ class kvm:
             if i.getAttribute('type') == 'vnc':
                 port = i.getAttribute('port')
                 address = i.getAttribute('listen')
+                #print "VNC: %s - %s" % (address,port)
+            #listen = i.getElementsByTagName('listen')
+            #for x in listen:
+            #    print 'VNC Listen: %s - %s' % (x.getAttribute('type'),x.getAttribute('address'))
         if address in ['','0.0.0.0']:
             address = '127.0.0.1'
         return {'host': address, 'port': int(port)}
