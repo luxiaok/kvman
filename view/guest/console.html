@@ -169,12 +169,51 @@
     <div id="top_bar">
         <div id="status">Loading</div>
         <div class="top-buttons">
-            <button type="button" id="exitBtn" title="Exit Console">Exit</button>
+            <button type="button" id="exitBtn" title="Exit Console" data-token="{{ token }}">Exit</button>
             <button type="button" id="sendCtrlAltDelButton" title="Send Keys: Ctrl + Alt + Del">Send Ctrl+Alt+Del</button>
         </div>
     </div>
     <div id="screen">
         <!-- This is where the remote screen will appear -->
     </div>
+<script src="{{ static_url('js/jquery-3.4.1.min.js') }}" type="text/javascript"></script>
+<script src="{{ static_url('bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
+<script src="{{ static_url('layer/layer.js') }}" type="text/javascript"></script>
+<script src="{{ static_url('js/kvman.js') }}" type="text/javascript"></script>
+<script>
+$(function () {
+
+    //退出
+    $('#exitBtn').click(function () {
+        var token = $(this).data('token');
+        layer.confirm('您确认退出远程控制吗？', {icon: 3, title: '退出提示'}, function (index) {
+            $.ajax({
+                type: "POST",
+                url: "/guest/console-exit",
+                data: {token: token},
+                dataType: "json",
+                success: function (resp) {
+                    var code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        layer.close(index);
+                        window.close(); //关闭当前窗口
+                    } else if (code < 0) {
+                        layer.close(index);
+                        layer.msg(msg);
+                    } else {
+                        layer.close(index);
+                        layer.alert('操作失败，请稍后再试！', {title: '操作提示', icon: 3});
+                    }
+                },
+                error: function () {
+                    layer.close(index);
+                    layer.alert('系统繁忙，请稍后再试！', {title: '操作提示', icon: 3});
+                }
+            });
+        });
+    });
+});
+</script>
 </body>
 </html>

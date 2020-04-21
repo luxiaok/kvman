@@ -124,7 +124,7 @@ class ConsoleHandler(BaseHandler):
         if stuff:
             data = json.loads(stuff)
             guest = data['guest']
-        self.render('guest/console.html',guest=guest)
+        self.render('guest/console.html',guest=guest,token=token)
 
 
     # 生成远程访问的Token
