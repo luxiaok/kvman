@@ -8,7 +8,7 @@ Kvman = Kvm Man = Kernel-based Virtual Machine Manager
 
 **v1.0.0-Beta**
 
-![Kvm-Man](static/img/kvman-overview.jpg)
+![Kvm-Man](static/img/kvman-overview.png)
 
 
 ## Dependency Components
