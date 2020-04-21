@@ -133,7 +133,7 @@ class ConsoleHandler(BaseHandler):
         data = {
             'guest': guest,
             'host': '127.0.0.1',
-            'port': port # VNC Port
+            'port': int(port) # VNC Port
         }
         token = fun.random_str(64)
         key_pre = self.application.settings['kvman_console_token_key_pre']
