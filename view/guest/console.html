@@ -25,13 +25,18 @@
         #status {
             text-align: center;
         }
-        #sendCtrlAltDelButton {
+        .top-buttons {
             position: fixed;
             top: 0;
             right: 0;
+        }
+        .top-buttons button {
+            color: #FFFFFF;
             border: 1px outset;
             padding: 5px 5px 4px 5px;
+            background-color: transparent;
             cursor: pointer;
+            margin-right: 2px;
         }
         #screen {
             flex: 1; /* fill remaining space */
@@ -163,7 +168,10 @@
 <body>
     <div id="top_bar">
         <div id="status">Loading</div>
-        <div id="sendCtrlAltDelButton">Send Ctrl+Alt+Del</div>
+        <div class="top-buttons">
+            <button type="button" id="exitBtn" title="Exit Console">Exit</button>
+            <button type="button" id="sendCtrlAltDelButton" title="Send Keys: Ctrl + Alt + Del">Send Ctrl+Alt+Del</button>
+        </div>
     </div>
     <div id="screen">
         <!-- This is where the remote screen will appear -->
