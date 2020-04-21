@@ -132,15 +132,15 @@ class ConsoleHandler(BaseHandler):
     def post(self):
         guest = self.get_argument('guest')
         if not guest:
-            return self.returnJson({'code': -1, 'msg': 'Not Guest'})
+            return self.returnJson({'code': -1, 'msg': u'该主机不存在！'})
         k = kvm()
-        port = k.getVncPort(guest)
-        if not port:
-            return self.returnJson({'code': -1, 'msg': 'Not VNC Port'})
+        address = k.getVncAddress(guest)
+        if not address['port'] or address['port'] == -1:
+            return self.returnJson({'code': -1, 'msg': u'该主机未开机！'})
         data = {
             'guest': guest,
-            'host': '127.0.0.1',
-            'port': int(port) # VNC Port
+            'host': address['host'], # VNC Server Adress
+            'port': address['port']  # VNC Port
         }
         token = fun.random_str(64)
         key_pre = self.application.settings['kvman_console_token_key_pre']
