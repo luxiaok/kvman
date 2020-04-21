@@ -6,6 +6,8 @@
 from BaseHandler import BaseHandler
 from service.kvm import kvm
 from tornado.web import authenticated as Auth
+from vendor import functions as fun
+import json
 
 
 guest_status = {
@@ -116,3 +118,25 @@ class ConsoleHandler(BaseHandler):
     @Auth
     def get(self):
         self.render('guest/console.html')
+
+
+    # 生成远程访问的Token
+    @Auth
+    def post(self):
+        guest = self.get_argument('guest')
+        if not guest:
+            return self.returnJson({'code': -1, 'msg': 'Not Guest'})
+        k = kvm()
+        port = k.getVncPort(guest)
+        if not port:
+            return self.returnJson({'code': -1, 'msg': 'Not VNC Port'})
+        data = {
+            'guest': guest,
+            'host': '127.0.0.1',
+            'port': port
+        }
+        token = fun.random_str(64)
+        key_pre = self.application.settings['kvman_console_token_key_pre']
+        key_expire = self.application.settings['kvman_console_token_expire']
+        self.redis.setex(key_pre+token,key_expire,json.dumps(data))
+        self.returnJson({'code': 0, 'data': {'guest':guest,'token':token}, 'msg': 'success'})
