@@ -133,10 +133,15 @@ class ConsoleHandler(BaseHandler):
         data = {
             'guest': guest,
             'host': '127.0.0.1',
-            'port': port
+            'port': port # VNC Port
         }
         token = fun.random_str(64)
         key_pre = self.application.settings['kvman_console_token_key_pre']
         key_expire = self.application.settings['kvman_console_token_expire']
         self.redis.setex(key_pre+token,key_expire,json.dumps(data))
-        self.returnJson({'code': 0, 'data': {'guest':guest,'token':token}, 'msg': 'success'})
+        ret = {
+            'guest': guest,
+            'token': token,
+            'port': 6080 # WebSocket Port
+        }
+        self.returnJson({'code': 0, 'data': ret, 'msg': 'success'})

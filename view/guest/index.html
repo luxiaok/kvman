@@ -200,7 +200,29 @@ $(function () {
             layer.alert('该主机未开机，无法连接！', {title: '远程连接提示', icon: 2});
             return false;
         }
-        window.open('/guest/console?port=6080&token='+name);
+        $.ajax({
+            type: "POST",
+            url: "/guest/console",
+            data: {name: name},
+            dataType: "json",
+            success: function (resp) {
+                var code = resp['code'],
+                    msg = resp['msg'];
+                if (code === 0) {
+                    var url = '/guest/console?port=' + resp['data']['port'] + '&token=' + resp['data']['token'];
+                    window.open(url);
+                } else if (code < 0) {
+                    layer.msg(msg);
+                } else {
+                    layer.alert('获取远程连接失败，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                }
+            },
+            error: function () {
+                layer.close(index);
+                layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
+            }
+        });
+
     });
 
 });
