@@ -43,10 +43,6 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 - [Supervisor](https://pypi.org/project/setuptools): 3.0+
 
-- [noVNC](https://github.com/novnc/noVNC)
-
-- [websockify](https://github.com/novnc/websockify)
-
 - simplejson
 
 - numpy v**1.16.6**
@@ -113,6 +109,10 @@ stdout_logfile=/tmp/kvman_console.log
 - [OSX-KVM](https://github.com/kholia/OSX-KVM)
 
 - [Linux-Kvm](https://www.linux-kvm.org/)
+
+- [noVNC](https://github.com/novnc/noVNC)
+
+- [websockify](https://github.com/novnc/websockify)
 
 
 ## License
