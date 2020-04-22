@@ -189,7 +189,7 @@ $(function () {
     $('.delete-btn').click(function () {
         var id = $(this).data('id'),
             hostname = $('#hostname_'+id).html();
-        layer.confirm('您确认要删除 KVM 主机 ' + hostname + ' 吗？？', {icon: 3, title: '删除提示'}, function (index) {
+        layer.confirm('您确认要删除 ' + hostname + ' 吗？', {icon: 3, title: '删除提示'}, function (index) {
             $.ajax({
                 type: "POST",
                 url: "/server/delete",
