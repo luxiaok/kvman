@@ -34,6 +34,5 @@ route = [
     #(r'/user/register',user.RegisterHandler),
     (r'/page/404.html',page.Page404Handler),
     (r'/page/500.html',page.Page500Handler),
-    (r'/page/error.html',page.PageErrorHandler),
-    (r'/page/blank.html',page.BlankHandler),
+    (r'/page/error.html',page.PageErrorHandler)
 ]
