@@ -20,6 +20,7 @@ class KvmanHandler:
             stuff = self.redis.hgetall(key)
             if stuff:
                 servers = [json.loads(stuff[i]) for i in stuff]
+                servers = sorted(servers,key=lambda item : item['hostname']) # Sort by hostname
             else:
                 servers = []
         return servers
