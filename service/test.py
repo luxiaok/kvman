@@ -47,7 +47,7 @@ class kvm:
 
 
     # get metadata
-    def getMetaData(self,name,uri='kvman.org'):
+    def getMetaData(self,name,uri='https://github.com/luxiaok/kvman'):
         guest = self.getGuest(name)
         flag = libvirt.VIR_DOMAIN_AFFECT_CONFIG
         stuff = guest.metadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,uri,flag)
@@ -57,7 +57,7 @@ class kvm:
 
 
     # set metadata
-    def setMetaData(self,name,key='kvman',uri='kvman.org'):
+    def setMetaData(self,name,key='kvman',uri='https://github.com/luxiaok/kvman'):
         guest = self.getGuest(name)
         flag = libvirt.VIR_DOMAIN_AFFECT_CONFIG
         data = '<instance test="11"><foo type="22">Foo</foo><bar type="33"></bar></instance>'
