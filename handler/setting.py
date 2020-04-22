@@ -35,3 +35,9 @@ class IndexHandler(BaseHandler):
         }
         self.redis.hset(self.users_key,username,json.dumps(data))
 
+
+class PasswdHandler(BaseHandler):
+
+    @Auth
+    def get(self):
+        self.render('setting/passwd.html')

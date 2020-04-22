@@ -3,6 +3,7 @@
 # Powered By KK Studio
 
 from BaseHandler import BaseHandler
+from tornado.web import authenticated as Auth
 #import pam
 import json
 
@@ -76,3 +77,49 @@ class RegisterHandler(BaseHandler):
 
     def get(self):
         self.render('user/register.html')
+
+
+# 修改个人资料
+class ProfileHandler(BaseHandler):
+
+    @Auth
+    def post(self):
+        username = self.get_argument('username')
+        nickname = self.get_argument('nickname')
+        email = self.get_argument('email')
+        if not username or not nickname:
+            return self.returnJson({'code': -1, 'msg': u'用户名或昵称不能为空！'})
+        stuff = self.redis.hget(self.application.settings['users_key'], self.session.data.username)
+        if not stuff:  # 用户不存在
+            return self.returnJson({'code': -1, 'msg': u'获取用户信息失败(-1)！'})
+        user = json.loads(stuff)
+        user['username'] = username
+        user['nickname'] = nickname
+        user['email'] = email
+        self.redis.hset(self.application.settings['users_key'], username, json.dumps(user))
+        if username != self.session.data.username: # 修改了用户名
+            self.redis.hdel(self.application.settings['users_key'], self.session.data.username) # 删除原始数据
+        # 更新Session
+        self.session.data.username = username
+        self.session.data.nickname = nickname
+        return self.returnJson({'code': 0, 'msg': u'保存成功！'})
+
+
+# 修改密码
+class PasswdHandler(BaseHandler):
+
+    @Auth
+    def post(self):
+        password0 = self.get_argument('password0')
+        password = self.get_argument('password')
+        if not password0 or not password:
+            return self.returnJson({'code': -2, 'msg': u'密码不能为空！'})
+        stuff = self.redis.hget(self.application.settings['users_key'], self.session.data.username)
+        if not stuff:  # 用户不存在
+            return self.returnJson({'code': -2, 'msg': u'原始密码错误(-1)！'})
+        user = json.loads(stuff)
+        if password0 != user['password']:
+            return self.returnJson({'code': -2, 'msg': u'原始密码错误(-2)！'})
+        user['password'] = password
+        self.redis.hset(self.application.settings['users_key'], self.session.data.username,json.dumps(user))
+        return self.returnJson({'code': 0, 'msg': u'修改成功，请牢记您的新密码！'})
