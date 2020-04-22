@@ -25,18 +25,18 @@
         {% for d in data %}
         <tr>
             <!--<th scope="row"></th>-->
-            <td>{{ d.hostname }}</td>
-            <td id="port_{{ d.hostname }}">{{ d.port }}</td>
-            <td id="protocol_{{ d.hostname }}">{{ d.protocol }}</td>
-            <td id="username_{{ d.hostname }}" data-password="{{ d.password }}">{{ d.username or '' }}</td>
+            <td id="hostname_{{ loop.index }}">{{ d.hostname }}</td>
+            <td id="port_{{ loop.index }}">{{ d.port }}</td>
+            <td id="protocol_{{ loop.index }}">{{ d.protocol }}</td>
+            <td id="username_{{ loop.index }}" data-password="{{ d.password or '' }}">{{ d.username or '' }}</td>
             <td><a href="/guest?server={{ d.hostname }}">{{ d.guests or '' }}</a></td>
-            <td id="comments_{{ d.hostname }}">{{ d.comments }}</td>
+            <td id="comments_{{ loop.index }}">{{ d.comments }}</td>
             <td>{% if d.default %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td></td>
             <td>
-                <a href="javascript:void(0);" data-hostname="{{ d.hostname }}" class="edit-btn">编辑</a>
+                <a href="javascript:void(0);" data-id="{{ loop.index }}" class="edit-btn">编辑</a>
                 |
-                <a href="javascript:void(0);" data-hostname="{{ d.hostname }}">删除</a>
+                <a href="javascript:void(0);" data-id="{{ loop.index }}">删除</a>
             </td>
         </tr>
         {% endfor %}
@@ -134,12 +134,13 @@ $(function () {
 
     //编辑
     $('.edit-btn').click(function () {
-        var hostname = $(this).data('hostname'),
-            protocol = $('#protocol_'+hostname).html(),
-            port = $('#port_'+hostname).html(),
-            username = $('#username_'+hostname).html(),
-            password = $('#username_'+hostname).data('password'),
-            comments = $('#comments_'+hostname).html();
+        var id = $(this).data('id'),
+            hostname = $('#hostname_'+id).html(),
+            protocol = $('#protocol_'+id).html(),
+            port = $('#port_'+id).html(),
+            username = $('#username_'+id).html(),
+            password = $('#username_'+id).data('password'),
+            comments = $('#comments_'+id).html();
         $('#dialog_title').html('编辑');
         $('#edit_dialog').modal();
         $('#hostname').val(hostname);
