@@ -23,7 +23,7 @@ config = {
         kvm_servers_key = "kvman_kvm_servers",
         kvman_console_token_key_pre = "kvman_console_token_",
         kvman_console_token_expire = 1800,
-        default_lang = "en_US",
+        default_lang = "zh_CN", # en_US or zh_CN
         debug = True,
         autoreload = True
     )
