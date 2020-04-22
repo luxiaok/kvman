@@ -77,8 +77,5 @@ class UpdateHandler(BaseHandler):
         host['username'] = username
         host['password'] = password
         host['comments'] = comments
-        result = self.redis.hset(self.application.settings['kvm_servers_key'], hostname, json.dumps(host))
-        if result:
-            return self.returnJson({'code': 0, 'msg': u'保存成功！'})
-        else:
-            return self.returnJson({'code': -1, 'msg': u'保存失败！'})
+        self.redis.hset(self.application.settings['kvm_servers_key'], hostname, json.dumps(host))
+        return self.returnJson({'code': 0, 'msg': u'保存成功！'})
