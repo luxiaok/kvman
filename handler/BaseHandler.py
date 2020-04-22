@@ -100,15 +100,15 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_kvm_server(self,name=None):
         key = self.application.settings['kvm_servers_key']
         if name:
-            servers = self.redis.hget(key,name)
-            if servers:
-                servers = json.loads(servers)
+            stuff = self.redis.hget(key,name)
+            if stuff:
+                servers = json.loads(stuff)
             else:
                 servers = None
         else:
-            servers = self.redis.hgetall(key)
-            if servers:
-                servers = [json.loads(servers[i]) for i in servers]
+            stuff = self.redis.hgetall(key)
+            if stuff:
+                servers = [json.loads(stuff[i]) for i in stuff]
             else:
                 servers = []
         return servers
