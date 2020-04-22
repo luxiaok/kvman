@@ -4,6 +4,7 @@
 
 import libvirt
 import sys
+from xml.dom import minidom
 
 class kvm:
 
@@ -25,6 +26,8 @@ class kvm:
     def getGuestInfo(self,name):
         guest = self.getGuest(name)
         host = {
+            'title': guest.metadata(libvirt.VIR_DOMAIN_METADATA_TITLE,None),
+            'description': guest.metadata(libvirt.VIR_DOMAIN_METADATA_DESCRIPTION,None),
             'hostname': guest.hostname()
         }
         ifaces = guest.interfaceAddresses(libvirt.VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_AGENT, 0)
@@ -43,6 +46,38 @@ class kvm:
         return host
 
 
+    # get metadata
+    def getMetaData(self,name,uri='kvman.org'):
+        guest = self.getGuest(name)
+        flag = libvirt.VIR_DOMAIN_AFFECT_CONFIG
+        stuff = guest.metadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT,uri,flag)
+        print stuff
+        doc = minidom.parseString(stuff)
+        print doc
+
+
+    # set metadata
+    def setMetaData(self,name,key='kvman',uri='kvman.org'):
+        guest = self.getGuest(name)
+        flag = libvirt.VIR_DOMAIN_AFFECT_CONFIG
+        data = '<instance test="11"><foo type="22">Foo</foo><bar type="33"></bar></instance>'
+        ret = guest.setMetadata(libvirt.VIR_DOMAIN_METADATA_ELEMENT, data, key, uri, flag)
+        print ret
+
+
+def info(k,name):
+    info = k.getGuestInfo(name)
+    for i in info:
+        print '===== %s =====' % i
+        print info[i]
+
+def metadata(k,name):
+    k.setMetaData(name)
+    k.getMetaData(name)
+
+
 if __name__ == '__main__':
+    name = sys.argv[1]
     k = kvm()
-    print k.getGuestInfo(sys.argv[1])
+    #info(k,name)
+    metadata(k,name)
