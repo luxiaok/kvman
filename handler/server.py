@@ -52,7 +52,7 @@ class CreateHandler(BaseHandler):
 
 
 # 编辑KVM主机信息
-class EditHandler(BaseHandler):
+class UpdateHandler(BaseHandler):
 
     @Auth
     def post(self):
