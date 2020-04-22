@@ -44,8 +44,14 @@ class kvm:
 
 
     def openConnect(self,uri):
-        #return libvirt.openReadOnly(uri)
-        return libvirt.open(uri)
+        try:
+            # conn = libvirt.openReadOnly(uri)
+            conn = libvirt.open(uri)
+        except Exception, e:
+            self._code = -1
+            self._msg = e.message
+            conn = None
+        return conn
 
 
     def close(self):
@@ -64,6 +70,8 @@ class kvm:
 
 
     def getGuestsNum(self):
+        if not self.conn:
+            return ''
         return len(self.conn.listAllDomains(0))
 
 
