@@ -9,5 +9,4 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        self.title = u'监控中心'
         self.render('monitor/index.html')

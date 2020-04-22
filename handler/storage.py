@@ -13,7 +13,6 @@ class IndexHandler(BaseHandler):
         #self.log.info('Hello,Index page!') # Log Test
         k = kvm()
         storages = k.getStoragePools()
-        self.title = u'存储'
         self.render('storage/index.html',storages=storages)
 
 
@@ -24,5 +23,4 @@ class VolumeHandler(BaseHandler):
         pool = self.get_argument('pool')
         k = kvm()
         vols = k.getStorageVols(pool)
-        self.title = u'存储卷'
         self.render('storage/volume.html',vols=vols,pool=pool)

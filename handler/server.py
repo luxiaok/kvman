@@ -16,5 +16,4 @@ class IndexHandler(BaseHandler):
         for i in servers:
             k = kvm(config=i)
             i['guests'] = k.getGuestsNum()
-        self.title = u'服务器'
         self.render('server/index.html',data=servers)

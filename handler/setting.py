@@ -13,7 +13,6 @@ class IndexHandler(BaseHandler):
     @Auth
     def get(self):
         user = self.redis.hget(self.application.settings['users_key'],self.session.data['username'])
-        self.title = u'系统设置'
         self.render('setting/index.html',user=json.loads(user))
 
     @Auth

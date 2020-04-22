@@ -30,7 +30,6 @@ class IndexHandler(BaseHandler):
         guests = k.getGuests()
         k.close()
         status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
-        self.title = u'虚拟机实例'
         self.render('guest/index.html',guests=guests,status=status,state=guest_status)
 
 
@@ -97,7 +96,6 @@ class CreateGuestHandler(BaseHandler):
 
     @Auth
     def get(self):
-        self.title = u'创建虚拟机'
         self.render('guest/create.html')
 
 
@@ -108,7 +106,6 @@ class DetailHandler(BaseHandler):
         name = self.get_argument('name')
         k = kvm()
         guest = k.getGuest(name)
-        self.title = u'虚拟机详情 - ' + name
         self.render('guest/detail.html',name=name)
 
 

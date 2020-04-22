@@ -12,5 +12,4 @@ class IndexHandler(BaseHandler):
     def get(self):
         k = kvm()
         networks = k.getNetworks()
-        self.title = u'网络'
         self.render('network/index.html',data=networks)

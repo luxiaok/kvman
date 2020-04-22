@@ -16,5 +16,4 @@ class IndexHandler(BaseHandler):
         version = k.getVersion()
         version['app'] = self.app_version
         k.close()
-        self.title = u'控制台'
         self.render('index/index.html',version=version)
