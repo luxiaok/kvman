@@ -97,10 +97,10 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
     # 获取 Kvm Server 配置
-    def get_kvm_server(self,name=None):
+    def get_kvm_server(self,hostname=None):
         key = self.application.settings['kvm_servers_key']
-        if name:
-            stuff = self.redis.hget(key,name)
+        if hostname:
+            stuff = self.redis.hget(key,hostname)
             if stuff:
                 servers = json.loads(stuff)
             else:

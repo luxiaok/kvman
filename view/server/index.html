@@ -10,13 +10,13 @@
         <thead>
         <tr>
             <!--<th scope="col">#</th>-->
-            <th scope="col">名称</th>
-            <th scope="col">协议</th>
             <th scope="col">主机名</th>
             <th scope="col">端口</th>
+            <th scope="col">协议</th>
             <th scope="col">用户名</th>
             <th scope="col">虚拟机</th>
             <th scope="col">备注</th>
+            <th scope="col">默认</th>
             <th scope="col">状态</th>
             <th scope="col">操作</th>
         </tr>
@@ -25,13 +25,13 @@
         {% for d in data %}
         <tr>
             <!--<th scope="row"></th>-->
-            <td><a href="javascript:void(0);" data-toggle="tooltip" title="{{ d.hostname }}">{{ d.name }}</a></td>
-            <td>{{ d.protocol }}</td>
             <td>{{ d.hostname }}</td>
             <td>{{ d.port }}</td>
+            <td>{{ d.protocol }}</td>
             <td>{{ d.username or '' }}</td>
             <td><a href="/guest?server={{ d.name }}">{{ d.guests or '' }}</a></td>
             <td>{{ d.comments }}</td>
+            <td>{% if d.default %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td></td>
             <td>
                 <a href="javascript:void(0);" data-name="{{ d.name }}">编辑</a>
