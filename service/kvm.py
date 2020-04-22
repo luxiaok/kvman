@@ -161,10 +161,10 @@ class kvm:
         for i in doms:
             raw_xml = i.XMLDesc(0)
             xml = minidom.parseString(raw_xml)
-            tag_title = xml.getElementsByTagName('title')
-            title = tag_title[0].childNodes[0].nodeValue if len(tag_title) > 0 else ''
-            tag_desc = xml.getElementsByTagName('description')
-            desc = tag_desc[0].childNodes[0].nodeValue if len(tag_desc) > 0 else ''
+            #tag_title = xml.getElementsByTagName('title')
+            #title = tag_title[0].childNodes[0].nodeValue if len(tag_title) > 0 else ''
+            #tag_desc = xml.getElementsByTagName('description')
+            #desc = tag_desc[0].childNodes[0].nodeValue if len(tag_desc) > 0 else ''
             state,maxmem,mem,cpus,cpu_time = i.info()
             hdd = self.getDisk(xml.getElementsByTagName('disk'))
             network = self.getInterfaces(xml.getElementsByTagName('interface'))
@@ -172,8 +172,8 @@ class kvm:
             dom = {
                 'id': i.ID(),
                 'name': i.name(),
-                'title': title,
-                'desc': desc,
+                'title': i.metadata(libvirt.VIR_DOMAIN_METADATA_TITLE,None),
+                'desc': i.metadata(libvirt.VIR_DOMAIN_METADATA_DESCRIPTION,None),
                 'os_type': i.OSType(), # return "hvm", useless!
                 'cpu': cpus,
                 'mem': self.formatNum( mem * 1024 ), # unit: KiB
