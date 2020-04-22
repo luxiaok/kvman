@@ -192,7 +192,7 @@ class kvm:
                 'status': i.isActive()
             }
             guests.append(dom)
-        return sorted(guests,key=lambda guest : guest['name']) # Sort by Name
+        return sorted(guests,key=lambda item : item['name']) # Sort by Name
 
 
     def setAutostart(self,name,flag):
@@ -256,7 +256,7 @@ class kvm:
                 'state': info[0]
             }
             storages.append(sp)
-        return storages
+        return sorted(storages,key=lambda item : item['name']) # Sort by name
 
 
     def getStorageVols(self,pool):
@@ -274,7 +274,7 @@ class kvm:
                 'used': self.formatNum(info[2])
             }
             vols.append(_vl)
-        return vols
+        return sorted(vols,key=lambda item : item['name']) # Sort by name
 
 
     def getNetworks(self):
@@ -296,5 +296,5 @@ class kvm:
                 'active': network.isActive()
             }
             networks.append(data)
-        return networks
+        return sorted(networks,key=lambda item : item['name']) # Sort by name
 
