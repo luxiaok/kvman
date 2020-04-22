@@ -17,6 +17,7 @@ route = [
     (r'/server',server.IndexHandler),
     (r'/server/create',server.CreateHandler),
     (r'/server/update',server.UpdateHandler),
+    (r'/server/delete',server.DeleteHandler),
     (r'/guest',guest.IndexHandler),
     (r'/guest/create',guest.CreateGuestHandler),
     (r'/guest/detail',guest.DetailHandler),

@@ -83,3 +83,16 @@ class UpdateHandler(BaseHandler):
         if delete_host0:
             self.redis.hdel(self.application.settings['kvm_servers_key'], hostname0)
         return self.returnJson({'code': 0, 'msg': u'保存成功！'})
+
+
+# 删除
+class DeleteHandler(BaseHandler):
+
+    @Auth
+    def post(self):
+        hostname = self.get_argument('hostname')
+        host = self.get_kvm_server(hostname)
+        if not host:
+            return self.returnJson({'code': -1, 'msg': u'Kvm主机已被删除或不存在！'})
+        self.redis.hdel(self.application.settings['kvm_servers_key'], hostname)
+        return self.returnJson({'code': 0, 'msg': u'删除成功！'})

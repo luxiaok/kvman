@@ -36,7 +36,7 @@
             <td>
                 <a href="javascript:void(0);" data-id="{{ loop.index }}" class="edit-btn">编辑</a>
                 |
-                <a href="javascript:void(0);" data-id="{{ loop.index }}">删除</a>
+                <a href="javascript:void(0);" data-id="{{ loop.index }}" class="delete-btn">删除</a>
             </td>
         </tr>
         {% endfor %}
@@ -182,6 +182,39 @@ $(function () {
             error: function () {
                 layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
             }
+        });
+    });
+
+    //删除
+    $('.delete-btn').click(function () {
+        var id = $(this).data('id'),
+            hostname = $('#hostname_'+id).html();
+        layer.confirm('您确认要删除 KVM 主机 ' + hostname + ' 吗？？', {icon: 3, title: '删除提示'}, function (index) {
+            $.ajax({
+                type: "POST",
+                url: "/server/delete",
+                data: {hostname: hostname},
+                dataType: "json",
+                success: function (resp) {
+                    var code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        layer.close(index);
+                        layer.msg(msg);
+                        location.reload();
+                    } else if (code < 0) {
+                        layer.close(index);
+                        layer.msg(msg);
+                    } else {
+                        layer.close(index);
+                        layer.alert('删除失败，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                    }
+                },
+                error: function () {
+                    layer.close(index);
+                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                }
+            });
         });
     });
 });
