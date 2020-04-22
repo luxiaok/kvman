@@ -28,7 +28,7 @@
             <td>{{ d.hostname }}</td>
             <td id="port_{{ d.hostname }}">{{ d.port }}</td>
             <td id="protocol_{{ d.hostname }}">{{ d.protocol }}</td>
-            <td id="username_{{ d.hostname }}">{{ d.username or '' }}</td>
+            <td id="username_{{ d.hostname }}" data-password="{{ d.password }}">{{ d.username or '' }}</td>
             <td><a href="/guest?server={{ d.hostname }}">{{ d.guests or '' }}</a></td>
             <td id="comments_{{ d.hostname }}">{{ d.comments }}</td>
             <td>{% if d.default %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
@@ -82,15 +82,21 @@
                         <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
                     </div>
                     <div class="form-group row">
-                        <label for="qemu_username" class="col-sm-2 col-form-label">用户名</label>
+                        <label for="port" class="col-sm-2 col-form-label">端 口</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="qemu_username" placeholder="仅限 QEMU+TCP 模式">
+                            <input type="text" class="form-control" id="port" placeholder="仅限 QEMU+TCP 模式">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="qemu_password" class="col-sm-2 col-form-label">密 码</label>
+                        <label for="username" class="col-sm-2 col-form-label">用户名</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="qemu_password" placeholder="仅限 QEMU+TCP 模式">
+                            <input type="text" class="form-control" id="username" placeholder="仅限 QEMU+TCP 模式">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-2 col-form-label">密 码</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="password" placeholder="仅限 QEMU+TCP 模式">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -102,7 +108,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" id="saveBtn" class="btn btn-primary">保存</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -123,6 +129,7 @@ $(function () {
         $('#username').val('');
         $('#password').val('');
         $('#comments').val('');
+        $('#saveBtn').data('hostname','');
     });
 
     //编辑
@@ -131,6 +138,7 @@ $(function () {
             protocol = $('#protocol_'+hostname).html(),
             port = $('#port_'+hostname).html(),
             username = $('#username_'+hostname).html(),
+            password = $('#username_'+hostname).data('password'),
             comments = $('#comments_'+hostname).html();
         $('#dialog_title').html('编辑');
         $('#edit_dialog').modal();
@@ -138,8 +146,42 @@ $(function () {
         $('#protocol').val(protocol);
         $('#port').val(port);
         $('#username').val(username);
-        $('#password').val('');
+        $('#password').val(password);
         $('#comments').val(comments);
+        $('#saveBtn').data('hostname',hostname);
+    });
+    
+    //保存
+    $('#saveBtn').click(function () {
+        var hostname0 = $('#saveBtn').data('hostname'),
+            hostname = $('#hostname').val(),
+            protocol = $('#protocol').val(),
+            port = $('#port').val(),
+            username = $('#username').val(),
+            password = $('#password').val(),
+            comments = $('#comments').val(),
+            api = hostname0 === '' ? 'create' : 'update';
+        $.ajax({
+            type: "POST",
+            url: "/server/" + api,
+            data: {hostname0:hostname0,hostname:hostname,protocol:protocol,port:port,username:username,password:password,comments:comments},
+            dataType: "json",
+            success: function (resp) {
+                var code = resp['code'],
+                    msg = resp['msg'];
+                if (code === 0) {
+                    layer.msg(msg);
+                    location.reload();
+                } else if (code < 0) {
+                    layer.msg(msg);
+                } else {
+                    layer.alert('保存失败，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                }
+            },
+            error: function () {
+                layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
+            }
+        });
     });
 });
 </script>
