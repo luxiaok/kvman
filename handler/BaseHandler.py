@@ -5,11 +5,11 @@
 
 import tornado
 import time
-import json
 from app.Session import Session
+from KvmanHandler import KvmanHandler
 
 
-class BaseHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler,KvmanHandler):
 
     # 初始化函数
     def initialize(self):
@@ -78,14 +78,12 @@ class BaseHandler(tornado.web.RequestHandler):
     def format_time(self,timstamp=None,format='%Y-%m-%d %H:%M:%S'):
         return time.strftime(format, time.localtime(timstamp))
 
-
     # 获取当前登录用户信息，该方法为重写方法
     def get_current_user(self):
         if not self.session.isGuest and self.session.data:
             return self.session.data
         else:
             return None
-
 
     # Session初始化
     def _init_session(self):
@@ -94,21 +92,3 @@ class BaseHandler(tornado.web.RequestHandler):
         self.cookie_name = self.settings.get('cookie_name')
         self.sid = self.get_secure_cookie(self.cookie_name)
         self.session = Session(prefix, self.sid, expires, self.redis)
-
-
-    # 获取 Kvm Server 配置
-    def get_kvm_server(self,hostname=None):
-        key = self.application.settings['kvm_servers_key']
-        if hostname:
-            stuff = self.redis.hget(key,hostname)
-            if stuff:
-                servers = json.loads(stuff)
-            else:
-                servers = None
-        else:
-            stuff = self.redis.hgetall(key)
-            if stuff:
-                servers = [json.loads(stuff[i]) for i in stuff]
-            else:
-                servers = []
-        return servers
