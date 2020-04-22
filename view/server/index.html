@@ -3,7 +3,7 @@
 {% block body %}
 <div class="row mt-4 mb-3">
     <div class="col-sm"><h5>KVM服务器</h5></div>
-    <div class="col-sm"><div class="float-right"><a href="/guest/create" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i> 新增服务器</a></div></div>
+    <div class="col-sm"><div class="float-right"><a href="javascript:void(0);" id="add_kvm_btn" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i> 新增服务器</a></div></div>
 </div>
 <div class="row mb-3">
     <table class="table table-hover table-middle">
@@ -26,27 +26,121 @@
         <tr>
             <!--<th scope="row"></th>-->
             <td>{{ d.hostname }}</td>
-            <td>{{ d.port }}</td>
-            <td>{{ d.protocol }}</td>
-            <td>{{ d.username or '' }}</td>
-            <td><a href="/guest?server={{ d.name }}">{{ d.guests or '' }}</a></td>
-            <td>{{ d.comments }}</td>
+            <td id="port_{{ d.hostname }}">{{ d.port }}</td>
+            <td id="protocol_{{ d.hostname }}">{{ d.protocol }}</td>
+            <td id="username_{{ d.hostname }}">{{ d.username or '' }}</td>
+            <td><a href="/guest?server={{ d.hostname }}">{{ d.guests or '' }}</a></td>
+            <td id="comments_{{ d.hostname }}">{{ d.comments }}</td>
             <td>{% if d.default %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td></td>
             <td>
-                <a href="javascript:void(0);" data-name="{{ d.name }}">编辑</a>
+                <a href="javascript:void(0);" data-hostname="{{ d.hostname }}" class="edit-btn">编辑</a>
                 |
-                <a href="javascript:void(0);" data-name="{{ d.name }}">删除</a>
+                <a href="javascript:void(0);" data-hostname="{{ d.hostname }}">删除</a>
             </td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
+<div class="modal fade" id="edit_dialog" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dialog_title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="pr-5 pl-5">
+                    <!--
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" readonly class="form-control-plaintext">
+                        </div>
+                    </div>
+                    -->
+                    <div class="form-group row">
+                        <label for="hostname" class="col-sm-2 col-form-label">主机名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="hostname" placeholder="主机名或IP地址">
+                        </div>
+                        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="protocol" class="col-sm-2 col-form-label">连接协议</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="protocol">
+                                <option value="">-- 请选择连接协议 --</option>
+                                <option value="qemu">qemu</option>
+                                <option value="qemu+ssh">qemu+ssh</option>
+                                <option value="qemu+tcp">qemu+tcp</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="qemu_username" class="col-sm-2 col-form-label">用户名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="qemu_username" placeholder="仅限 QEMU+TCP 模式">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="qemu_password" class="col-sm-2 col-form-label">密 码</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="qemu_password" placeholder="仅限 QEMU+TCP 模式">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="comments" class="col-sm-2 col-form-label">描 述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="comments" placeholder="备注信息">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block footer %}
 <script>
 $(function () {
+
+    //新增
+    $('#add_kvm_btn').click(function () {
+        $('#dialog_title').html('新增KVM服务器');
+        $('#edit_dialog').modal();
+        $('#hostname').val('');
+        $('#protocol').val('');
+        $('#port').val('');
+        $('#username').val('');
+        $('#password').val('');
+        $('#comments').val('');
+    });
+
+    //编辑
+    $('.edit-btn').click(function () {
+        var hostname = $(this).data('hostname'),
+            protocol = $('#protocol_'+hostname).html(),
+            port = $('#port_'+hostname).html(),
+            username = $('#username_'+hostname).html(),
+            comments = $('#comments_'+hostname).html();
+        $('#dialog_title').html('编辑');
+        $('#edit_dialog').modal();
+        $('#hostname').val(hostname);
+        $('#protocol').val(protocol);
+        $('#port').val(port);
+        $('#username').val(username);
+        $('#password').val('');
+        $('#comments').val(comments);
+    });
 });
 </script>
 {% endblock %}
