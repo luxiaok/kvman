@@ -55,3 +55,18 @@ a:hover {
 .table-middle td {
     vertical-align: middle;
 }
+
+
+.text-cut-220 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 220px;
+}
+
+.text-cut-460 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 460px;
+}
