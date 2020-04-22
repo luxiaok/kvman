@@ -49,9 +49,19 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 - simplejson
 
-- numpy **v1.16.6**
+- numpy v**1.16.6**
 
 > pip install tornado==5.1.1 supervisor==3.3.5 numpy==1.16.6 simplejson Jinja2 redis
+
+
+## Deploy Redis Server
+
+See https://redis.io/
+
+
+## Configure for Kvman
+
+Change configurations for **redis** via [settings.py](config/settings.py), such as `host` `port` `password`
 
 
 ## Run Kvman
