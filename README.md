@@ -43,39 +43,39 @@ yum install -y qemu-kvm-ev qemu-kvm-common-ev qemu-img-ev qemu-kvm-tools-ev libv
 
 - [Supervisor](https://pypi.org/project/setuptools): 3.0+
 
-- simplejson
+- [simplejson](https://pypi.org/project/simplejson/)
 
-- numpy v**1.16.6**
+- [numpy](https://numpy.org/) v**1.16.6**
 
 > pip install tornado==5.1.1 supervisor==3.3.5 numpy==1.16.6 simplejson Jinja2 redis
 
 
-## Deploy Redis Server
+### Deploy Redis Server
 
 See https://redis.io/
 
 
-## Configure for Kvman
+### Configure for Kvman
 
 Change configurations for **redis** via [settings.py](config/settings.py), such as `host` `port` `password`
 
 
-## Run Kvman
-
-### Install
+### Run installation
 
 > python run.py --install=1
+
 
 ### Run Kvman
 
 > python run.py [--port=8080]
+
 
 ### Run Console Server
 
 > python vendor/console.py --token-plugin console.Token 6080
 
 
-## Configure for Supervisor
+### Configure for Supervisor
 
 ```
 [program:kvman]
@@ -117,4 +117,4 @@ stdout_logfile=/tmp/kvman_console.log
 
 ## License
 
-This project is under the GPLv3 License. See the [LICENSE](LICENSE) file for the full license text.
+This project is under the **GPLv3** License. See the [LICENSE](LICENSE) file for the full license text.
