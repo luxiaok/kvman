@@ -1,8 +1,8 @@
 {% set kvms = handler.get_kvm_server() %}
-{% if kvms | length > 1 %}
+{% if kvms | length > 0 %}
 <div class="row mb-3 pl-1">
     {% for i in  kvms %}
-    <a href="?server={{ i.hostname }}" class="btn btn-sm btn-outline-secondary ml-2 mt-1 mb-1" data-toggle="tooltip" title="{{ i.comments }}">{{ i.hostname }}</a>
+    <a href="?server={{ i.hostname }}" class="btn btn-sm btn-outline-dark ml-2 mt-1 mb-1" data-toggle="tooltip" title="{{ i.comments }}">{{ i.hostname }}</a>
     {% endfor %}
 </div>
 {% endif %}
