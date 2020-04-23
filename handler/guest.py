@@ -26,14 +26,9 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        sid = self.get_argument('sid',None)
-        k = self.kvm(sid)
-        if k:
-            guests = k.getGuests()
-        else:
-            guests = []
+        guests = self.kvm.getGuests()
         status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
-        self.render('guest/index.html',sid=sid,guests=guests,status=status,state=guest_status)
+        self.render('guest/index.html',guests=guests,status=status,state=guest_status)
 
 
 class AutostartHandler(BaseHandler):
@@ -42,9 +37,7 @@ class AutostartHandler(BaseHandler):
     def post(self):
         name = self.get_argument('name')
         flag = self.get_argument('flag') # 0 or 1
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        k.setAutostart(name,int(flag))
+        self.kvm.setAutostart(name,int(flag))
         self.returnJson({'code': 0, 'msg': u'操作成功！'})
 
 
@@ -53,15 +46,13 @@ class StartHandler(BaseHandler):
     @Auth
     def post(self):
         name = self.get_argument('name')
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        result = k.startGuest(name)
+        result = self.kvm.startGuest(name)
         if result:
             code = 0
             msg = u'已开机！'
         else:
             code = -1
-            msg = u'开机失败：%s' % k._msg
+            msg = u'开机失败：%s' % self.kvm._msg
         self.returnJson({'code': code, 'msg': msg})
 
 
@@ -72,15 +63,13 @@ class ShutdownHandler(BaseHandler):
         name = self.get_argument('name')
         force = self.get_argument('force','no')
         force = False if force=='no' else True
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        result = k.shutdownGuest(name,force)
+        result = self.kvm.shutdownGuest(name,force)
         if result:
             code = 0
             msg = u'正在关机……'
         else:
             code = -1
-            msg = u'关机失败：%s' % k._msg
+            msg = u'关机失败：%s' % self.kvm._msg
         self.returnJson({'code': code, 'msg': msg})
 
 
@@ -89,10 +78,8 @@ class RebootHandler(BaseHandler):
     @Auth
     def post(self):
         name = self.get_argument('name')
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        result = k.rebootGuest(name)
-        self.returnJson({'code':0,'result':result,'msg':k._msg})
+        result = self.kvm.rebootGuest(name)
+        self.returnJson({'code':0,'result':result,'msg':self.kvm._msg})
 
 
 class CreateGuestHandler(BaseHandler):

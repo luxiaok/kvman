@@ -10,13 +10,8 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        if k:
-            storages = k.getStoragePools()
-        else:
-            storages = []
-        self.render('storage/index.html',sid=sid,storages=storages)
+        storages = self.kvm.getStoragePools()
+        self.render('storage/index.html',storages=storages)
 
 
 class VolumeHandler(BaseHandler):
@@ -24,10 +19,5 @@ class VolumeHandler(BaseHandler):
     @Auth
     def get(self):
         pool = self.get_argument('pool')
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        if k:
-            vols = k.getStorageVols(pool)
-        else:
-            vols = []
-        self.render('storage/volume.html',sid=sid,vols=vols,pool=pool)
+        vols = self.kvm.getStorageVols(pool)
+        self.render('storage/volume.html',vols=vols,pool=pool)

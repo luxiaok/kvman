@@ -38,7 +38,7 @@ class kvm:
 
     def getUri(self,config=None):
         if not config:
-            return 'qemu:///system'
+            return None
         if config['protocol'] == 'qemu' and config['hostname'] in ['localhost','127.0.0.1']:
             uri = 'qemu:///system'
         elif config['protocol'] == 'qemu+tcp':
@@ -52,15 +52,19 @@ class kvm:
 
 
     def openConnect(self,uri):
+        if not uri:
+            self._code = -500
+            self._msg = 'Not uri'
+            return None
         try:
             # conn = libvirt.openReadOnly(uri)
             conn = libvirt.open(uri)
         except libvirt.libvirtError, e:
-            self._code = -1
+            self._code = -501
             self._msg = e.message
             conn = None
         except Exception, e:
-            self._code = -2
+            self._code = -502
             self._msg = e.message
             conn = None
         return conn

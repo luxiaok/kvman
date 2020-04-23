@@ -8,6 +8,8 @@ from service.kvm import kvm
 
 class KvmanHandler:
 
+    kvm_sid_update = True # Invoke set_kvm_sid
+
     # 获取 Kvm Server 配置
     def get_kvm_server(self, hostname=None):
         key = self.application.settings['kvm_servers_key']
@@ -26,34 +28,17 @@ class KvmanHandler:
                 servers = []
         return servers
 
-
-    def kvm(self,sid=None,set_sid=True):
-        if sid:
-            server = self.get_kvm_server(sid)  # uri, string
-            if server:
-                if set_sid:
-                    self.set_kvm_sid(sid)
-                return kvm(server)
+    @property
+    def kvm(self):
+        print 'Invoke self.kvm ...'
+        if self.kvm_sid:
+            server = self.get_kvm_server(self.kvm_sid)
         else:
-            sid = self.get_kvm_sid() # 是否有缓存SID
-            if sid:
-                server = self.get_kvm_server(sid)  # uri, string
-                if server:
-                    return kvm(server)
-            else: # 没有sid参数，检测是否只有一个Kvm Server
-                server_count = self.redis.hlen(self.application.settings['kvm_servers_key'])
-                if server_count == 1:
-                    server = self.get_kvm_server()
-                    if set_sid:
-                        self.set_kvm_sid(server[0]['hostname']) # 缓存sid
-                    return kvm(server[0])  # dict
-        return None
-
-
-    def set_kvm_sid(self,sid):
-        if sid:
-            self.session.data['kvm_sid'] = sid
-
-
-    def get_kvm_sid(self):
-        return self.session.data.get('kvm_sid',None)
+            server_count = self.redis.hlen(self.application.settings['kvm_servers_key'])
+            if server_count == 1:
+                servers = self.get_kvm_server()
+                server = servers[0]
+                self.kvm_sid = server['hostname']
+            else:
+                server = None
+        return kvm(server)

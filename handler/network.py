@@ -10,10 +10,5 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        if k:
-            networks = k.getNetworks()
-        else:
-            networks = []
-        self.render('network/index.html',sid=sid,data=networks)
+        networks = self.kvm.getNetworks()
+        self.render('network/index.html',data=networks)

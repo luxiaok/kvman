@@ -10,12 +10,11 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        if k:
-            version = k.getVersion()
+        self.kvm_sid = self.get_argument('sid', None)
+        if self.kvm:
+            version = self.kvm.getVersion()
             version['app'] = self.app_version
-            k.close()
+            self.kvm.close()
         else:
             version = {
                 'app': self.app_version

@@ -5,6 +5,7 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
+from service.kvm import kvm
 import json
 
 
@@ -14,7 +15,7 @@ class IndexHandler(BaseHandler):
     def get(self):
         servers = self.get_kvm_server()
         for i in servers:
-            k = self.kvm(i['hostname'],set_sid=False)
+            k = kvm(i)
             i['guests'] = k.getGuestsNum()
             if k._code == 0:
                 i['online'] = 1

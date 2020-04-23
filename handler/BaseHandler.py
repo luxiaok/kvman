@@ -25,9 +25,12 @@ class BaseHandler(tornado.web.RequestHandler,KvmanHandler):
         self.before_request()
 
     def before_request(self):
-        pass
+        # 当前管理的KvmServerID
+        self.kvm_sid = self.get_argument('sid',self.session.data.get('kvm_sid',None))
 
     def after_request(self):
+        # 缓存 kvm_sid 到 Session
+        self.session.data['kvm_sid'] = self.kvm_sid
         # 更新Session
         self.session.save()
         # 请求逻辑处理结束时关闭数据库连接，如果不关闭可能会造成MySQL Server has gone away 2006错误
@@ -64,9 +67,9 @@ class BaseHandler(tornado.web.RequestHandler,KvmanHandler):
         return uri[0]
 
     # 数据库
-    @property
-    def db(self):
-        return self.application.db
+    #@property
+    #def db(self):
+    #    return self.application.db
 
     # Redis
     @property
