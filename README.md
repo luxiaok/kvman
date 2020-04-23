@@ -95,7 +95,18 @@ stdout_logfile=/tmp/kvman_console.log
 
 ## FAQ
 
-### How to save data (redis)?
+### How to config for qemu+ssh?
+
+```shell
+ssh-keygen
+ssh-copy-id KvmServerAddress
+```
+ 
+Test:
+
+> virsh -c qemu+ssh://Username@KvmServerAddress:SSH_Port/system
+
+### How to save data for redis?
 
 > redis-cli -p REDIS_PORT save
 
