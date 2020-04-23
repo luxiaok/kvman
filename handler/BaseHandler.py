@@ -11,7 +11,7 @@ from KvmanHandler import KvmanHandler
 
 class BaseHandler(tornado.web.RequestHandler,KvmanHandler):
 
-    # 初始化函数
+    # 重构初始化函数
     def initialize(self):
         # 当前请求时间
         self.time = int(time.time())
@@ -21,9 +21,13 @@ class BaseHandler(tornado.web.RequestHandler,KvmanHandler):
         self.app_version = self.application.__version__
         # Current Route
         self.url = self.get_current_route()
+        # Before Request
+        self.before_request()
 
-    # 后面的方法如果重写on_finish方法，需要调用_on_finish
-    def _on_finish(self):
+    def before_request(self):
+        pass
+
+    def after_request(self):
         # 更新Session
         self.session.save()
         # 请求逻辑处理结束时关闭数据库连接，如果不关闭可能会造成MySQL Server has gone away 2006错误
@@ -31,7 +35,7 @@ class BaseHandler(tornado.web.RequestHandler,KvmanHandler):
 
     # 重载on_finish
     def on_finish(self):
-        self._on_finish()
+        self.after_request()
 
     # 重载write_error方法
     def write_error(self, status_code, **kwargs):
