@@ -47,8 +47,12 @@ class kvm:
         try:
             # conn = libvirt.openReadOnly(uri)
             conn = libvirt.open(uri)
-        except Exception, e:
+        except libvirt.libvirtError, e:
             self._code = -1
+            self._msg = e.message
+            conn = None
+        except Exception, e:
+            self._code = -2
             self._msg = e.message
             conn = None
         return conn
@@ -98,9 +102,13 @@ class kvm:
     def getGuest(self,name):
         try:
             dom = self.conn.lookupByName(name)
-        except:
+        except libvirt.libvirtError, e:
             dom = None
             self._code = -1
+            self._msg = e.message
+        except Exception, e:
+            dom = None
+            self._code = -2
             self._msg = 'Not found guest: ' + name
         return dom
 
