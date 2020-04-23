@@ -11,10 +11,15 @@ import json
 class LoginHandler(BaseHandler):
 
     def get(self):
-        if not self.session.isGuest:
-            return self.redirect('/') # 已登录则跳转到首页
-        next = self.get_argument("next", "/")
-        self.render('user/login.html', next=next)
+        if self.session.isGuest: # 未登录
+            users = self.redis.hlen(self.application.settings['users_key'])
+            if users == 0: # 用户列表无用户
+                return self.redirect('/setting/install') # 跳转安装页面
+            else:
+                next = self.get_argument("next", "/")
+                self.render('user/login.html', next=next) # 渲染登录UI
+        else: # 已登录
+            return self.redirect('/?_from=sign-in-ed') # 已登录则跳转到首页
 
     # For PAM Authentication
     '''
