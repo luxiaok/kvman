@@ -1,0 +1,127 @@
+{% extends "layout/main.html" %}
+{% block title %}安装KvMan{% endblock %}
+{% block body %}
+<div class="row mt-4 mb-3">
+    <h5>安装KvMan</h5>
+</div>
+<h6 class="mt-4">用户设置</h6>
+<form class="pr-5 pl-5">
+    <div class="form-group row">
+        <label for="uid" class="col-sm-1 col-form-label">UID</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" placeholder="系统自动生成">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="role" class="col-sm-1 col-form-label">角色</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" id="role" value="超级管理员">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="nickname" class="col-sm-1 col-form-label">昵称</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="nickname" value="Admin">
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="username" class="col-sm-1 col-form-label">用户名</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="username" value="admin">
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="password" class="col-sm-1 col-form-label">登录密码</label>
+        <div class="col-sm-5">
+            <input type="password" class="form-control" id="password" placeholder="请输入您的登录密码">
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="password2" class="col-sm-1 col-form-label">确认密码</label>
+        <div class="col-sm-5">
+            <input type="password" class="form-control" id="password2" placeholder="请再次输入您的登录密码">
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <!--
+    <div class="form-group row">
+        <label for="email" class="col-sm-1 col-form-label">邮箱地址</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="email" placeholder="请输入您的邮箱地址">
+        </div>
+    </div>
+    -->
+    <div class="form-group row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2 text-right"><button type="button" class="btn btn-primary" id="saveBtn"><i class="fa fa-fw fa-save"></i> 保 存</button></div>
+    </div>
+</form>
+{% endblock %}
+{% block footer %}
+<script>
+$(function () {
+
+    //保存
+    $('#saveBtn').click(function () {
+        var nickname = $('#nickname').val().trim(),
+            username = $('#username').val().trim(),
+            password = $('#password').val().trim(),
+            password2 = $('#password2').val().trim();
+        if (nickname==='') {
+            layer.msg('请输入昵称！');
+            $('#nickname').focus();
+            return false;
+        }
+        if (username==='') {
+            layer.msg('请输入用户名！');
+            $('#username').focus();
+            return false;
+        }
+        if (password==='') {
+            layer.msg('请输入登录密码！');
+            $('#password').focus();
+            return false;
+        }
+        if (password2==='') {
+            layer.msg('请再次输入登录密码！');
+            $('#password2').focus();
+            return false;
+        }
+        if (password!==password2) {
+            layer.msg('两次密码输入不一致，请重新输入！');
+            $('#password').val('');
+            $('#password2').val('');
+            $('#password').focus();
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/setting/install",
+            data: {username:username,nickname:nickname,password:password,password2:password2},
+            dataType: "json",
+            success: function (resp) {
+                var code = resp['code'],
+                    msg = resp['msg'];
+                if (code === 0) {
+                    layer.alert(msg, {title: '安装成功提示', icon: 1},function (index) {
+                        layer.close(index);
+                        location.href = '/user/login?_from=install'; //跳转登录页面
+                    });
+                } else if (code < 0) {
+                    layer.msg(msg);
+                } else {
+                    layer.alert('保存失败，请检查您的部署环境！', {title: 'KvMan提示', icon: 3});
+                }
+            },
+            error: function () {
+                layer.alert('系统错误，请检查您的部署环境！', {title: 'KvMan提示', icon: 3});
+            }
+        });
+    });
+
+});
+</script>
+{% endblock %}

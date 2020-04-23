@@ -76,39 +76,7 @@ class App(tornado.web.Application):
 
 
     def install(self):
-        # 默认Kvm服务器配置
-        kvm_server = {
-            'hostname': 'localhost',
-            'port': 16509,
-            'protocol': 'qemu',
-            'username': None,
-            'password': None,
-            'default': True,
-            'comments': 'Default kvm server'
-        }
-        self.redis.hset(self.settings['kvm_servers_key'], kvm_server['hostname'], json.dumps(kvm_server))
-        # 默认用户信息
-        data = {
-            'uid': 1000,
-            'nickname': 'Admin',
-            'username': 'admin',
-            'password': '123456',
-            'role': 1, # Administrator
-            'status': 10, # Active status
-            'reg_time': int(time.time())
-        }
-        result = self.redis.hset(self.settings['users_key'], data['username'], json.dumps(data))
-        if result:
-            print "Install successful!"
-            print "Username: %s" % data['username']
-            print "Password: %s" % data['password']
-            print "Run [python run.py] to start Kvman."
-            exit(0)
-        else:
-            print "Install failure!!"
-            print "Please check your environments and try again to run install"
-            exit(255)
-
+        pass
 
 
 class Kvman():
