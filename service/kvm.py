@@ -19,11 +19,15 @@ class kvm:
     VIR_DOMAIN_PMSUSPENDED = libvirt.VIR_DOMAIN_PMSUSPENDED
 
 
-    def __init__(self,uri=None,config=None):
+    def __init__(self,uri=None):
+        self.sid = None
         if uri:
-            self.uri = uri
+            if isinstance(uri,str):
+                self.uri = uri
+            elif isinstance(uri,dict):
+                self.uri = self.getUri(uri)
         else:
-            self.uri = self.getUri(config)
+            self.uri = self.getUri()
         self.conn = self.openConnect(self.uri)
         #print self.conn.getVersion() # Qemu
         #print self.conn.getLibVersion() # Libvirt
@@ -36,6 +40,7 @@ class kvm:
     def getUri(self,config=None):
         if not config:
             return 'qemu:///system'
+        self.sid = config['hostname']
         if config['protocol'] == 'qemu' and config['hostname'] in ['localhost','127.0.0.1']:
             uri = 'qemu:///system'
         elif config['protocol'] == 'qemu+tcp':

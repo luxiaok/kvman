@@ -4,12 +4,16 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
-from service.kvm import kvm
+
 
 class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        k = kvm()
-        networks = k.getNetworks()
-        self.render('network/index.html',data=networks)
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
+        if k:
+            networks = k.getNetworks()
+        else:
+            networks = []
+        self.render('network/index.html',sid=sid or k.sid,data=networks)

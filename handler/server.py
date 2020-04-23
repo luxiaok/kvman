@@ -15,7 +15,7 @@ class IndexHandler(BaseHandler):
     def get(self):
         servers = self.get_kvm_server()
         for i in servers:
-            k = kvm(config=i)
+            k = kvm(i)
             i['guests'] = k.getGuestsNum()
         self.render('server/index.html',data=sorted(servers,key=lambda item : item['hostname'])) # Sort by hostname
 

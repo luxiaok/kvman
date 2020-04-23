@@ -5,14 +5,13 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
-from service.kvm import kvm
 
 class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
         #self.log.info('Hello,Index page!') # Log Test
-        k = kvm()
+        k = self.kvm()
         version = k.getVersion()
         version['app'] = self.app_version
         k.close()

@@ -3,11 +3,11 @@
 {% block body %}
 <div class="row mt-4 mb-3">
     <div class="col-sm"><h5>虚拟机实例</h5></div>
-    <div class="col-sm"><div class="float-right"><a href="/guest/create" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i> 创建虚拟机</a></div></div>
+    <div class="col-sm"><div class="float-right"><a href="/guest/create?sid={{ sid }}" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i> 创建虚拟机</a></div></div>
 </div>
 {% include "layout/kvm_server_list.html" %}
 <div class="row mb-3">
-    <table class="table table-hover table-middle">
+    <table class="table table-hover table-middle" id="guests" data-sid="{{ sid }}">
         <thead>
         <tr>
             <!--<th scope="col">#</th>-->
@@ -26,7 +26,7 @@
         {% for d in guests %}
         <tr>
             <!--<th scope="row">{{ d['id'] }}</th>-->
-            <td><a href="/guest/detail?name={{ d.name }}" data-toggle="tooltip" title="{{ d.title }}">{{ d.name }}</a></td>
+            <td><a href="/guest/detail?sid={{ sid }}&name={{ d.name }}" data-toggle="tooltip" title="{{ d.title }}">{{ d.name }}</a></td>
             <td>{{ d['cpu'] }}</td>
             <td>{{ d['mem'] }}</td>
             <td>{{ '<br>'.join(d.hdd) }}</td>
@@ -64,6 +64,7 @@ $(function () {
     $('.start-btn').click(function () {
         var name = $(this).data('name'),
             status = $(this).data('status'),
+            sid = $('#guests').data('sid'),
             msg = '您确定要将虚拟机 ' + name + ' 开机吗？';
         if (status===1) {
             layer.alert('该虚拟机已是开机状态！', {title:'开机提示',icon: 1});
@@ -73,7 +74,7 @@ $(function () {
             $.ajax({
                 type: "POST",
                 url: "/guest/start",
-                data: {name: name},
+                data: {sid: sid, name: name},
                 dataType: "json",
                 success: function (resp) {
                     var code = resp['code'],
@@ -102,6 +103,7 @@ $(function () {
     $('.halt-btn').click(function () {
         var name = $(this).data('name'),
             status = $(this).data('status'),
+            sid = $('#guests').data('sid'),
             msg = '您确定要将虚拟机 ' + name + ' 关机吗？';
         if (status===0) {
             layer.alert('该虚拟机已是关机状态！', {title:'关机提示',icon: 1});
@@ -111,7 +113,7 @@ $(function () {
             $.ajax({
                 type: "POST",
                 url: "/guest/shutdown",
-                data: {name: name, force: 'no'},
+                data: {sid: sid ,name: name, force: 'no'},
                 dataType: "json",
                 success: function (resp) {
                     var code = resp['code'],
@@ -140,6 +142,7 @@ $(function () {
     $('.reboot-btn').click(function () {
         var name = $(this).data('name'),
             status = $(this).data('status'),
+            sid = $('#guests').data('sid'),
             msg = '您确定要将虚拟机 ' + name + ' 重启吗？';
         if (status===0) {
             layer.alert('该虚拟机暂未开机！', {title:'重启提示',icon: 1});
@@ -155,6 +158,7 @@ $(function () {
     //自动启动
     $('.autostart-btn').click(function () {
         var name = $(this).data('name'),
+            sid = $('#guests').data('sid'),
             autostart = $(this).data('autostart'),
             msg,flag;
         if (autostart===0) {
@@ -168,7 +172,7 @@ $(function () {
             $.ajax({
                 type: "POST",
                 url: "/guest/autostart",
-                data: {name: name, flag: flag},
+                data: {sid: sid, name: name, flag: flag},
                 dataType: "json",
                 success: function (resp) {
                     var code = resp['code'],
@@ -197,6 +201,7 @@ $(function () {
     //远程连接
     $('.console-btn').click(function () {
         var name = $(this).data('name'),
+            sid = $('#guests').data('sid'),
             status = $(this).data('status');
         if (status!==1) {
             layer.alert('该主机未开机，无法连接！', {title: '远程连接提示', icon: 2});
@@ -205,7 +210,7 @@ $(function () {
         $.ajax({
             type: "POST",
             url: "/guest/console",
-            data: {guest: name},
+            data: {sid: sid, guest: name},
             dataType: "json",
             success: function (resp) {
                 var code = resp['code'],

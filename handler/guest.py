@@ -26,11 +26,15 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        k = kvm()
-        guests = k.getGuests()
-        k.close()
+        sid = self.get_argument('sid',None)
+        k = self.kvm(sid)
+        if k:
+            guests = k.getGuests()
+            k.close()
+        else:
+            guests = []
         status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
-        self.render('guest/index.html',guests=guests,status=status,state=guest_status)
+        self.render('guest/index.html',sid=sid or k.sid,guests=guests,status=status,state=guest_status)
 
 
 class AutostartHandler(BaseHandler):
@@ -39,7 +43,8 @@ class AutostartHandler(BaseHandler):
     def post(self):
         name = self.get_argument('name')
         flag = self.get_argument('flag') # 0 or 1
-        k = kvm()
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
         k.setAutostart(name,int(flag))
         k.close()
         self.returnJson({'code': 0, 'msg': u'操作成功！'})
@@ -50,7 +55,8 @@ class StartHandler(BaseHandler):
     @Auth
     def post(self):
         name = self.get_argument('name')
-        k = kvm()
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
         result = k.startGuest(name)
         if result:
             code = 0
@@ -69,7 +75,8 @@ class ShutdownHandler(BaseHandler):
         name = self.get_argument('name')
         force = self.get_argument('force','no')
         force = False if force=='no' else True
-        k = kvm()
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
         result = k.shutdownGuest(name,force)
         if result:
             code = 0
@@ -86,7 +93,8 @@ class RebootHandler(BaseHandler):
     @Auth
     def post(self):
         name = self.get_argument('name')
-        k = kvm()
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
         result = k.rebootGuest(name)
         k.close()
         self.returnJson({'code':0,'result':result,'msg':k._msg})
@@ -104,7 +112,8 @@ class DetailHandler(BaseHandler):
     @Auth
     def get(self):
         name = self.get_argument('name')
-        k = kvm()
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
         guest = k.getGuest(name)
         self.render('guest/detail.html',name=name)
 
@@ -127,10 +136,11 @@ class ConsoleHandler(BaseHandler):
     # 生成远程访问的Token
     @Auth
     def post(self):
-        guest = self.get_argument('guest')
+        guest = self.get_argument('guest',None)
         if not guest:
             return self.returnJson({'code': -1, 'msg': u'该主机不存在！'})
-        k = kvm()
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
         address = k.getVncAddress(guest)
         if not address['port'] or address['port'] == -1:
             return self.returnJson({'code': -1, 'msg': u'该主机未开机！'})

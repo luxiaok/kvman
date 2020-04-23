@@ -4,6 +4,7 @@
 # 2020-04-22
 
 import json
+from service.kvm import kvm
 
 class KvmanHandler:
 
@@ -24,3 +25,16 @@ class KvmanHandler:
             else:
                 servers = []
         return servers
+
+
+    def kvm(self,sid=None):
+        if sid:
+            server = self.get_kvm_server(sid)  # uri, string
+            if server:
+                return kvm(server)
+        else:
+            server_count = self.redis.hlen(self.application.settings['kvm_servers_key'])
+            if server_count == 1:
+                server = self.get_kvm_server()
+                return kvm(server[0])  # dict
+        return False

@@ -21,9 +21,9 @@
         <tbody>
         {% for i in storages %}
         <tr>
-            <td><a href="/storage/volume?pool={{ i.name }}">{{ i.name }}</a></td>
+            <td><a href="/storage/volume?sid={{ sid }}&pool={{ i.name }}">{{ i.name }}</a></td>
             <td>{{ i.used }} / {{ i.size }}</td>
-            <td><a href="/storage/volume?pool={{ i.name }}">{{ i.vol_num }}</a></td>
+            <td><a href="/storage/volume?sid={{ sid }}&pool={{ i.name }}">{{ i.vol_num }}</a></td>
             <td>{% if i.autostart %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td>{% if i.state == 2 %}<span style="color:green;">running</span>{% endif %}</td>
             <td>
