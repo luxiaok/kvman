@@ -86,7 +86,7 @@ $(function () {
                 var code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
-                    layer.msg(msg);
+                    layer.alert(msg, {title: '密码修改提示', icon: 1});
                     $('#password0').val('');
                     $('#password').val('');
                     $('#password2').val('');
