@@ -38,6 +38,11 @@ class kvm:
             return 'qemu:///system'
         if config['protocol'] == 'qemu' and config['hostname'] in ['localhost','127.0.0.1']:
             uri = 'qemu:///system'
+        elif config['protocol'] == 'qemu+tcp':
+            port = config.get('port',16509)
+            uri = '%s://%s:%s/system' % (config['protocol'],config['hostname'],port)
+        elif config['protocol'] == 'qemu+ssh':
+            uri = '%s://%s@%s:%s/system' % (config['protocol'],config['username'], config['hostname'], config['port'])
         else:
             uri = '%s://%s:%s/system' % (config['protocol'],config['hostname'],config['port'])
         return uri
