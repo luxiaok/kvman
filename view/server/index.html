@@ -23,7 +23,7 @@
         </thead>
         <tbody>
         {% for d in data %}
-        <tr>
+        <tr id="row_{{ loop.index }}">
             <!--<th scope="row"></th>-->
             <td id="hostname_{{ loop.index }}">{{ d.hostname }}</td>
             <td id="port_{{ loop.index }}">{{ d.port }}</td>
@@ -199,9 +199,11 @@ $(function () {
                     var code = resp['code'],
                         msg = resp['msg'];
                     if (code === 0) {
+                        $('#row_'+id).slideUp("slow", function(){
+                            $(this).remove();
+                        });
                         layer.close(index);
                         layer.msg(msg);
-                        location.reload();
                     } else if (code < 0) {
                         layer.close(index);
                         layer.msg(msg);
