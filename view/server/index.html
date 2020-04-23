@@ -135,12 +135,12 @@ $(function () {
     //编辑
     $('.edit-btn').click(function () {
         var id = $(this).data('id'),
-            hostname = $('#hostname_'+id).html(),
-            protocol = $('#protocol_'+id).html(),
-            port = $('#port_'+id).html(),
-            username = $('#username_'+id).html(),
+            hostname = $('#hostname_'+id).html().trim(),
+            protocol = $('#protocol_'+id).html().trim(),
+            port = $('#port_'+id).html().trim(),
+            username = $('#username_'+id).html().trim(),
             password = $('#username_'+id).data('password'),
-            comments = $('#comments_'+id).html();
+            comments = $('#comments_'+id).html().trim();
         $('#dialog_title').html('编辑KVM主机：'+hostname);
         $('#edit_dialog').modal();
         $('#hostname').val(hostname);
@@ -155,12 +155,12 @@ $(function () {
     //保存
     $('#saveBtn').click(function () {
         var hostname0 = $('#saveBtn').data('hostname'),
-            hostname = $('#hostname').val(),
-            protocol = $('#protocol').val(),
-            port = $('#port').val(),
-            username = $('#username').val(),
-            password = $('#password').val(),
-            comments = $('#comments').val(),
+            hostname = $('#hostname').val().trim(),
+            protocol = $('#protocol').val().trim(),
+            port = $('#port').val().trim(),
+            username = $('#username').val().trim(),
+            password = $('#password').val().trim(),
+            comments = $('#comments').val().trim(),
             api = hostname0 === '' ? 'create' : 'update';
         $.ajax({
             type: "POST",

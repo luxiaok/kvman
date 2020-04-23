@@ -44,9 +44,9 @@ $(function () {
 
     //保存
     $('#passwdBtn').click(function () {
-        var password0 = $('#password0').val(),
-            password = $('#password').val(),
-            password2 = $('#password2').val();
+        var password0 = $('#password0').val().trim(),
+            password = $('#password').val().trim(),
+            password2 = $('#password2').val().trim();
         if (password0==='') {
             layer.msg('请输入原始密码！');
             $('#password0').focus();

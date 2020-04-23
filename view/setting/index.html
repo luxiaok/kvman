@@ -50,9 +50,9 @@ $(function () {
 
     //保存
     $('#saveBtn').click(function () {
-        var nickname = $('#nickname').val(),
-            username = $('#username').val(),
-            email = $('#email').val();
+        var nickname = $('#nickname').val().trim(),
+            username = $('#username').val().trim(),
+            email = $('#email').val().trim();
         if (nickname==='') {
             layer.msg('请输入昵称！');
             $('#nickname').focus();
