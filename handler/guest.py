@@ -34,7 +34,7 @@ class IndexHandler(BaseHandler):
         else:
             guests = []
         status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
-        self.render('guest/index.html',sid=sid or k.sid,guests=guests,status=status,state=guest_status)
+        self.render('guest/index.html',sid=sid,guests=guests,status=status,state=guest_status)
 
 
 class AutostartHandler(BaseHandler):

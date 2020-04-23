@@ -5,7 +5,6 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
-from service.kvm import kvm
 import json
 
 
@@ -15,7 +14,7 @@ class IndexHandler(BaseHandler):
     def get(self):
         servers = self.get_kvm_server()
         for i in servers:
-            k = kvm(i)
+            k = self.kvm(i['hostname'],set_sid=False)
             i['guests'] = k.getGuestsNum()
         self.render('server/index.html',data=sorted(servers,key=lambda item : item['hostname'])) # Sort by hostname
 
@@ -37,7 +36,7 @@ class CreateHandler(BaseHandler):
             return self.returnJson({'code': -1, 'msg': u'主机名重复！'})
         data = {
             'hostname': hostname,
-            'port': port or None,
+            'port': port or '',
             'protocol': protocol,
             'username': username or '',
             'password': password or '',
@@ -74,14 +73,16 @@ class UpdateHandler(BaseHandler):
                 return self.returnJson({'code': -1, 'msg': u'主机名重复！'})
             delete_host0 = True
             host = {'hostname': hostname}
-        host['port'] = port
+        host['port'] = port or ''
         host['protocol'] = protocol
-        host['username'] = username
-        host['password'] = password
-        host['comments'] = comments
+        host['username'] = username or ''
+        host['password'] = password or ''
+        host['comments'] = comments or ''
         self.redis.hset(self.application.settings['kvm_servers_key'], hostname, json.dumps(host))
         if delete_host0:
             self.redis.hdel(self.application.settings['kvm_servers_key'], hostname0)
+            if hostname0 == self.session.data.get('kvm_sid', None):
+                self.session.data['kvm_sid'] = hostname
         return self.returnJson({'code': 0, 'msg': u'保存成功！'})
 
 
@@ -95,4 +96,6 @@ class DeleteHandler(BaseHandler):
         if not host:
             return self.returnJson({'code': -1, 'msg': u'Kvm主机已被删除或不存在！'})
         self.redis.hdel(self.application.settings['kvm_servers_key'], hostname)
+        if hostname == self.session.data.get('kvm_sid',None):
+            del(self.session.data['kvm_sid'])
         return self.returnJson({'code': 0, 'msg': u'删除成功！'})

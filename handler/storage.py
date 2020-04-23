@@ -16,7 +16,7 @@ class IndexHandler(BaseHandler):
             storages = k.getStoragePools()
         else:
             storages = []
-        self.render('storage/index.html',sid=sid or k.sid,storages=storages)
+        self.render('storage/index.html',sid=sid,storages=storages)
 
 
 class VolumeHandler(BaseHandler):
@@ -30,4 +30,4 @@ class VolumeHandler(BaseHandler):
             vols = k.getStorageVols(pool)
         else:
             vols = []
-        self.render('storage/volume.html',sid=sid or k.sid,vols=vols,pool=pool)
+        self.render('storage/volume.html',sid=sid,vols=vols,pool=pool)

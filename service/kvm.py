@@ -20,7 +20,6 @@ class kvm:
 
 
     def __init__(self,uri=None):
-        self.sid = None
         if uri:
             if isinstance(uri,str):
                 self.uri = uri
@@ -40,7 +39,6 @@ class kvm:
     def getUri(self,config=None):
         if not config:
             return 'qemu:///system'
-        self.sid = config['hostname']
         if config['protocol'] == 'qemu' and config['hostname'] in ['localhost','127.0.0.1']:
             uri = 'qemu:///system'
         elif config['protocol'] == 'qemu+tcp':

@@ -10,9 +10,14 @@ class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        #self.log.info('Hello,Index page!') # Log Test
-        k = self.kvm()
-        version = k.getVersion()
-        version['app'] = self.app_version
-        k.close()
+        sid = self.get_argument('sid', None)
+        k = self.kvm(sid)
+        if k:
+            version = k.getVersion()
+            version['app'] = self.app_version
+            k.close()
+        else:
+            version = {
+                'app': self.app_version
+            }
         self.render('index/index.html',version=version)

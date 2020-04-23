@@ -6,7 +6,7 @@
     <div class="col-sm">
         <div class="float-right">
             <a href="javascript:void(0);" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-plus"></i> 新建存储卷</a>
-            <a href="/storage?sid={{ sid }}_from=vol" class="btn btn-secondary btn-sm"><i class="fa fa-fw fa-arrow-left"></i> 返回</a>
+            <a href="/storage?{% if sid %}sid={{ sid }}&{% endif %}_from=vol" class="btn btn-secondary btn-sm"><i class="fa fa-fw fa-arrow-left"></i> 返回</a>
         </div>
     </div>
 </div>

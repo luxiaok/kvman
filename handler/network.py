@@ -16,4 +16,4 @@ class IndexHandler(BaseHandler):
             networks = k.getNetworks()
         else:
             networks = []
-        self.render('network/index.html',sid=sid or k.sid,data=networks)
+        self.render('network/index.html',sid=sid,data=networks)
