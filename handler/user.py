@@ -109,6 +109,10 @@ class ProfileHandler(BaseHandler):
 class PasswdHandler(BaseHandler):
 
     @Auth
+    def get(self):
+        self.render('user/passwd.html')
+
+    @Auth
     def post(self):
         password0 = self.get_argument('password0')
         password = self.get_argument('password')

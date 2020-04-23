@@ -32,7 +32,6 @@ route = [
     (r'/network',network.IndexHandler),
     (r'/monitor',monitor.IndexHandler),
     (r'/setting',setting.IndexHandler),
-    (r'/setting/passwd',setting.PasswdHandler),
     (r'/user/login',user.LoginHandler),
     (r'/user/logout',user.LogoutHandler),
     (r'/user/passwd',user.PasswdHandler),
