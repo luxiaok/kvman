@@ -62,7 +62,9 @@ Change configurations for **redis** via [settings.py](config/settings.py), such 
 
 ### Run Kvman
 
-> python run.py [--port=8080]
+> python run.py [--port=8081]
+
+Visit http://IP:8081
 
 
 ### Run Console Server
@@ -89,6 +91,13 @@ directory=/var/www/kvman
 redirect_stderr=true
 stdout_logfile=/tmp/kvman_console.log
 ```
+
+
+## FAQ
+
+### How to save data (redis)?
+
+> redis-cli -p REDIS_PORT save
 
 
 ## Related Links
