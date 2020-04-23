@@ -12,12 +12,10 @@ import tornado.locale
 import tornado.options
 import platform
 import logging
-import time
-import json
 from cache import RCache
 from tornado.log import gen_log, LogFormatter
 from handler.page import Page404Handler
-from config.settings import *
+from config.settings import kvman_settings
 from handler import route
 #from ui_modules import UIModules
 from Template import TemplateLoader # For Jinja2
@@ -32,10 +30,10 @@ tornado.options.parse_command_line()
 
 class App(tornado.web.Application):
 
-    def __init__(self,handlers,conf,log):
-        self.__version__ = conf['version']
+    def __init__(self,handlers,config,log):
+        self.__version__ = config['version']
         self.log = log
-        settings = conf['app_settings']
+        settings = config['app_settings']
         settings['default_handler_class'] = Page404Handler  # 404
 
         # Don't Support for Jinja2
@@ -55,7 +53,7 @@ class App(tornado.web.Application):
         #self.db = db.DB(**conf['db'])
 
         #Init Redis
-        R = RCache(**conf['redis'])
+        R = RCache(**config['redis'])
         self.redis = R.Connect()
 
         # Load Locale
@@ -86,8 +84,8 @@ class Kvman():
         self.host = options.host
         self.port = options.port
         self.urls = route
-        self.config = config
-        self.config['version'] = self.__version__
+        self.settings = kvman_settings
+        self.settings['version'] = self.__version__
         self.init_log()
         self.log = gen_log
         if platform.system() == "Linux":  #根据操作系统类型来确定是否启用多线程
@@ -108,7 +106,7 @@ class Kvman():
 
     # Single Process
     def single_process(self):
-        http_app = App(self.urls, self.config, self.log)
+        http_app = App(self.urls, self.settings, self.log)
 
         # Single Process 1
         # http_app.listen(self.port)
@@ -121,7 +119,7 @@ class Kvman():
 
     # Multi Process
     def multi_process(self):
-        http_app = App(self.urls, self.config, self.log)
+        http_app = App(self.urls, self.settings, self.log)
         http_sockets = tornado.netutil.bind_sockets(self.port, self.host)
         tornado.process.fork_processes(num_processes=self.processes)
         http_server = tornado.httpserver.HTTPServer(request_callback=http_app, xheaders=True)

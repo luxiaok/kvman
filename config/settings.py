@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 # Powered By KK Studio
 
-config = {
+kvman_settings = {
     'redis': {
         'host': '127.0.0.1',
         'port': 6379,
