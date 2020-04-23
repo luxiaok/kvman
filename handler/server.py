@@ -16,6 +16,11 @@ class IndexHandler(BaseHandler):
         for i in servers:
             k = self.kvm(i['hostname'],set_sid=False)
             i['guests'] = k.getGuestsNum()
+            if k._code == 0:
+                i['online'] = 1
+                k.close()
+            else:
+                i['online'] = 0
         self.render('server/index.html',data=sorted(servers,key=lambda item : item['hostname'])) # Sort by hostname
 
 
@@ -40,7 +45,7 @@ class CreateHandler(BaseHandler):
             'protocol': protocol,
             'username': username or '',
             'password': password or '',
-            'default': False,
+            #'default': False,
             'comments': comments or ''
         }
         result = self.redis.hset(self.application.settings['kvm_servers_key'], hostname, json.dumps(data))

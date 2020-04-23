@@ -30,7 +30,6 @@ class IndexHandler(BaseHandler):
         k = self.kvm(sid)
         if k:
             guests = k.getGuests()
-            k.close()
         else:
             guests = []
         status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
@@ -46,7 +45,6 @@ class AutostartHandler(BaseHandler):
         sid = self.get_argument('sid', None)
         k = self.kvm(sid)
         k.setAutostart(name,int(flag))
-        k.close()
         self.returnJson({'code': 0, 'msg': u'操作成功！'})
 
 
@@ -64,7 +62,6 @@ class StartHandler(BaseHandler):
         else:
             code = -1
             msg = u'开机失败：%s' % k._msg
-        k.close()
         self.returnJson({'code': code, 'msg': msg})
 
 
@@ -84,7 +81,6 @@ class ShutdownHandler(BaseHandler):
         else:
             code = -1
             msg = u'关机失败：%s' % k._msg
-        k.close()
         self.returnJson({'code': code, 'msg': msg})
 
 
@@ -96,7 +92,6 @@ class RebootHandler(BaseHandler):
         sid = self.get_argument('sid', None)
         k = self.kvm(sid)
         result = k.rebootGuest(name)
-        k.close()
         self.returnJson({'code':0,'result':result,'msg':k._msg})
 
 

@@ -20,6 +20,8 @@ class kvm:
 
 
     def __init__(self,uri=None):
+        self._code = 0
+        self._msg = 'success'
         if uri:
             if isinstance(uri,str):
                 self.uri = uri
@@ -32,8 +34,6 @@ class kvm:
         #print self.conn.getLibVersion() # Libvirt
         #print self.conn.getSysinfo() # System Infomation
         #print self.conn.getHostname() # Hostname for Kvm Server
-        self._code = 0
-        self._msg = 'success'
 
 
     def getUri(self,config=None):
@@ -181,6 +181,8 @@ class kvm:
 
     def getGuests(self):
         guests = []
+        if not self.conn:
+            return guests
         doms = self.conn.listAllDomains(0)
         for i in doms:
             raw_xml = i.XMLDesc(0)
@@ -256,6 +258,8 @@ class kvm:
 
     def getStoragePools(self):
         storages = []
+        if not self.conn:
+            return storages
         pools = self.conn.listAllStoragePools(0)
         for i in pools:
             info = i.info()
@@ -277,6 +281,8 @@ class kvm:
 
     def getStorageVols(self,pool):
         vols = []
+        if not self.conn:
+            return vols
         pl = self.conn.storagePoolLookupByName(pool)
         vls = pl.listVolumes()
         for i in vls:
@@ -294,8 +300,10 @@ class kvm:
 
 
     def getNetworks(self):
-        net_lists = self.conn.listNetworks()
         networks = []
+        if not self.conn:
+            return networks
+        net_lists = self.conn.listNetworks()
         for i in net_lists:
             network = self.conn.networkLookupByName(i)
             raw_xml = network.XMLDesc(0)

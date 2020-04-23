@@ -16,7 +16,6 @@
             <th scope="col">用户名</th>
             <th scope="col">虚拟机</th>
             <th scope="col">备注</th>
-            <th scope="col">默认</th>
             <th scope="col">状态</th>
             <th scope="col">操作</th>
         </tr>
@@ -31,8 +30,7 @@
             <td id="username_{{ loop.index }}" data-password="{{ d.password or '' }}">{{ d.username or '' }}</td>
             <td><a href="/guest?server={{ d.hostname }}">{{ d.guests or '' }}</a></td>
             <td id="comments_{{ loop.index }}">{{ d.comments }}</td>
-            <td>{% if d.default %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
-            <td></td>
+            <td>{% if d.online %}<span style="color:green;">在线</span>{% else %}<span style="color:red;">离线</span>{% endif %}</td>
             <td>
                 <a href="javascript:void(0);" data-id="{{ loop.index }}" class="edit-btn">编辑</a>
                 |
