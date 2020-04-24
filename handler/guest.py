@@ -4,21 +4,21 @@
 # Guests
 
 from BaseHandler import BaseHandler
-from service.kvm import kvm
 from tornado.web import authenticated as Auth
 from vendor import functions as fun
+import libvirt
 import json
 
 
 guest_status = {
-    kvm.VIR_DOMAIN_NOSTATE: u'<span style="color:#ccc;">未知</span>',
-    kvm.VIR_DOMAIN_RUNNING: u'<span style="color:green;">运行中</span>',
-    kvm.VIR_DOMAIN_BLOCKED: u'<span style="color:#ccc;">Blocked</span>',
-    kvm.VIR_DOMAIN_PAUSED: u'<span style="color:#ccc;">已挂起</span>',
-    kvm.VIR_DOMAIN_SHUTDOWN: u'<span style="color:#ccc;">已关机</span>',
-    kvm.VIR_DOMAIN_SHUTOFF: u'<span style="color:#ccc;">已关机</span>',
-    kvm.VIR_DOMAIN_CRASHED: u'<span style="color:red;">Crashed</span>',
-    kvm.VIR_DOMAIN_PMSUSPENDED: u'<span style="color:red;">PMSUSPENDED</span>'
+    libvirt.VIR_DOMAIN_NOSTATE: u'<span style="color:#ccc;">未知</span>',
+    libvirt.VIR_DOMAIN_RUNNING: u'<span style="color:green;">运行中</span>',
+    libvirt.VIR_DOMAIN_BLOCKED: u'<span style="color:#ccc;">Blocked</span>',
+    libvirt.VIR_DOMAIN_PAUSED: u'<span style="color:#ccc;">已挂起</span>',
+    libvirt.VIR_DOMAIN_SHUTDOWN: u'<span style="color:#ccc;">已关机</span>',
+    libvirt.VIR_DOMAIN_SHUTOFF: u'<span style="color:#ccc;">已关机</span>',
+    libvirt.VIR_DOMAIN_CRASHED: u'<span style="color:red;">Crashed</span>',
+    libvirt.VIR_DOMAIN_PMSUSPENDED: u'<span style="color:red;">PMSUSPENDED</span>'
 }
 
 

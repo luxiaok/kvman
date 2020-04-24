@@ -15,8 +15,7 @@ class IndexHandler(BaseHandler):
         servers = self.get_kvm_server()
         self.kvm_sid_update = False
         for i in servers:
-            self.kvm_sid = i['hostname']
-            self.get_kvm_instance(True)
+            self.get_kvm_instance(i['hostname'],True)
             i['guests'] = self.kvm.getGuestsNum()
             if self.kvm.code == 0:
                 i['online'] = 1
@@ -90,7 +89,7 @@ class UpdateHandler(BaseHandler):
         if delete_host0:
             self.redis.hdel(self.application.settings['kvm_servers_key'], hostname0)
             if hostname0 == self.kvm_sid:
-                self.kvm_sid = hostname
+                self.kvm_sid = hostname # 更新 kvm_sid 缓存
         return self.returnJson({'code': 0, 'msg': u'保存成功！'})
 
 
@@ -106,5 +105,5 @@ class DeleteHandler(BaseHandler):
         self.redis.hdel(self.application.settings['kvm_servers_key'], hostname)
         if hostname == self.kvm_sid:
             self.kvm_sid_update = False
-            del(self.session.data['kvm_sid'])
+            del(self.session.data['kvm_sid']) # 删除 kvm_sid 缓存
         return self.returnJson({'code': 0, 'msg': u'删除成功！'})

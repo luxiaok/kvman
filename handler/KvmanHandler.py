@@ -31,10 +31,12 @@ class KvmanHandler:
         return servers
 
 
-    def get_kvm_instance(self,renew=False):
+    def get_kvm_instance(self,sid=None,renew=False):
         if self.__kvm__ and not renew:
             return True
-        if self.kvm_sid:
+        if sid:
+            server = self.get_kvm_server(sid)
+        elif self.kvm_sid:
             server = self.get_kvm_server(self.kvm_sid)
         else:
             server_count = self.redis.hlen(self.application.settings['kvm_servers_key'])
