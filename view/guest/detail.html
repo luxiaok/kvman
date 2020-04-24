@@ -3,6 +3,7 @@
 {% block head %}
     <style>
         .col-form-label {
+            font-weight: bold;
             padding-right: 0 !important;
         }
     </style>
@@ -45,29 +46,29 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="" class="col-sm-1 col-form-label">主机名</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="{{ guest.hostname }}">
+        </div>
         <label for="" class="col-sm-1 col-form-label">操作系统</label>
         <div class="col-sm-5">
             <input type="text" readonly class="form-control-plaintext" value="{{ guest.os }}">
         </div>
+    </div>
+    <div class="form-group row">
         <label for="" class="col-sm-1 col-form-label">CPUs</label>
         <div class="col-sm-5">
             <input type="text" readonly class="form-control-plaintext" value="{{ guest.cpu }}">
         </div>
-    </div>
-    <div class="form-group row">
         <label for="" class="col-sm-1 col-form-label">硬 盘</label>
         <div class="col-sm-5">
             <div class="pt-2">{{ '<br>'.join(guest.hdd) }}</div>
         </div>
+    </div>
+    <div class="form-group row">
         <label for="" class="col-sm-1 col-form-label">内 存</label>
         <div class="col-sm-5">
             <div class="pt-2">{{ guest.mem }}</div>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">主机名</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" value="{{ guest.hostname }}">
         </div>
         <label for="" class="col-sm-1 col-form-label">IP地址</label>
         <div class="col-sm-5">
