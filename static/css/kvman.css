@@ -37,6 +37,10 @@ a:hover {
     border-bottom: solid 2px #007bff;
 }
 
+.kvman-top-nav>.dropdown>a:hover {
+    border-bottom: solid 2px transparent;
+}
+
 .kvman-top-nav>.dropdown>.dropdown-menu>a {
     font-size: 14px;
 }
