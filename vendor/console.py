@@ -8,7 +8,7 @@ sys.path.append(os.getcwd()+"/config")
 
 import redis
 import simplejson
-from settings import config
+from settings import kvman_settings as config
 from websockify.websocketproxy import websockify_init
 
 class Token:
@@ -21,17 +21,21 @@ class Token:
         self._password = config['redis']['password']
         self._key_pre = config['app_settings']['kvman_console_token_key_pre']
 
-
     def lookup(self, token):
-
-        client = redis.Redis(self._server,self._port,self._db,self._password)
-        key = self._key_pre + token
-        stuff = client.get(key)
+        if not token:
+            return None
+        arg = token.split(':')
+        uuid = arg[0]
+        real_token = arg[1]
+        client = redis.Redis(self._server, self._port, self._db, self._password)
+        stuff = client.get(self._key_pre + uuid)
         if stuff is None:
             return None
         else:
             data = simplejson.loads(stuff.decode("utf-8"))
-            return [ data['host'], data['port'] ]
+            if data['token'] == real_token:
+                return [data['host'], data['port']]
+        return None
 
 
 if __name__ == "__main__":

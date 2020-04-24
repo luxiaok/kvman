@@ -120,24 +120,30 @@ class kvm:
         return dom
 
 
-    def getVncAddress(self,name):
+    def getVncPort(self,name):
+        if not self.conn:
+            return 0
         guest = self.getGuest(name)
         raw_xml = guest.XMLDesc(0)
         xml = minidom.parseString(raw_xml)
         graphics = xml.getElementsByTagName('graphics')
         port = -1
-        address = ''
         for i in graphics:
             if i.getAttribute('type') == 'vnc':
                 port = i.getAttribute('port')
-                address = i.getAttribute('listen')
+                #address = i.getAttribute('listen')
                 #print "VNC: %s - %s" % (address,port)
             #listen = i.getElementsByTagName('listen')
             #for x in listen:
             #    print 'VNC Listen: %s - %s' % (x.getAttribute('type'),x.getAttribute('address'))
-        if address in ['','0.0.0.0']:
-            address = '127.0.0.1'
-        return {'host': address, 'port': int(port)}
+        return int(port)
+
+
+    def getGuestUUID(self,name):
+        if not self.conn:
+            return None
+        guest = self.getGuest(name)
+        return guest.UUIDString()
 
 
     # disks = xml.getElementsByTagName('disk')

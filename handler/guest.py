@@ -104,14 +104,16 @@ class ConsoleHandler(BaseHandler):
 
     @Auth
     def get(self):
-        token = self.get_argument('token')
-        key = "%s%s" % (self.application.settings['kvman_console_token_key_pre'],token)
+        uuid = self.get_argument('uuid','')
+        token = self.get_argument('token','')
+        key = "%s%s" % (self.application.settings['kvman_console_token_key_pre'],uuid)
         stuff = self.redis.get(key)
         guest = ''
+        port = 6080 # WebSocket Server Port
         if stuff:
             data = json.loads(stuff)
             guest = data['guest']
-        self.render('guest/console.html',guest=guest,token=token)
+        self.render('guest/console.html',guest=guest,port=port,uuid=uuid,token=token)
 
 
     # 生成远程访问的Token
@@ -120,26 +122,27 @@ class ConsoleHandler(BaseHandler):
         guest = self.get_argument('guest',None)
         if not guest:
             return self.returnJson({'code': -1, 'msg': u'该主机不存在！'})
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        address = k.getVncAddress(guest)
-        if not address['port'] or address['port'] == -1:
-            return self.returnJson({'code': -1, 'msg': u'该主机未开机！'})
-        data = {
-            'guest': guest,
-            'host': address['host'], # VNC Server Adress
-            'port': address['port']  # VNC Port
-        }
-        token = fun.random_str(64)
-        key_pre = self.application.settings['kvman_console_token_key_pre']
-        key_expire = self.application.settings['kvman_console_token_expire']
-        self.redis.setex(key_pre+token,key_expire,json.dumps(data))
-        ret = {
-            'guest': guest,
-            'token': token,
-            'port': 6080 # WebSocket Port
-        }
-        self.returnJson({'code': 0, 'data': ret, 'msg': 'success'})
+        port = self.kvm.getVncPort(guest)
+        if port > 0:
+            token = fun.random_str(64)
+            vnc = {
+                'guest': guest,
+                'token': token,
+                'host': self.kvm_sid, # VNC Server Hostname, use Kvm Server Address
+                'port': port # VNC Port
+            }
+            guest_uuid = self.kvm.getGuestUUID(guest)
+            key_pre = self.application.settings['kvman_console_token_key_pre']
+            key_expire = self.application.settings['kvman_console_token_expire']
+            self.redis.setex(key_pre + guest_uuid, key_expire, json.dumps(vnc))
+            data = {
+                'guest': guest,
+                'uuid': guest_uuid,
+                'token': token
+            }
+            self.returnJson({'code': 0, 'data': data, 'msg': 'success'})
+        else:
+            self.returnJson({'code': -1, 'msg': u'该主机未开机！'})
 
 
 # 退出远程连接
@@ -147,7 +150,7 @@ class ConsoleExitHandler(BaseHandler):
 
     @Auth
     def post(self):
-        token = self.get_argument('token')
-        key = "%s%s" % (self.application.settings['kvman_console_token_key_pre'], token)
+        uuid = self.get_argument('uuid')
+        key = "%s%s" % (self.application.settings['kvman_console_token_key_pre'], uuid)
         self.redis.delete(key)
         return self.returnJson({'code': 0, 'msg': 'success'})
