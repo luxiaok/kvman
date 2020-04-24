@@ -3,6 +3,8 @@
 # Powered By Luxiaok
 
 import libvirt
+import json
+from libvirt_qemu import qemuAgentCommand
 from xml.dom import minidom
 
 
@@ -251,14 +253,19 @@ class kvm:
         network = self.getInterfaces(xml.getElementsByTagName('interface'))
         state, reason = guest.state()
         try:
+            cmd = '{"execute": "guest-info"}'
+            result = qemuAgentCommand(guest, cmd, 3, 0)
+            data = json.loads(result)
+            qga_version = data['return']['version']
+        except Exception, e:
+            qga_version = ''
+        try:
             hostname = guest.hostname()
             ip = self.getIPAddress(guest)
-            qga = 1
         except Exception, e:
             #print e.message # Guest agent is not responding: QEMU guest agent is not connected
             hostname = ''
             ip = {'ip':[]}
-            qga = 0
         detail = {
             'id': guest.ID(),
             'uuid': guest.UUIDString(),
@@ -273,7 +280,7 @@ class kvm:
             'hdd': hdd,
             'network': network,
             'autostart': guest.autostart(),
-            'qga': qga,
+            'qga_version': qga_version,
             'state': state,
             'status': guest.isActive()
         }

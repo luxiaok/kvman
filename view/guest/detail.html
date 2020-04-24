@@ -74,7 +74,7 @@
         </div>
         <label for="" class="col-sm-1 col-form-label">QGA</label>
         <div class="col-sm-5">
-            <div class="pt-2">{% if guest.qga %}<span style="color:green;">运行中</span>{% else %}<span style="color:red;">未运行或未安装qemu-guest-ga</span>{% endif %}</div>
+            <div class="pt-2">{% if guest.qga_version %}v{{ guest.qga_version }}{% else %}<span style="color:red;">未运行或未安装qemu-guest-ga</span>{% endif %}</div>
         </div>
     </div>
 </form>
