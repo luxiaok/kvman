@@ -4,6 +4,8 @@
 
 import libvirt
 import json
+import base64
+import time
 from libvirt_qemu import qemuAgentCommand
 from xml.dom import minidom
 
@@ -253,6 +255,19 @@ class kvm:
         return {'ip':ip,'interfaces':interfaces}
 
 
+    # 开机时间：Just for Linux
+    def getBootTime(self,guest):
+        cmd = '{"execute": "guest-exec","arguments":{"path":"/bin/cat","arg":["/proc/uptime"],"capture-output":true}}'
+        data = self.qemuAgentCommand(guest,cmd)
+        pid = data['pid']
+        time.sleep(2)
+        cmd = '{"execute": "guest-exec-status","arguments":{"pid":%s}}' % pid
+        data = self.qemuAgentCommand(guest,cmd) # exitcode:0,out-data:Base64Encode,exited:true
+        result = base64.b64decode(data['out-data'])
+        uptime = result.split(' ')
+        return int(time.time()-float(uptime[0]))
+
+
     def getGuestDetail(self,name):
         if not self.conn:
             return None
@@ -296,6 +311,7 @@ class kvm:
             'network': network,
             'autostart': guest.autostart(),
             'qga_version': qga_version,
+            #'uptime': self.getBootTime(guest),
             'state': state,
             'status': guest.isActive()
         }
