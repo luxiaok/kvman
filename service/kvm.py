@@ -122,6 +122,17 @@ class kvm:
         return dom
 
 
+    def qemuAgentCommand(self,guest,cmd,timeout=3,flag=0):
+        try:
+            stuff = qemuAgentCommand(guest, cmd, timeout, flag)
+            result = json.loads(stuff)
+            data = result['return']
+        except Exception, e:
+            #print e.message
+            data = {}
+        return data
+
+
     def getVncPort(self,name):
         if not self.conn:
             return 0
@@ -252,19 +263,15 @@ class kvm:
         hdd = self.getDisk(xml.getElementsByTagName('disk'))
         network = self.getInterfaces(xml.getElementsByTagName('interface'))
         state, reason = guest.state()
-        try:
-            ## get qemu guest agent version
-            cmd = '{"execute": "guest-info"}'
-            result = qemuAgentCommand(guest, cmd, 3, 0)
-            data = json.loads(result)
-            qga_version = data['return']['version']
-            ## get guest os info
-            cmd = '{"execute": "guest-get-osinfo"}'
-            result = qemuAgentCommand(guest, cmd, 3, 0)
-            data = json.loads(result)
-            guest_os = data['return'].get('pretty-name','')
-        except Exception, e:
+        qga_version = self.qemuAgentCommand(guest,'{"execute": "guest-info"}')
+        if qga_version:
+            qga_version = qga_version['version']
+        else:
             qga_version = ''
+        guest_os = self.qemuAgentCommand(guest,'{"execute": "guest-get-osinfo"}')
+        if guest_os:
+            guest_os = guest_os.get('pretty-name','')
+        else:
             guest_os = ''
         try:
             hostname = guest.hostname()
