@@ -3,9 +3,79 @@
 {% block body %}
 <div class="row mt-4 mb-3">
     <div class="col-sm"><h5>实例详情</h5></div>
-    <div class="col-sm"><div class="float-right"><a href="/guest" class="btn btn-primary btn-sm"><i class="fa fa-fw fa-arrow-left"></i> 返回</a></div></div>
+    <div class="col-sm">
+        <div class="float-right">
+            <div class="btn-group" role="group">
+                <a href="/guest" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-arrow-left"></i>返回</a>
+                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-television"></i>远程连接</button>
+                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-circle-o-notch"></i>开机</button>
+                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-power-off"></i>关机</button>
+                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-refresh"></i>重启</button>
+                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-fw fa-trash"></i>销毁</button>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="mb-5 text-center">
-    {{ name }}
-</div>
+<form class="pr-5 pl-5">
+    <div class="form-group row">
+        <label for="name" class="col-sm-1 col-form-label">实例名称</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" id="name" value="{{ name }}">
+        </div>
+        <label for="uuid" class="col-sm-1 col-form-label">UUID</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" id="uuid" value="{{ guest.uuid }}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="" class="col-sm-1 col-form-label">标 题</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="{{ guest.title }}">
+        </div>
+        <label for="" class="col-sm-1 col-form-label">描 述</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="{{ guest.desc }}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="" class="col-sm-1 col-form-label">操作系统</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="">
+        </div>
+        <label for="" class="col-sm-1 col-form-label">CPUs</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="{{ guest.cpu }}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="" class="col-sm-1 col-form-label">硬 盘</label>
+        <div class="col-sm-5">
+            <div class="pt-2">{{ '<br>'.join(guest.hdd) }}</div>
+        </div>
+        <label for="" class="col-sm-1 col-form-label">内 存</label>
+        <div class="col-sm-5">
+            <div class="pt-2">{{ guest.mem }}</div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="" class="col-sm-1 col-form-label">主机名</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="{{ guest.hostname }}">
+        </div>
+        <label for="" class="col-sm-1 col-form-label">IP地址</label>
+        <div class="col-sm-5">
+            <div class="pt-2">{{ '<br>'.join(guest.network) }}</div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="" class="col-sm-1 col-form-label">开机时间</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="">
+        </div>
+        <label for="" class="col-sm-1 col-form-label">QGA</label>
+        <div class="col-sm-5">
+            <input type="text" readonly class="form-control-plaintext" value="">
+        </div>
+    </div>
+</form>
 {% endblock %}

@@ -218,6 +218,35 @@ class kvm:
         return sorted(guests,key=lambda item : item['name']) # Sort by Name
 
 
+    def getGuestDetail(self,name):
+        if not self.conn:
+            return None
+        guest = self.getGuest(name)
+        raw_xml = guest.XMLDesc(0)
+        xml = minidom.parseString(raw_xml)
+        state, maxmem, mem, cpus, cpu_time = guest.info()
+        hdd = self.getDisk(xml.getElementsByTagName('disk'))
+        network = self.getInterfaces(xml.getElementsByTagName('interface'))
+        state, reason = guest.state()
+        detail = {
+            'id': guest.ID(),
+            'uuid': guest.UUIDString(),
+            'name': guest.name(),
+            'hostname': guest.hostname(),
+            'title': guest.metadata(libvirt.VIR_DOMAIN_METADATA_TITLE, None),
+            'desc': guest.metadata(libvirt.VIR_DOMAIN_METADATA_DESCRIPTION, None),
+            'os_type': guest.OSType(),  # return "hvm", useless!
+            'cpu': cpus,
+            'mem': self.formatNum(mem * 1024),  # unit: KiB
+            'hdd': hdd,
+            'network': network,
+            'autostart': guest.autostart(),
+            'state': state,
+            'status': guest.isActive()
+        }
+        return detail
+
+
     def setAutostart(self,name,flag):
         guest = self.getGuest(name)
         return guest.setAutostart(flag)

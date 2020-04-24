@@ -95,8 +95,8 @@ class DetailHandler(BaseHandler):
     @Auth
     def get(self):
         name = self.get_argument('name')
-        guest = self.kvm.getGuest(name)
-        self.render('guest/detail.html',name=name)
+        guest = self.kvm.getGuestDetail(name)
+        self.render('guest/detail.html',name=name,guest=guest)
 
 
 # 远程连接
