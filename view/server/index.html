@@ -28,7 +28,7 @@
             <td id="port_{{ loop.index }}">{{ d.port }}</td>
             <td id="protocol_{{ loop.index }}">{{ d.protocol }}</td>
             <td id="username_{{ loop.index }}" data-password="{{ d.password or '' }}">{{ d.username or '' }}</td>
-            <td><a href="/guest?server={{ d.hostname }}">{{ d.guests or '' }}</a></td>
+            <td><a href="/guest?sid={{ d.hostname }}">{{ d.guests or '' }}</a></td>
             <td id="comments_{{ loop.index }}">{{ d.comments }}</td>
             <td>{% if d.online %}<span style="color:green;">在线</span>{% else %}<span style="color:red;">离线</span>{% endif %}</td>
             <td>
