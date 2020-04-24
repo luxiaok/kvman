@@ -218,6 +218,26 @@ class kvm:
         return sorted(guests,key=lambda item : item['name']) # Sort by Name
 
 
+    def getIPAddress(self,guest,ignore127=True,ignoreIPv6=True):
+        ifaces = guest.interfaceAddresses(libvirt.VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_AGENT, 0)
+        interfaces = {}
+        for (name, val) in ifaces.iteritems():
+            interfaces[name] = {'name': name}
+            if name == 'lo': continue
+            if val['hwaddr']:
+                interfaces[name]['mac'] = val['hwaddr']
+            if val['addrs']:
+                for ipaddr in val['addrs']:
+                    if ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV4:
+                        if ipaddr['addr'].startswith('127.0') and ignore127:
+                            del(interfaces[name])
+                            continue
+                        interfaces[name]['ipv4'] = {'address': ipaddr['addr'], 'netmask': ipaddr['prefix']}
+                    elif ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV6 and not ignoreIPv6:
+                        interfaces[name]['ipv6'] = {'address': ipaddr['addr'], 'netmask': ipaddr['prefix']}
+        return interfaces
+
+
     def getGuestDetail(self,name):
         if not self.conn:
             return None
