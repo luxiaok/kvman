@@ -81,7 +81,7 @@
         </div>
         <label for="" class="col-sm-1 col-form-label" title="QEMU Guest Agent" data-toggle="tooltip">QGA版本</label>
         <div class="col-sm-5">
-            <div class="pt-2" title="QEMU Guest Agent">{% if guest.qga_version %}{{ guest.qga_version }}{% else %}<span style="color:red;">未运行或未安装qemu-guest-ga</span>{% endif %}</div>
+            <div class="pt-2">{% if guest.qga_version %}<span title="QEMU Guest Agent" data-toggle="tooltip">{{ guest.qga_version }}</span>{% else %}<span style="color:red;">客户机未运行qemu-guest-agent</span>{% endif %}</div>
         </div>
     </div>
 </form>
