@@ -253,12 +253,19 @@ class kvm:
         network = self.getInterfaces(xml.getElementsByTagName('interface'))
         state, reason = guest.state()
         try:
+            ## get qemu guest agent version
             cmd = '{"execute": "guest-info"}'
             result = qemuAgentCommand(guest, cmd, 3, 0)
             data = json.loads(result)
             qga_version = data['return']['version']
+            ## get guest os info
+            cmd = '{"execute": "guest-get-osinfo"}'
+            result = qemuAgentCommand(guest, cmd, 3, 0)
+            data = json.loads(result)
+            guest_os = data['return'].get('pretty-name','')
         except Exception, e:
             qga_version = ''
+            guest_os = ''
         try:
             hostname = guest.hostname()
             ip = self.getIPAddress(guest)
@@ -275,6 +282,7 @@ class kvm:
             'title': guest.metadata(libvirt.VIR_DOMAIN_METADATA_TITLE, None),
             'desc': guest.metadata(libvirt.VIR_DOMAIN_METADATA_DESCRIPTION, None),
             'os_type': guest.OSType(),  # return "hvm", useless!
+            'os': guest_os,
             'cpu': cpus,
             'mem': self.formatNum(mem * 1024),  # unit: KiB
             'hdd': hdd,
