@@ -220,6 +220,7 @@ class kvm:
 
     def getIPAddress(self,guest,ignore127=True,ignoreIPv6=True):
         ifaces = guest.interfaceAddresses(libvirt.VIR_DOMAIN_INTERFACE_ADDRESSES_SRC_AGENT, 0)
+        ip = []
         interfaces = {}
         for (name, val) in ifaces.iteritems():
             interfaces[name] = {'name': name}
@@ -233,9 +234,10 @@ class kvm:
                             del(interfaces[name])
                             continue
                         interfaces[name]['ipv4'] = {'address': ipaddr['addr'], 'netmask': ipaddr['prefix']}
+                        ip.append(ipaddr['addr'])
                     elif ipaddr['type'] == libvirt.VIR_IP_ADDR_TYPE_IPV6 and not ignoreIPv6:
                         interfaces[name]['ipv6'] = {'address': ipaddr['addr'], 'netmask': ipaddr['prefix']}
-        return interfaces
+        return {'ip':ip,'interfaces':interfaces}
 
 
     def getGuestDetail(self,name):
@@ -248,11 +250,21 @@ class kvm:
         hdd = self.getDisk(xml.getElementsByTagName('disk'))
         network = self.getInterfaces(xml.getElementsByTagName('interface'))
         state, reason = guest.state()
+        try:
+            hostname = guest.hostname()
+            ip = self.getIPAddress(guest)
+            qga = 1
+        except Exception, e:
+            #print e.message # Guest agent is not responding: QEMU guest agent is not connected
+            hostname = ''
+            ip = {'ip':[]}
+            qga = 0
         detail = {
             'id': guest.ID(),
             'uuid': guest.UUIDString(),
             'name': guest.name(),
-            'hostname': guest.hostname(),
+            'hostname': hostname,
+            'ip': ip['ip'] or network,
             'title': guest.metadata(libvirt.VIR_DOMAIN_METADATA_TITLE, None),
             'desc': guest.metadata(libvirt.VIR_DOMAIN_METADATA_DESCRIPTION, None),
             'os_type': guest.OSType(),  # return "hvm", useless!
@@ -261,6 +273,7 @@ class kvm:
             'hdd': hdd,
             'network': network,
             'autostart': guest.autostart(),
+            'qga': qga,
             'state': state,
             'status': guest.isActive()
         }
