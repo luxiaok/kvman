@@ -20,8 +20,9 @@ class kvm:
 
 
     def __init__(self,uri=None):
-        self._code = 0
-        self._msg = 'success'
+        #print 'Init kvm service ...'
+        self.code = 0
+        self.msg = 'success'
         if uri:
             if isinstance(uri,str):
                 self.uri = uri
@@ -53,19 +54,19 @@ class kvm:
 
     def openConnect(self,uri):
         if not uri:
-            self._code = -500
-            self._msg = 'Not uri'
+            self.code = -500
+            self.msg = 'Not uri'
             return None
         try:
             # conn = libvirt.openReadOnly(uri)
             conn = libvirt.open(uri)
         except libvirt.libvirtError, e:
-            self._code = -501
-            self._msg = e.message
+            self.code = -501
+            self.msg = e.message
             conn = None
         except Exception, e:
-            self._code = -502
-            self._msg = e.message
+            self.code = -502
+            self.msg = e.message
             conn = None
         return conn
 
@@ -75,6 +76,11 @@ class kvm:
 
 
     def getVersion(self):
+        if not self.conn:
+            return {
+                'libvirt': 'UnKnown',
+                'qemu': 'UnKnown'
+            }
         lv = str(self.conn.getLibVersion())
         qv = str(self.conn.getVersion())
         libvirt_version = [str(lv[0]),str(int(lv[1:4])),str(int(lv[4:]))]
@@ -116,12 +122,12 @@ class kvm:
             dom = self.conn.lookupByName(name)
         except libvirt.libvirtError, e:
             dom = None
-            self._code = -1
-            self._msg = e.message
+            self.code = -1
+            self.msg = e.message
         except Exception, e:
             dom = None
-            self._code = -2
-            self._msg = 'Not found guest: ' + name
+            self.code = -2
+            self.msg = 'Not found guest: ' + name
         return dom
 
 
@@ -243,8 +249,8 @@ class kvm:
         if result == 0:
             return True
         else:
-            self._code = -1
-            self._msg = 'Halt failed'
+            self.code = -1
+            self.msg = 'Halt failed'
             return False
 
 
@@ -255,8 +261,8 @@ class kvm:
         if dom.reboot() == 0:
             return True
         else:
-            self._code = -1
-            self._msg = 'Reboot fail'
+            self.code = -1
+            self.msg = 'Reboot fail'
             return False
 
 

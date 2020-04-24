@@ -26,11 +26,15 @@ class BaseHandler(tornado.web.RequestHandler,KvmanHandler):
 
     def before_request(self):
         # 当前管理的KvmServerID
-        self.kvm_sid = self.get_argument('sid',self.session.data.get('kvm_sid',None))
+        if self.session.isGuest:
+            self.kvm_sid = None
+        else:
+            self.kvm_sid = self.get_argument('sid',self.session.data.get('kvm_sid',None))
 
     def after_request(self):
         # 缓存 kvm_sid 到 Session
-        self.session.data['kvm_sid'] = self.kvm_sid
+        if not self.session.isGuest and self.kvm_sid_update:
+            self.session.data['kvm_sid'] = self.kvm_sid
         # 更新Session
         self.session.save()
         # 请求逻辑处理结束时关闭数据库连接，如果不关闭可能会造成MySQL Server has gone away 2006错误

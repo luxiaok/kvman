@@ -5,7 +5,6 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
-from service.kvm import kvm
 import json
 
 
@@ -14,14 +13,17 @@ class IndexHandler(BaseHandler):
     @Auth
     def get(self):
         servers = self.get_kvm_server()
+        self.kvm_sid_update = False
         for i in servers:
-            k = kvm(i)
-            i['guests'] = k.getGuestsNum()
-            if k._code == 0:
+            self.kvm_sid = i['hostname']
+            self.get_kvm_instance(True)
+            i['guests'] = self.kvm.getGuestsNum()
+            if self.kvm.code == 0:
                 i['online'] = 1
-                k.close()
+                self.kvm.close()
             else:
                 i['online'] = 0
+                #print "Kvm Instance: %s - %s" % (self.kvm.code,self.kvm.msg)
         self.render('server/index.html',data=sorted(servers,key=lambda item : item['hostname'])) # Sort by hostname
 
 
@@ -87,8 +89,8 @@ class UpdateHandler(BaseHandler):
         self.redis.hset(self.application.settings['kvm_servers_key'], hostname, json.dumps(host))
         if delete_host0:
             self.redis.hdel(self.application.settings['kvm_servers_key'], hostname0)
-            if hostname0 == self.session.data.get('kvm_sid', None):
-                self.session.data['kvm_sid'] = hostname
+            if hostname0 == self.kvm_sid:
+                self.kvm_sid = hostname
         return self.returnJson({'code': 0, 'msg': u'保存成功！'})
 
 
@@ -102,6 +104,7 @@ class DeleteHandler(BaseHandler):
         if not host:
             return self.returnJson({'code': -1, 'msg': u'Kvm主机已被删除或不存在！'})
         self.redis.hdel(self.application.settings['kvm_servers_key'], hostname)
-        if hostname == self.session.data.get('kvm_sid',None):
+        if hostname == self.kvm_sid:
+            self.kvm_sid_update = False
             del(self.session.data['kvm_sid'])
         return self.returnJson({'code': 0, 'msg': u'删除成功！'})

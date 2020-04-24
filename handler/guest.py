@@ -27,6 +27,7 @@ class IndexHandler(BaseHandler):
     @Auth
     def get(self):
         guests = self.kvm.getGuests()
+        #print "Kvm Instance: %s - %s" % (self.kvm.code,self.kvm.msg)
         status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
         self.render('guest/index.html',guests=guests,status=status,state=guest_status)
 
@@ -52,7 +53,7 @@ class StartHandler(BaseHandler):
             msg = u'已开机！'
         else:
             code = -1
-            msg = u'开机失败：%s' % self.kvm._msg
+            msg = u'开机失败：%s' % self.kvm.msg
         self.returnJson({'code': code, 'msg': msg})
 
 
@@ -69,7 +70,7 @@ class ShutdownHandler(BaseHandler):
             msg = u'正在关机……'
         else:
             code = -1
-            msg = u'关机失败：%s' % self.kvm._msg
+            msg = u'关机失败：%s' % self.kvm.msg
         self.returnJson({'code': code, 'msg': msg})
 
 
@@ -79,7 +80,7 @@ class RebootHandler(BaseHandler):
     def post(self):
         name = self.get_argument('name')
         result = self.kvm.rebootGuest(name)
-        self.returnJson({'code':0,'result':result,'msg':self.kvm._msg})
+        self.returnJson({'code':0,'result':result,'msg':self.kvm.msg})
 
 
 class CreateGuestHandler(BaseHandler):
@@ -94,9 +95,7 @@ class DetailHandler(BaseHandler):
     @Auth
     def get(self):
         name = self.get_argument('name')
-        sid = self.get_argument('sid', None)
-        k = self.kvm(sid)
-        guest = k.getGuest(name)
+        guest = self.kvm.getGuest(name)
         self.render('guest/detail.html',name=name)
 
 

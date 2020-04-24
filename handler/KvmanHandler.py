@@ -8,7 +8,9 @@ from service.kvm import kvm
 
 class KvmanHandler:
 
-    kvm_sid_update = True # Invoke set_kvm_sid
+    ### Kvm Object Instance
+    __kvm__ = None
+    kvm_sid_update = True
 
     # 获取 Kvm Server 配置
     def get_kvm_server(self, hostname=None):
@@ -28,9 +30,10 @@ class KvmanHandler:
                 servers = []
         return servers
 
-    @property
-    def kvm(self):
-        print 'Invoke self.kvm ...'
+
+    def get_kvm_instance(self,renew=False):
+        if self.__kvm__ and not renew:
+            return True
         if self.kvm_sid:
             server = self.get_kvm_server(self.kvm_sid)
         else:
@@ -41,4 +44,9 @@ class KvmanHandler:
                 self.kvm_sid = server['hostname']
             else:
                 server = None
-        return kvm(server)
+        self.__kvm__ = kvm(server)
+
+    @property
+    def kvm(self):
+        self.get_kvm_instance()
+        return self.__kvm__
