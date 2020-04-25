@@ -27,11 +27,11 @@ $(function () {
     };
 
     const _global = {
-        R: function () {
-            let _r = {};
-            for (let item in route) {
-                if (route[item].hasOwnProperty('uri')) {
-                    _r[route[item].uri] = route[item].init;
+        get_routes: function () {
+            let _r = {}, i;
+            for (i in route) {
+                if (route[i].hasOwnProperty('uri')) {
+                    _r[route[i].uri] = route[i];
                 }
             }
             return _r;
@@ -40,9 +40,9 @@ $(function () {
             //全局初始化
             _base_init();
             //基于页面的初始化
-            const routes = this.R();
+            const routes = this.get_routes();
             if (routes.hasOwnProperty(kvman.uri)) {
-                routes[kvman.uri](); //init for route
+                routes[kvman.uri].init(); //init for current route
             }
         }
     };
