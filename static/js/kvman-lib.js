@@ -465,11 +465,11 @@ route.Setting = {
                     } else if (code < 0) {
                         layer.msg(msg);
                     } else {
-                        layer.alert('保存失败，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                        layer.alert('保存失败，请稍后再试！', {title: 'KvMan提示', icon: 0});
                     }
                 },
                 error: function () {
-                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 2});
                 }
             });
         });
@@ -529,11 +529,11 @@ route.Install = {
                     } else if (code < 0) {
                         layer.msg(msg);
                     } else {
-                        layer.alert('保存失败，请检查您的部署环境！', {title: 'KvMan提示', icon: 3});
+                        layer.alert('保存失败，请检查您的部署环境！', {title: 'KvMan提示', icon: 0});
                     }
                 },
                 error: function () {
-                    layer.alert('系统错误，请检查您的部署环境！', {title: 'KvMan提示', icon: 3});
+                    layer.alert('系统错误，请检查您的部署环境！', {title: 'KvMan提示', icon: 2});
                 }
             });
         });
@@ -595,11 +595,11 @@ route.Passwd = {
                     } else if (code < 0) {
                         layer.msg(msg);
                     } else {
-                        layer.alert('修改密码失败，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                        layer.alert('修改密码失败，请稍后再试！', {title: 'KvMan提示', icon: 0});
                     }
                 },
                 error: function () {
-                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 2});
                 }
             });
         });
@@ -644,12 +644,12 @@ route.Login = {
                     } else if (code < 0) {
                         layer.msg(msg);
                     } else {
-                        layer.alert('登录失败，请稍后再试！', {title: '登录提示', icon: 3}); //icon = ?
+                        layer.alert('登录失败，请稍后再试！', {title: '登录提示', icon: 0}); //icon = !
                     }
                 },
                 error: function () {
                     layer.close(loading);
-                    layer.alert('系统繁忙，请稍后再试！', {title: '登录提示', icon: 3}); // icon = ?
+                    layer.alert('系统繁忙，请稍后再试！', {title: '登录提示', icon: 2}); // icon = x
                 }
             });
         });
