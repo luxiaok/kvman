@@ -4,14 +4,9 @@
  * https://github.com/luxiaok/kvman
  * */
 
-import { hello,route,k } from './kvman-lib.js';
-//hello(123);
+import { k,route } from './kvman-lib.js?_v=20.4.25';
 
 $(function () {
-
-    //hello(123);
-    //route.hello();
-    //k.log(k.random(10));
 
     var debug = true;
 

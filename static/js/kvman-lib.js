@@ -8,10 +8,7 @@
 //    console.log('Call default');
 //}
 
-//Hello
-export function hello(msg) {
-    console.log(msg);
-}
+/******** Base Module ********/
 
 export const k = {
     get_time: function () {
@@ -42,7 +39,7 @@ export const k = {
     }
 };
 
-/**********  Route **********/
+/***********  Route ***********/
 
 export const route = {};
 
