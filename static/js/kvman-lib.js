@@ -275,6 +275,13 @@ route.Guest = {
                 status = $(this).data('status');
             guest_console(name,status);
         });
+
+        //销毁虚拟机
+        $('.destroy-btn').click(function () {
+            var name = $(this).val().trim(),
+                status = $(this).data('status');
+            guest_destroy(name,status);
+        });
     }
 };
 
