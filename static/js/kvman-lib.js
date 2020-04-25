@@ -539,3 +539,69 @@ route.Install = {
         });
     }
 };
+
+
+route.Passwd = {
+    uri: '/user/passwd',
+    init: function () {
+        //保存
+        $('#passwdBtn').click(function () {
+            var password0 = $('#password0').val().trim(),
+                password = $('#password').val().trim(),
+                password2 = $('#password2').val().trim();
+            if (password0 === '') {
+                layer.msg('请输入原始密码！');
+                $('#password0').focus();
+                return false;
+            }
+            if (password === '') {
+                layer.msg('请输入新密码！');
+                $('#password').focus();
+                return false;
+            }
+            if (password2 === '') {
+                layer.msg('请再次输入新密码！');
+                $('#password2').focus();
+                return false;
+            }
+            if (password0 === password) {
+                layer.msg('新旧密码相同，请重新输入！');
+                $('#password0').val('');
+                $('#password').val('');
+                $('#password2').val('');
+                $('#password0').focus();
+                return false;
+            }
+            if (password !== password2) {
+                layer.msg('两次新密码输入不一致，请重新输入！');
+                $('#password').val('');
+                $('#password2').val('');
+                $('#password').focus();
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "/user/passwd",
+                data: {password0: password0, password: password, password2: password2},
+                dataType: "json",
+                success: function (resp) {
+                    var code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        layer.alert(msg, {title: '密码修改提示', icon: 1});
+                        $('#password0').val('');
+                        $('#password').val('');
+                        $('#password2').val('');
+                    } else if (code < 0) {
+                        layer.msg(msg);
+                    } else {
+                        layer.alert('修改密码失败，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                    }
+                },
+                error: function () {
+                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 3});
+                }
+            });
+        });
+    }
+};
