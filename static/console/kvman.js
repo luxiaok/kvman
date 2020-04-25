@@ -8,12 +8,11 @@
 import RFB from './core/rfb.js';
 
 const init = function () {
-    let rfb;
-    let desktopName;
+    let rfb, desktopName;
 
     // When this function is called we have successfully connected to a server
     function connectedToServer(e) {
-        status("Connected to " + desktopName);
+        status("已连接 " + desktopName);
         document.getElementById('status').style.color = '#fff';
     }
 
@@ -21,9 +20,9 @@ const init = function () {
     function disconnectedFromServer(e) {
         document.getElementById('status').style.color = 'yellow';
         if (e.detail.clean) {
-            status("Disconnected");
+            status("已断开连接");
         } else {
-            status("Something went wrong, connection is closed");
+            status("请求出错，连接已断开");
         }
     }
 
@@ -77,13 +76,13 @@ const init = function () {
     const host = readQueryVariable('host', window.location.hostname);
     //let port = readQueryVariable('port', window.location.port);
     let port = document.getElementById('status').getAttribute('data-port');
-    const password = readQueryVariable('password');
-    const uuid = readQueryVariable('uuid', null);
-    const token = readQueryVariable('token', null);
-    const path = 'kvman?token=' + uuid + ':' + token;
+    const password = readQueryVariable('password'),
+          uuid = readQueryVariable('uuid', null),
+          token = readQueryVariable('token', null),
+          path = 'kvman?token=' + uuid + ':' + token;
 
     //Ready for connecting ...
-    status("Connecting");
+    status("正在连接：");
 
     // Build the websocket URL used to connect
     let url;
