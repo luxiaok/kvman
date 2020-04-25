@@ -27,9 +27,7 @@ class IndexHandler(BaseHandler):
     @Auth
     def get(self):
         guests = self.kvm.getGuests()
-        #print "Kvm Instance: %s - %s" % (self.kvm.code,self.kvm.msg)
-        status = [u'<span style="color:#ccc;">已关机</span>',u'<span style="color:green;">运行中</span>']
-        self.render('guest/index.html',guests=guests,status=status,state=guest_status)
+        self.render('guest/index.html',guests=guests,state=guest_status)
 
 
 class AutostartHandler(BaseHandler):
