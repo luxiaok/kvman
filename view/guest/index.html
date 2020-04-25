@@ -41,6 +41,7 @@
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item console-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-television"></i> 远程连接</a>
+                        <a class="dropdown-item" href="/guest/detail?name={{ d.name }}"><i class="fa fa-fw fa-info-circle"></i> 详情</a>
                         <a class="dropdown-item start-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
                         <a class="dropdown-item halt-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-power-off"></i> 关机</a>
                         <a class="dropdown-item reboot-btn" href="javascript:void(0);" data-name="{{ d.name }}" data-status="{{ d.status }}"><i class="fa fa-fw fa-refresh"></i> 重启</a>
