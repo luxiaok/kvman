@@ -4,52 +4,53 @@
  * https://github.com/luxiaok/kvman
  * */
 
+import { hello,route,k } from './kvman-lib.js';
+//hello(123);
+
 $(function () {
 
-    //绑定Tooltip
-    $('[data-toggle="tooltip"]').tooltip();
+    //hello(123);
+    //route.hello();
+    //k.log(k.random(10));
 
+    var debug = true;
 
-    //定义Kvman全局变量
-    kvman = {
+    var kvman = {
         foo: 'bar',
         uri: window.location.pathname //当前页面的URI，不包含问号后面的参数
     };
 
 
-    //获取当前时间，返回格式：yyyy-mm-dd hh:mm:ss
-    kvman.get_time = function(){
-        var _date = new Date(),
-            year = _date.getFullYear(),
-            month = _date.getMonth() + 1, //注意：getMonth返回的数据是0-11
-            day = _date.getDate(),
-            hours = _date.getHours(),
-            minutes = _date.getMinutes(),
-            seconds = _date.getSeconds();
-        month = month < 10 ? '0' + month : month;
-        day = day < 10 ? '0' + day : day;
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+    /** ================ 全局初始化 ================ **/
+
+    var _base_init = function () {
+        if (debug === true) {
+            k.log('Request ' + kvman.uri);
+        }
+        //Tooltip初始化
+        $('[data-toggle="tooltip"]').tooltip();
     };
 
-
-    //控制台带时间的日志输出方法
-    kvman.log = function(logs){
-        var now = '[' + kvman.get_time() + ']';
-        console.log(now,logs);
+    var _global = {
+        R: function () {
+            var _r = {};
+            for (var item in route) {
+                if (route[item].hasOwnProperty('uri')) {
+                    _r[route[item].uri] = route[item].init;
+                }
+            }
+            return _r;
+        },
+        init: function () {
+            //全局初始化
+            _base_init();
+            //基于页面的初始化
+            var routes = this.R();
+            if (routes.hasOwnProperty(kvman.uri)) {
+                routes[kvman.uri](); //init for route
+            }
+        }
     };
 
-
-    //生成随机字符串
-    kvman.random = function(len){
-        if (!len) len = 8; //默认长度
-        var _org_num = Math.random();
-        if (_org_num<0.1) len++; //解决0.0xxxx导致生成随机数位数不足问题
-        var len_num = Math.pow(10,len);
-        return parseInt(_org_num*len_num);
-    };
-
-    kvman.log('Request ' + kvman.uri);
+    _global.init(); //初始化
 });
