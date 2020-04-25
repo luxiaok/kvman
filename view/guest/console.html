@@ -43,6 +43,12 @@
         }
         .btn-sm {
             font-size: 12px;
+            line-height: 1.8;
+            -webkit-border-radius: 0;
+            -moz-border-radius: 0;
+            border-radius: 0;
+            border-top: 0;
+            border-bottom: 0;
         }
         #screen {
             flex: 1; /* fill remaining space */
@@ -56,7 +62,7 @@
         <div id="status" data-port="{{ port }}">Loading</div>
         <div class="top-buttons">
             <div class="btn-group">
-                <a class="btn btn-outline-dark btn-sm" id="exitBtn" data-uuid="{{ uuid }}" href="javascript:void(0);"><i class="fa fa-fw fa-sign-out"></i> 退 出</a>
+                <a class="btn btn-outline-dark btn-sm" id="exitBtn" data-uuid="{{ uuid }}" href="javascript:void(0);" title="退出远程控制"><i class="fa fa-fw fa-sign-out"></i> 退 出</a>
                     <button type="button" class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
