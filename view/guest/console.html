@@ -4,6 +4,9 @@
     <title>{% if guest %}{{ guest }} - {% endif %}Kvm-Man Console</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="{{ static_url('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ static_url('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ static_url('css/kvman.css') }}" rel="stylesheet" type="text/css" />
     <style>
         body {
             margin: 0;
@@ -18,42 +21,66 @@
         #top_bar {
             background-color: #6e84a3;
             color: white;
-            font: bold 12px Helvetica;
-            padding: 6px 5px 4px 5px;
-            border-bottom: 1px outset;
+            font-size: 12px;
+            padding: 5px 5px 4px 5px;
         }
         #status {
             text-align: center;
+        }
+        #top_title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 6px 5px 4px 6px;
         }
         .top-buttons {
             position: fixed;
             top: 0;
             right: 0;
         }
-        .top-buttons button {
-            color: #FFFFFF;
-            border: 1px outset;
-            padding: 5px 5px 4px 5px;
-            background-color: transparent;
-            cursor: pointer;
-            margin-right: 2px;
+        .btn {
+            color: #fff;
         }
-        .top-buttons button:hover {
-            color: #6e84a3;
-            background-color: #FFFFFF;
+        .btn-sm {
+            font-size: 12px;
         }
         #screen {
             flex: 1; /* fill remaining space */
             overflow: hidden;
         }
     </style>
-
+</head>
+<body>
+    <div id="top_bar">
+        <div id="top_title">Kvman Console</div>
+        <div id="status" data-port="{{ port }}">Loading</div>
+        <div class="top-buttons">
+            <div class="btn-group">
+                <a class="btn btn-outline-dark btn-sm" id="exitBtn" data-uuid="{{ uuid }}" href="javascript:void(0);"><i class="fa fa-fw fa-sign-out"></i> 退 出</a>
+                    <button type="button" class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <span class="dropdown-item-text">{{ guest }}</span>
+                        <a class="dropdown-item" href="javascript:void(0);" id="startBtn"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
+                        <a class="dropdown-item" href="javascript:void(0);" id="haltBtn"><i class="fa fa-fw fa-power-off"></i> 关机</a>
+                        <a class="dropdown-item" href="javascript:void(0);" id="rebootBtn"><i class="fa fa-fw fa-refresh"></i> 重启</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:void(0);" id="sendCtrlAltDelButton"><i class="fa fa-fw fa-keyboard-o"></i> 发送 Ctrl+Alt+Del</a>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div id="screen">
+        <!-- This is where the remote screen will appear -->
+    </div>
+    <script src="{{ static_url('js/jquery-2.2.4.min.js') }}" type="text/javascript"></script>
+    <script src="{{ static_url('bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
+    <script src="{{ static_url('layer/layer.js') }}" type="text/javascript"></script>
     <!-- Promise polyfill for IE11 -->
     <script src="{{ static_url('console/vendor/promise.js') }}"></script>
-
     <!-- ES2015/ES6 modules polyfill -->
     <script nomodule src="{{ static_url('console/vendor/browser-es-module-loader/dist/browser-es-module-loader.js') }}"></script>
-
     <!-- actual script modules -->
     <script type="module" crossorigin="anonymous">
         // RFB holds the API to connect and communicate with a VNC server
@@ -62,14 +89,15 @@
         let rfb;
         let desktopName;
 
-        // When this function is called we have
-        // successfully connected to a server
+        // When this function is called we have successfully connected to a server
         function connectedToServer(e) {
             status("Connected to " + desktopName);
+            document.getElementById('status').style.color = '#fff';
         }
 
         // This function is called when we are disconnected
         function disconnectedFromServer(e) {
+            document.getElementById('status').style.color = 'yellow';
             if (e.detail.clean) {
                 status("Disconnected");
             } else {
@@ -110,7 +138,6 @@
         function readQueryVariable(name, defaultValue) {
             // A URL with a query parameter can look like this:
             // https://www.example.com?myqueryparam=myvalue
-            //
             // Note that we use location.href instead of location.search
             // because Firefox < 53 has a bug w.r.t location.search
             const re = new RegExp('.*[?&]' + name + '=([^&#]*)'),
@@ -124,23 +151,19 @@
             return defaultValue;
         }
 
-        document.getElementById('sendCtrlAltDelButton')
-            .onclick = sendCtrlAltDel;
+        document.getElementById('sendCtrlAltDelButton').onclick = sendCtrlAltDel;
 
         // Read parameters specified in the URL query string
         // By default, use the host and port of server that served this file
         const host = readQueryVariable('host', window.location.hostname);
         //let port = readQueryVariable('port', window.location.port);
-        let port = {{ port }};
+        let port = document.getElementById('status').getAttribute('data-port');
         const password = readQueryVariable('password');
         const uuid = readQueryVariable('uuid', null);
         const token = readQueryVariable('token', null);
         const path = 'kvman?token=' + uuid + ':' + token;
 
-        // | | |         | | |
-        // | | | Connect | | |
-        // v v v         v v v
-
+        //Ready for connecting ...
         status("Connecting");
 
         // Build the websocket URL used to connect
@@ -169,55 +192,39 @@
         rfb.viewOnly = readQueryVariable('view_only', false);
         rfb.scaleViewport = readQueryVariable('scale', false);
     </script>
-</head>
-
-<body>
-    <div id="top_bar">
-        <div id="status">Loading</div>
-        <div class="top-buttons">
-            <button type="button" id="exitBtn" title="Exit Console" data-uuid="{{ uuid }}">Exit</button>
-            <button type="button" id="sendCtrlAltDelButton" title="Send Keys: Ctrl + Alt + Del">Send Ctrl+Alt+Del</button>
-        </div>
-    </div>
-    <div id="screen">
-        <!-- This is where the remote screen will appear -->
-    </div>
-<script src="{{ static_url('js/jquery-2.2.4.min.js') }}" type="text/javascript"></script>
-<script src="{{ static_url('layer/layer.js') }}" type="text/javascript"></script>
-<script>
-$(function () {
-
-    //退出
-    $('#exitBtn').click(function () {
-        var uuid = $(this).data('uuid');
-        layer.confirm('您确认退出远程控制吗？', {icon: 3, title: '退出提示'}, function (index) {
-            $.ajax({
-                type: "POST",
-                url: "/guest/console-exit",
-                data: {uuid: uuid},
-                dataType: "json",
-                success: function (resp) {
-                    var code = resp['code'],
-                        msg = resp['msg'];
-                    if (code === 0) {
-                        layer.close(index);
-                        window.close(); //关闭当前窗口
-                    } else if (code < 0) {
-                        layer.close(index);
-                        layer.msg(msg);
-                    } else {
-                        layer.close(index);
-                        layer.alert('操作失败，请稍后再试！', {title: '操作提示', icon: 3});
-                    }
-                },
-                error: function () {
-                    layer.close(index);
-                    layer.alert('系统繁忙，请稍后再试！', {title: '操作提示', icon: 3});
-                }
+    <script>
+        $(function () {
+            //退出
+            $('#exitBtn').click(function () {
+                const uuid = $(this).data('uuid');
+                layer.confirm('您确认退出远程控制吗？', {icon: 3, title: '退出提示'}, function (index) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/guest/console-exit",
+                        data: {uuid: uuid},
+                        dataType: "json",
+                        success: function (resp) {
+                            let code = resp['code'],
+                                msg = resp['msg'];
+                            if (code === 0) {
+                                layer.close(index);
+                                window.close(); //关闭当前窗口
+                            } else if (code < 0) {
+                                layer.close(index);
+                                layer.msg(msg);
+                            } else {
+                                layer.close(index);
+                                layer.alert('操作失败，请稍后再试！', {title: '操作提示', icon: 0});
+                            }
+                        },
+                        error: function () {
+                            layer.close(index);
+                            layer.alert('系统繁忙，请稍后再试！', {title: '操作提示', icon: 2});
+                        }
+                    });
+                });
             });
         });
-    });
-});
-</script>
+    </script>
 </body>
 </html>
