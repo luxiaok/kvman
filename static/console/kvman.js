@@ -41,7 +41,11 @@ const init = function () {
     // Since most operating systems will catch Ctrl+Alt+Del before they get a chance to be intercepted by the browser,
     // we provide a way to emulate this key sequence.
     function sendCtrlAltDel() {
-        rfb.sendCtrlAltDel();
+        layer.confirm('您确认要发送组合键 Ctrl + Alt + Del 吗？<br><span style="color:red;">提示：该操作将有可能导致设备重启！</span>', {icon: 3, title: '操作提示'}, function (index) {
+            rfb.sendCtrlAltDel();
+            layer.close(index);
+            layer.msg('发送成功！');
+        });
         return false;
     }
 

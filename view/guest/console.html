@@ -68,7 +68,6 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <span class="dropdown-item-text">{{ guest }}</span>
-                        <a class="dropdown-item" href="javascript:void(0);" id="startBtn"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</a>
                         <a class="dropdown-item" href="javascript:void(0);" id="haltBtn"><i class="fa fa-fw fa-power-off"></i> 关机</a>
                         <a class="dropdown-item" href="javascript:void(0);" id="rebootBtn"><i class="fa fa-fw fa-refresh"></i> 重启</a>
                         <div class="dropdown-divider"></div>
@@ -77,9 +76,7 @@
                 </div>
         </div>
     </div>
-    <div id="screen">
-        <!-- This is where the remote screen will appear -->
-    </div>
+    <div id="screen"><!-- This is where the remote screen will appear --></div>
     <script src="{{ static_url('js/jquery-2.2.4.min.js') }}" type="text/javascript"></script>
     <script src="{{ static_url('bootstrap/js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
     <script src="{{ static_url('layer/layer.js') }}" type="text/javascript"></script>
