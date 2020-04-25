@@ -18,7 +18,7 @@
 
 const k = {
     get_time: function () {
-        var _date = new Date(),
+        let _date = new Date(),
             year = _date.getFullYear(),
             month = _date.getMonth() + 1, //注意：getMonth返回的数据是0-11
             day = _date.getDate(),
@@ -33,14 +33,14 @@ const k = {
         return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
     },
     log: function (logs) {
-        var now = '[' + this.get_time() + ']';
+        const now = '[' + this.get_time() + ']';
         console.log(now, logs);
     },
     random: function (len) {
         if (!len) len = 8; //默认长度
-        var _org_num = Math.random();
+        let _org_num = Math.random();
         if (_org_num < 0.1) len++; //解决0.0xxxx导致生成随机数位数不足问题
-        var len_num = Math.pow(10, len);
+        let len_num = Math.pow(10, len);
         return parseInt(_org_num * len_num);
     }
 };
@@ -50,7 +50,7 @@ const k = {
 
 /* 虚拟机开机 */
 const guest_start = function (name, status) {
-    var msg = '您确定要将虚拟机 ' + name + ' 开机吗？';
+    let msg = '您确定要将虚拟机 ' + name + ' 开机吗？';
     if (status === 1) {
         layer.alert('该虚拟机已是开机状态！', {title: '开机提示', icon: 0});
         return false;
@@ -62,7 +62,7 @@ const guest_start = function (name, status) {
             data: {name: name},
             dataType: "json",
             success: function (resp) {
-                var code = resp['code'],
+                let code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
                     layer.close(index);
@@ -86,7 +86,7 @@ const guest_start = function (name, status) {
 
 /* 虚拟机关机 */
 const guest_shutdown = function (name, status) {
-    var msg = '您确定要将虚拟机 ' + name + ' 关机吗？';
+    let msg = '您确定要将虚拟机 ' + name + ' 关机吗？';
     if (status === 0) {
         layer.alert('该虚拟机已是关机状态！', {title: '关机提示', icon: 0});
         return false;
@@ -98,7 +98,7 @@ const guest_shutdown = function (name, status) {
             data: {name: name, force: 'no'},
             dataType: "json",
             success: function (resp) {
-                var code = resp['code'],
+                let code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
                     layer.close(index);
@@ -122,7 +122,7 @@ const guest_shutdown = function (name, status) {
 
 /* 虚拟机重启 */
 const guest_reboot = function (name, status) {
-    var msg = '您确定要将虚拟机 ' + name + ' 重启吗？';
+    let msg = '您确定要将虚拟机 ' + name + ' 重启吗？';
     if (status === 0) {
         layer.alert('该虚拟机暂未开机！', {title: '重启提示', icon: 0});
         return false;
@@ -135,7 +135,7 @@ const guest_reboot = function (name, status) {
 
 /* 自动启动 */
 const guest_autostart = function (name, autostart) {
-    var msg, flag;
+    let msg, flag;
     if (autostart === 0) {
         msg = '您确定要将虚拟机 ' + name + ' 设置为自动启动吗？';
         flag = 1;
@@ -150,7 +150,7 @@ const guest_autostart = function (name, autostart) {
             data: {name: name, flag: flag},
             dataType: "json",
             success: function (resp) {
-                var code = resp['code'],
+                let code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
                     layer.close(index);
@@ -184,10 +184,10 @@ const guest_console = function (name, status) {
         data: {guest: name},
         dataType: "json",
         success: function (resp) {
-            var code = resp['code'],
+            let code = resp['code'],
                 msg = resp['msg'];
             if (code === 0) {
-                var url = '/guest/console?uuid=' + resp['data']['uuid'] + '&token=' + resp['data']['token'];
+                let url = '/guest/console?uuid=' + resp['data']['uuid'] + '&token=' + resp['data']['token'];
                 window.open(url);
             } else if (code < 0) {
                 layer.msg(msg);
@@ -203,7 +203,7 @@ const guest_console = function (name, status) {
 
 /* 销毁虚拟机 */
 const guest_destroy = function (name, status) {
-    var msg = '您确定要将虚拟机 ' + name + ' 彻底销毁吗？';
+    let msg = '您确定要将虚拟机 ' + name + ' 彻底销毁吗？';
     if (status === 1) {
         layer.alert('请先将虚拟机关闭！', {title: '销毁提示', icon: 0});
         return false;
@@ -234,42 +234,42 @@ route.Guest = {
     init: function () {
         //开机
         $('.start-btn').click(function () {
-            var name = $(this).data('name'),
+            let name = $(this).data('name'),
                 status = $(this).data('status');
             guest_start(name,status);
         });
 
         //关机
         $('.halt-btn').click(function () {
-            var name = $(this).data('name'),
+            let name = $(this).data('name'),
                 status = $(this).data('status');
             guest_shutdown(name,status);
         });
 
         //重启
         $('.reboot-btn').click(function () {
-            var name = $(this).data('name'),
+            let name = $(this).data('name'),
                 status = $(this).data('status');
             guest_reboot(name,status);
         });
 
         //自动启动
         $('.autostart-btn').click(function () {
-            var name = $(this).data('name'),
+            let name = $(this).data('name'),
                 autostart = $(this).data('autostart');
             guest_autostart(name,autostart);
         });
 
         //远程连接
         $('.console-btn').click(function () {
-            var name = $(this).data('name'),
+            let name = $(this).data('name'),
                 status = $(this).data('status');
             guest_console(name,status);
         });
 
         //销毁虚拟机
         $('.destroy-btn').click(function () {
-            var name = $(this).val().trim(),
+            let name = $(this).val().trim(),
                 status = $(this).data('status');
             guest_destroy(name,status);
         });
@@ -281,35 +281,35 @@ route.GuestDetail = {
     init: function () {
         //开机
         $('#start-btn').click(function () {
-            var name = $('#name').val().trim(),
+            let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_start(name,status);
         });
 
         //关机
         $('#halt-btn').click(function () {
-            var name = $('#name').val().trim(),
+            let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_shutdown(name,status);
         });
 
         //重启
         $('#reboot-btn').click(function () {
-            var name = $('#name').val().trim(),
+            let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_reboot(name,status);
         });
 
         //远程连接
         $('#console-btn').click(function () {
-            var name = $('#name').val().trim(),
+            let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_console(name,status);
         });
 
         //销毁虚拟机
         $('#destroy-btn').click(function () {
-            var name = $('#name').val().trim(),
+            let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_destroy(name,status);
         });
@@ -334,7 +334,7 @@ route.Server = {
 
         //编辑
         $('.edit-btn').click(function () {
-            var id = $(this).data('id'),
+            let id = $(this).data('id'),
                 hostname = $('#hostname_' + id).html().trim(),
                 protocol = $('#protocol_' + id).html().trim(),
                 port = $('#port_' + id).html().trim(),
@@ -354,7 +354,7 @@ route.Server = {
 
         //保存
         $('#saveBtn').click(function () {
-            var hostname0 = $('#saveBtn').data('hostname'),
+            let hostname0 = $('#saveBtn').data('hostname'),
                 hostname = $('#hostname').val().trim(),
                 protocol = $('#protocol').val().trim(),
                 port = $('#port').val().trim(),
@@ -368,7 +368,7 @@ route.Server = {
                 data: {hostname0: hostname0, hostname: hostname, protocol: protocol, port: port, username: username, password: password, comments: comments},
                 dataType: "json",
                 success: function (resp) {
-                    var code = resp['code'],
+                    let code = resp['code'],
                         msg = resp['msg'];
                     if (code === 0) {
                         layer.msg(msg);
@@ -387,7 +387,7 @@ route.Server = {
 
         //删除
         $('.delete-btn').click(function () {
-            var id = $(this).data('id'),
+            let id = $(this).data('id'),
                 hostname = $('#hostname_' + id).html();
             layer.confirm('您确认要删除 ' + hostname + ' 吗？', {icon: 3, title: '删除提示'}, function (index) {
                 $.ajax({
@@ -396,7 +396,7 @@ route.Server = {
                     data: {hostname: hostname},
                     dataType: "json",
                     success: function (resp) {
-                        var code = resp['code'],
+                        let code = resp['code'],
                             msg = resp['msg'];
                         if (code === 0) {
                             $('#row_' + id).slideUp("slow", function () {
@@ -427,7 +427,7 @@ route.Setting = {
     init: function () {
         //保存
         $('#saveBtn').click(function () {
-            var nickname = $('#nickname').val().trim(),
+            let nickname = $('#nickname').val().trim(),
                 username = $('#username').val().trim(),
                 email = $('#email').val().trim();
             if (nickname === '') {
@@ -446,7 +446,7 @@ route.Setting = {
                 data: {username: username, nickname: nickname, email: email},
                 dataType: "json",
                 success: function (resp) {
-                    var code = resp['code'],
+                    let code = resp['code'],
                         msg = resp['msg'];
                     if (code === 0) {
                         layer.msg(msg);
@@ -469,7 +469,7 @@ route.Install = {
     init: function () {
         //保存
         $('#saveBtn').click(function () {
-            var nickname = $('#nickname').val().trim(),
+            let nickname = $('#nickname').val().trim(),
                 username = $('#username').val().trim(),
                 password = $('#password').val().trim(),
                 password2 = $('#password2').val().trim();
@@ -506,7 +506,7 @@ route.Install = {
                 data: {username: username, nickname: nickname, password: password, password2: password2},
                 dataType: "json",
                 success: function (resp) {
-                    var code = resp['code'],
+                    let code = resp['code'],
                         msg = resp['msg'];
                     if (code === 0) {
                         layer.alert(msg, {title: '安装成功提示', icon: 1}, function (index) {
@@ -532,7 +532,7 @@ route.Passwd = {
     init: function () {
         //保存
         $('#passwdBtn').click(function () {
-            var password0 = $('#password0').val().trim(),
+            let password0 = $('#password0').val().trim(),
                 password = $('#password').val().trim(),
                 password2 = $('#password2').val().trim();
             if (password0 === '') {
@@ -571,7 +571,7 @@ route.Passwd = {
                 data: {password0: password0, password: password, password2: password2},
                 dataType: "json",
                 success: function (resp) {
-                    var code = resp['code'],
+                    let code = resp['code'],
                         msg = resp['msg'];
                     if (code === 0) {
                         layer.alert(msg, {title: '密码修改提示', icon: 1});
@@ -597,7 +597,7 @@ route.Login = {
     init: function () {
         //登录
         $('#login_btn').click(function () {
-            var username = $('#username').val().trim(),
+            let username = $('#username').val().trim(),
                 password = $('#password').val().trim();
             if (username === '') {
                 layer.alert('请输入用户名！', {title: '登录提示', icon: 2}, function (index) {
@@ -613,14 +613,14 @@ route.Login = {
                 });
                 return false;
             }
-            var loading = layer.load(1, {shade: [0.4, '#000']});
+            let loading = layer.load(1, {shade: [0.4, '#000']});
             $.ajax({
                 type: "POST",
                 url: "/user/login",
                 data: {username: username, password: password},
                 dataType: "json",
                 success: function (resp) {
-                    var code = resp['code'],
+                    let code = resp['code'],
                         msg = resp['msg'];
                     layer.close(loading);
                     if (code === 0) {

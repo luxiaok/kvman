@@ -8,9 +8,9 @@ import { k,route } from './kvman-lib.js?_v=20.4.25.1';
 
 $(function () {
 
-    var debug = true;
+    const debug = true;
 
-    var kvman = {
+    const kvman = {
         foo: 'bar',
         uri: window.location.pathname //当前页面的URI，不包含问号后面的参数
     };
@@ -18,7 +18,7 @@ $(function () {
 
     /** ================ 全局初始化 ================ **/
 
-    var _base_init = function () {
+    const _base_init = function () {
         if (debug === true) {
             k.log('Request ' + kvman.uri);
         }
@@ -26,10 +26,10 @@ $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     };
 
-    var _global = {
+    const _global = {
         R: function () {
-            var _r = {};
-            for (var item in route) {
+            let _r = {};
+            for (let item in route) {
                 if (route[item].hasOwnProperty('uri')) {
                     _r[route[item].uri] = route[item].init;
                 }
@@ -40,7 +40,7 @@ $(function () {
             //全局初始化
             _base_init();
             //基于页面的初始化
-            var routes = this.R();
+            const routes = this.R();
             if (routes.hasOwnProperty(kvman.uri)) {
                 routes[kvman.uri](); //init for route
             }
