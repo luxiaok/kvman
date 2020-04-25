@@ -15,11 +15,11 @@
         <div class="float-right">
             <div class="btn-group" role="group">
                 <a href="/guest" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-arrow-left"></i>返回</a>
-                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-circle-o-notch"></i>开机</button>
-                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-power-off"></i>关机</button>
-                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-refresh"></i>重启</button>
-                <button type="button" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-television"></i>远程连接</button>
-                <button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-fw fa-trash"></i>销毁</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="start-btn"><i class="fa fa-fw fa-circle-o-notch"></i>开机</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="halt-btn"><i class="fa fa-fw fa-power-off"></i>关机</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="reboot-btn"><i class="fa fa-fw fa-refresh"></i>重启</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="console-btn"><i class="fa fa-fw fa-television"></i>远程连接</button>
+                <button type="button" class="btn btn-outline-danger btn-sm" id="destroy-btn"><i class="fa fa-fw fa-trash"></i>销毁</button>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
     <div class="form-group row">
         <label for="name" class="col-sm-1 col-form-label">实例名称</label>
         <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" id="name" value="{{ name }}">
+            <input type="text" readonly class="form-control-plaintext" id="name" value="{{ name }}" data-status="{{ guest.status }}">
         </div>
         <label for="uuid" class="col-sm-1 col-form-label">UUID</label>
         <div class="col-sm-5">
