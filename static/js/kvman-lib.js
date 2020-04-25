@@ -4,11 +4,6 @@
  * https://github.com/luxiaok/kvman
  * */
 
-//export default function(){
-//    console.log('Call default');
-//}
-
-
 /* Icon图标
  * 0 - 叹号
  * 1 - 打勾
@@ -19,9 +14,9 @@
  * 6 - Smile
  * */
 
-/******** Base Module ********/
+/******** Base Modules ********/
 
-export const k = {
+const k = {
     get_time: function () {
         var _date = new Date(),
             year = _date.getFullYear(),
@@ -49,6 +44,7 @@ export const k = {
         return parseInt(_org_num * len_num);
     }
 };
+
 
 /***********  Route Modules ***********/
 
@@ -88,7 +84,6 @@ const guest_start = function (name, status) {
     });
 };
 
-
 /* 虚拟机关机 */
 const guest_shutdown = function (name, status) {
     var msg = '您确定要将虚拟机 ' + name + ' 关机吗？';
@@ -125,7 +120,6 @@ const guest_shutdown = function (name, status) {
     });
 };
 
-
 /* 虚拟机重启 */
 const guest_reboot = function (name, status) {
     var msg = '您确定要将虚拟机 ' + name + ' 重启吗？';
@@ -138,7 +132,6 @@ const guest_reboot = function (name, status) {
         layer.close(index);
     });
 };
-
 
 /* 自动启动 */
 const guest_autostart = function (name, autostart) {
@@ -179,7 +172,6 @@ const guest_autostart = function (name, autostart) {
     });
 };
 
-
 /* 远程连接 */
 const guest_console = function (name, status) {
     if (status !== 1) {
@@ -209,7 +201,6 @@ const guest_console = function (name, status) {
     });
 };
 
-
 /* 销毁虚拟机 */
 const guest_destroy = function (name, status) {
     var msg = '您确定要将虚拟机 ' + name + ' 彻底销毁吗？';
@@ -223,9 +214,9 @@ const guest_destroy = function (name, status) {
     });
 };
 
+/************ 路由表 ************/
 
-/* 导出路由表 */
-export const route = {};
+const route = {};
 
 route.hello = function(){
     log('hello')
@@ -285,7 +276,6 @@ route.Guest = {
     }
 };
 
-
 route.GuestDetail = {
     uri: '/guest/detail',
     init: function () {
@@ -325,7 +315,6 @@ route.GuestDetail = {
         });
     }
 };
-
 
 route.Server = {
     uri: '/server',
@@ -433,7 +422,6 @@ route.Server = {
     }
 };
 
-
 route.Setting = {
     uri: '/setting',
     init: function () {
@@ -475,7 +463,6 @@ route.Setting = {
         });
     }
 };
-
 
 route.Install = {
     uri: '/setting/install',
@@ -539,7 +526,6 @@ route.Install = {
         });
     }
 };
-
 
 route.Passwd = {
     uri: '/user/passwd',
@@ -606,7 +592,6 @@ route.Passwd = {
     }
 };
 
-
 route.Login = {
     uri: '/user/login',
     init: function () {
@@ -655,3 +640,12 @@ route.Login = {
         });
     }
 };
+
+
+/********** 导出方法 **********/
+
+//export default function(){
+//    k.log('Invoke Default');
+//}
+
+export { k, route };
