@@ -74,3 +74,9 @@ a:hover {
     white-space: nowrap;
     max-width: 460px;
 }
+
+.layui-layer-btn > .layui-layer-btn0:hover, .layui-layer-btn > .layui-layer-btn1:hover {
+    border-color: #343a40;
+    background-color: #343a40;
+    color: #fff;
+}
