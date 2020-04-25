@@ -325,3 +325,110 @@ route.GuestDetail = {
         });
     }
 };
+
+
+route.Server = {
+    uri: '/server',
+    init: function () {
+        //新增
+        $('#add_kvm_btn').click(function () {
+            $('#dialog_title').html('新增KVM服务器');
+            $('#edit_dialog').modal();
+            $('#hostname').val('');
+            $('#protocol').val('');
+            $('#port').val('');
+            $('#username').val('');
+            $('#password').val('');
+            $('#comments').val('');
+            $('#saveBtn').data('hostname', '');
+        });
+
+        //编辑
+        $('.edit-btn').click(function () {
+            var id = $(this).data('id'),
+                hostname = $('#hostname_' + id).html().trim(),
+                protocol = $('#protocol_' + id).html().trim(),
+                port = $('#port_' + id).html().trim(),
+                username = $('#username_' + id).html().trim(),
+                password = $('#username_' + id).data('password'),
+                comments = $('#comments_' + id).html().trim();
+            $('#dialog_title').html('编辑KVM主机：' + hostname);
+            $('#edit_dialog').modal();
+            $('#hostname').val(hostname);
+            $('#protocol').val(protocol);
+            $('#port').val(port);
+            $('#username').val(username);
+            $('#password').val(password);
+            $('#comments').val(comments);
+            $('#saveBtn').data('hostname', hostname);
+        });
+
+        //保存
+        $('#saveBtn').click(function () {
+            var hostname0 = $('#saveBtn').data('hostname'),
+                hostname = $('#hostname').val().trim(),
+                protocol = $('#protocol').val().trim(),
+                port = $('#port').val().trim(),
+                username = $('#username').val().trim(),
+                password = $('#password').val().trim(),
+                comments = $('#comments').val().trim(),
+                api = hostname0 === '' ? 'create' : 'update';
+            $.ajax({
+                type: "POST",
+                url: "/server/" + api,
+                data: {hostname0: hostname0, hostname: hostname, protocol: protocol, port: port, username: username, password: password, comments: comments},
+                dataType: "json",
+                success: function (resp) {
+                    var code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        layer.msg(msg);
+                        location.reload();
+                    } else if (code < 0) {
+                        layer.msg(msg);
+                    } else {
+                        layer.alert('保存失败，请稍后再试！', {title: 'KvMan提示', icon: 0});
+                    }
+                },
+                error: function () {
+                    layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 2});
+                }
+            });
+        });
+
+        //删除
+        $('.delete-btn').click(function () {
+            var id = $(this).data('id'),
+                hostname = $('#hostname_' + id).html();
+            layer.confirm('您确认要删除 ' + hostname + ' 吗？', {icon: 3, title: '删除提示'}, function (index) {
+                $.ajax({
+                    type: "POST",
+                    url: "/server/delete",
+                    data: {hostname: hostname},
+                    dataType: "json",
+                    success: function (resp) {
+                        var code = resp['code'],
+                            msg = resp['msg'];
+                        if (code === 0) {
+                            $('#row_' + id).slideUp("slow", function () {
+                                $(this).remove();
+                            });
+                            layer.close(index);
+                            layer.msg(msg);
+                        } else if (code < 0) {
+                            layer.close(index);
+                            layer.msg(msg);
+                        } else {
+                            layer.close(index);
+                            layer.alert('删除失败，请稍后再试！', {title: 'KvMan提示', icon: 0});
+                        }
+                    },
+                    error: function () {
+                        layer.close(index);
+                        layer.alert('系统繁忙，请稍后再试！', {title: 'KvMan提示', icon: 2});
+                    }
+                });
+            });
+        });
+    }
+};
