@@ -90,7 +90,7 @@
     <div class="form-group row">
         <label for="" class="col-sm-1 col-form-label">硬 盘</label>
         <div class="col-sm-5">
-            <div class="pt-2">{{ '<br>'.join(guest.hdd) }}</div>
+            <div class="pt-2"><span data-toggle="tooltip" title="已使用 / 总容量">{{ '<br>'.join(guest.hdd) }}</span></div>
         </div>
         <label for="" class="col-sm-1 col-form-label">CDROM</label>
         <div class="col-sm-5">
