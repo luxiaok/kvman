@@ -317,6 +317,13 @@ route.GuestDetail = {
         //编辑xml
         $('#editConfig').click(function () {
             $('#xml_box').toggle();
+            $(this).hide();
+            $('#saveConfig').show();
+        });
+
+        //保存xml
+        $('#saveConfig').click(function () {
+            layer.msg('暂不支持修改XML配置文件！');
         });
     }
 };

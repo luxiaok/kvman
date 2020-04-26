@@ -4,7 +4,7 @@
  * https://github.com/luxiaok/kvman
  * */
 
-import { k,route } from './kvman-lib.js?_v=20.4.26.1';
+import { k,route } from './kvman-lib.js?_v=20.4.26.2';
 
 $(function () {
 
