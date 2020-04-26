@@ -23,6 +23,8 @@ class kvm:
                 self.uri = uri
             elif isinstance(uri,dict):
                 self.uri = self.getUri(uri)
+            else: # Not support argument for uri
+                self.uri = None
         else:
             if self.enable_test_uri:
                 self.uri = 'test:///default'
