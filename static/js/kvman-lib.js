@@ -280,53 +280,48 @@ route.GuestDetail = {
     uri: '/guest/detail',
     init: function () {
         //开机
-        $('#start-btn').click(function () {
+        $('#startBtn').click(function () {
             let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_start(name,status);
         });
 
         //关机
-        $('#halt-btn').click(function () {
+        $('#haltBtn').click(function () {
             let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_shutdown(name,status);
         });
 
         //重启
-        $('#reboot-btn').click(function () {
+        $('#rebootBtn').click(function () {
             let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_reboot(name,status);
         });
 
         //远程连接
-        $('#console-btn').click(function () {
+        $('#consoleBtn').click(function () {
             let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_console(name,status);
         });
 
         //销毁虚拟机
-        $('#destroy-btn').click(function () {
+        $('#destroyBtn').click(function () {
             let name = $('#name').val().trim(),
                 status = $('#name').data('status');
             guest_destroy(name,status);
         });
 
-        //编辑xml
-        $('#editConfig').click(function () {
-            $(this).toggle();
+        //查看配置文件
+        $('#viewConfigBtn').click(function () {
             $('#xml_box').toggle();
-            $('#saveConfig').toggle();
         });
 
-        //保存xml
-        $('#saveConfig').click(function () {
-            layer.msg('暂不支持修改XML配置文件！');
-            $('#xml_box').toggle();
-            $('#saveConfig').toggle();
-            $('#editConfig').toggle();
+        //编辑配置
+        $('#editBtn').click(function () {
+            layer.msg('暂不支持编辑配置！');
         });
     }
 };

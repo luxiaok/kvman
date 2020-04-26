@@ -15,11 +15,21 @@
         <div class="float-right">
             <div class="btn-group" role="group">
                 <a href="/guest" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-arrow-left"></i>返回</a>
-                <button type="button" class="btn btn-outline-dark btn-sm" id="start-btn"><i class="fa fa-fw fa-circle-o-notch"></i>开机</button>
-                <button type="button" class="btn btn-outline-dark btn-sm" id="halt-btn"><i class="fa fa-fw fa-power-off"></i>关机</button>
-                <button type="button" class="btn btn-outline-dark btn-sm" id="reboot-btn"><i class="fa fa-fw fa-refresh"></i>重启</button>
-                <button type="button" class="btn btn-outline-dark btn-sm" id="console-btn"><i class="fa fa-fw fa-television"></i>远程连接</button>
-                <button type="button" class="btn btn-outline-danger btn-sm" id="destroy-btn"><i class="fa fa-fw fa-trash"></i>销毁</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="consoleBtn"><i class="fa fa-fw fa-television"></i>远程连接</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" id="saveBtn" style="display: none;"><i class="fa fa-fw fa-check-circle-o"></i>保存</button>
+                <button type="button" class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <button type="button" class="dropdown-item" id="startBtn"><i class="fa fa-fw fa-circle-o-notch"></i> 开机</button>
+                    <button type="button" class="dropdown-item" id="haltBtn"><i class="fa fa-fw fa-power-off"></i> 关机</button>
+                    <button type="button" class="dropdown-item" id="rebootBtn"><i class="fa fa-fw fa-refresh"></i> 重启</button>
+                    <button type="button" class="dropdown-item" id="passwdBtn"><i class="fa fa-fw fa-lock"></i> 修改密码</button>
+                    <button type="button" class="dropdown-item" id="editBtn"><i class="fa fa-fw fa-edit"></i> 编辑配置</button>
+                    <button type="button" class="dropdown-item" id="viewConfigBtn"><i class="fa fa-fw fa-file-code-o"></i> 查看配置文件</button>
+                    <div class="dropdown-divider"></div>
+                    <button type="button" class="dropdown-item" id="destroyBtn" style="color:red;"><i class="fa fa-fw fa-trash"></i> 销毁</button>
+                </div>
             </div>
         </div>
     </div>
@@ -56,16 +66,6 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">系统密码</label>
-        <div class="col-sm-5">
-            <div class="pt-1"><button type="button" class="btn btn-outline-dark btn-sm" id="passwdBtn"><i class="fa fa-fw fa-lock"></i>修改</button></div>
-        </div>
-        <label for="" class="col-sm-1 col-form-label" title="QEMU Guest Agent" data-toggle="tooltip">QGA版本</label>
-        <div class="col-sm-5">
-            <div class="pt-2">{% if guest.qga_version %}<span title="QEMU Guest Agent" data-toggle="tooltip">{{ guest.qga_version }}</span>{% else %}<span style="color:red;">客户机未运行qemu-guest-agent</span>{% endif %}</div>
-        </div>
-    </div>
-    <div class="form-group row">
         <label for="" class="col-sm-1 col-form-label">IP地址</label>
         <div class="col-sm-5">
             <div class="pt-2">{{ '<br>'.join(guest.ip) }}</div>
@@ -84,7 +84,6 @@
         <div class="col-sm-5">
             <div class="pt-2">
                 <span>{{ guest.mem }}</span>
-                <a href="javascript:void(0);" class="ml-2 btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-edit"></i>编辑</a>
             </div>
         </div>
     </div>
@@ -95,9 +94,7 @@
         </div>
         <label for="" class="col-sm-1 col-form-label">CDROM</label>
         <div class="col-sm-5">
-            <div class="pt-2">
-                <a href="javascript:void(0);" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-plus"></i>添加ISO</a>
-            </div>
+            <div class="pt-2"></div>
         </div>
     </div>
     <div class="form-group row">
@@ -105,17 +102,14 @@
         <div class="col-sm-5">
             <div class="pt-2">{{ state[guest['state']] }}</div>
         </div>
-        <label for="" class="col-sm-1 col-form-label">配置文件</label>
+        <label for="" class="col-sm-1 col-form-label" title="QEMU Guest Agent" data-toggle="tooltip">QGA版本</label>
         <div class="col-sm-5">
-            <div class="pt-1">
-                <button type="button" class="btn btn-outline-dark btn-sm" id="editConfig"><i class="fa fa-fw fa-file-code-o"></i>编辑</button>
-                <button type="button" class="btn btn-outline-dark btn-sm" id="saveConfig" style="display: none;"><i class="fa fa-fw fa-check-circle-o"></i>保存</button>
-            </div>
+            <div class="pt-2">{% if guest.qga_version %}<span title="QEMU Guest Agent" data-toggle="tooltip">{{ guest.qga_version }}</span>{% else %}<span style="color:red;">客户机未运行qemu-guest-agent</span>{% endif %}</div>
         </div>
     </div>
     <div class="form-group row" style="display: none;" id="xml_box">
         <div class="col-sm-12">
-            <textarea class="form-control" rows="20" placeholder="Libvirt XML For QEMU-KVM Guest">{{ guest.xml | trim }}</textarea>
+            <textarea class="form-control" rows="25" placeholder="Libvirt XML For QEMU-KVM Guest">{{ guest.xml | trim }}</textarea>
         </div>
     </div>
 </form>
