@@ -76,13 +76,13 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">启动顺序</label>
-        <div class="col-sm-5">
-            <div class="pt-2"></div>
-        </div>
         <label for="" class="col-sm-1 col-form-label">VNC端口</label>
         <div class="col-sm-5">
             <div class="pt-2">{{ guest.vnc_port }}</div>
+        </div>
+        <label for="" class="col-sm-1 col-form-label" title="QEMU Guest Agent" data-toggle="tooltip">QGA版本</label>
+        <div class="col-sm-5">
+            <div class="pt-2">{% if guest.qga_version %}<span title="QEMU Guest Agent" data-toggle="tooltip">{{ guest.qga_version }}</span>{% else %}<span style="color:red;">客户机未运行qemu-guest-agent</span>{% endif %}</div>
         </div>
     </div>
     <div class="form-group row">
@@ -90,9 +90,14 @@
         <div class="col-sm-5">
             <div class="pt-2">{{ state[guest['state']] }}</div>
         </div>
-        <label for="" class="col-sm-1 col-form-label" title="QEMU Guest Agent" data-toggle="tooltip">QGA版本</label>
+        <label for="" class="col-sm-1 col-form-label">配置文件</label>
         <div class="col-sm-5">
-            <div class="pt-2">{% if guest.qga_version %}<span title="QEMU Guest Agent" data-toggle="tooltip">{{ guest.qga_version }}</span>{% else %}<span style="color:red;">客户机未运行qemu-guest-agent</span>{% endif %}</div>
+            <div class="pt-2"><button type="button" class="btn btn-outline-dark btn-sm" id="editConfig"><i class="fa fa-fw fa-file-code"></i> 编辑</button></div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <textarea class="form-control" rows="100">XML ...</textarea>
         </div>
     </div>
 </form>
