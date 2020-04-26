@@ -76,6 +76,16 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="" class="col-sm-1 col-form-label">启动顺序</label>
+        <div class="col-sm-5">
+            <div class="pt-2"></div>
+        </div>
+        <label for="" class="col-sm-1 col-form-label">VNC端口</label>
+        <div class="col-sm-5">
+            <div class="pt-2">{{ guest.vnc_port }}</div>
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="" class="col-sm-1 col-form-label">状 态</label>
         <div class="col-sm-5">
             <div class="pt-2">{{ state[guest['state']] }}</div>

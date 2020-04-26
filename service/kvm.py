@@ -278,6 +278,12 @@ class kvm:
         hdd = self.getDisk(xml.getElementsByTagName('disk'))
         network = self.getInterfaces(xml.getElementsByTagName('interface'))
         state, reason = guest.state()
+        # Get VNC Port
+        graphics = xml.getElementsByTagName('graphics')
+        vnc_port = -1
+        for i in graphics:
+            if i.getAttribute('type') == 'vnc':
+                vnc_port = i.getAttribute('port')
         qga_version = self.qemuAgentCommand(guest,'{"execute": "guest-info"}')
         if qga_version:
             qga_version = qga_version['version']
@@ -309,6 +315,7 @@ class kvm:
             'mem': self.formatNum(mem * 1024),  # unit: KiB
             'hdd': hdd,
             'network': network,
+            'vnc_port': vnc_port,
             'autostart': guest.autostart(),
             'qga_version': qga_version,
             #'uptime': self.getBootTime(guest),
