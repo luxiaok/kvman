@@ -313,6 +313,11 @@ route.GuestDetail = {
                 status = $('#name').data('status');
             guest_destroy(name,status);
         });
+
+        //编辑xml
+        $('#editConfig').click(function () {
+            $('#xml_box').toggle();
+        });
     }
 };
 

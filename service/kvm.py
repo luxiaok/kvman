@@ -319,6 +319,7 @@ class kvm:
             'autostart': guest.autostart(),
             'qga_version': qga_version,
             #'uptime': self.getBootTime(guest),
+            'xml': raw_xml,
             'state': state,
             'status': guest.isActive()
         }
