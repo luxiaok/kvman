@@ -12,24 +12,17 @@ from xml.dom import minidom
 
 class kvm:
 
-    enable_test_uri = True # test:///default
 
     def __init__(self,uri=None):
         #print 'Init kvm service ...'
         self.code = 0
         self.msg = 'success'
+        self.uri = None
         if uri:
             if isinstance(uri,str):
                 self.uri = uri
             elif isinstance(uri,dict):
                 self.uri = self.getUri(uri)
-            else: # Not support argument for uri
-                self.uri = None
-        else:
-            if self.enable_test_uri:
-                self.uri = 'test:///default'
-            else:
-                self.uri = self.getUri()
         self.conn = self.openConnect(self.uri)
         #print self.conn.getVersion() # Qemu
         #print self.conn.getLibVersion() # Libvirt
