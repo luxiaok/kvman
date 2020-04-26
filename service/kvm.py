@@ -12,6 +12,8 @@ from xml.dom import minidom
 
 class kvm:
 
+    enable_test_uri = True # test:///default
+
     def __init__(self,uri=None):
         #print 'Init kvm service ...'
         self.code = 0
@@ -22,7 +24,10 @@ class kvm:
             elif isinstance(uri,dict):
                 self.uri = self.getUri(uri)
         else:
-            self.uri = self.getUri()
+            if self.enable_test_uri:
+                self.uri = 'test:///default'
+            else:
+                self.uri = self.getUri()
         self.conn = self.openConnect(self.uri)
         #print self.conn.getVersion() # Qemu
         #print self.conn.getLibVersion() # Libvirt
