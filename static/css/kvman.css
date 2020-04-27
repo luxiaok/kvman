@@ -34,8 +34,8 @@ body {
 }
 
 select.form-control {
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    /**-webkit-appearance: none;
+    -moz-appearance: none;**/
     -webkit-border-radius: 0;
 }
 
