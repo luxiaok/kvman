@@ -31,7 +31,6 @@ class kvm:
 
 
     def getUri(self,config=None):
-        print config
         if not config:
             return None
         if config['protocol'] == 'qemu' and config['hostname'] in ['localhost','127.0.0.1']:
