@@ -338,6 +338,7 @@ route.Server = {
             $('#port').val('');
             $('#username').val('');
             $('#password').val('');
+            $('#parameters').val('');
             $('#comments').val('');
             $('#saveBtn').data('hostname', '');
         });
@@ -350,6 +351,7 @@ route.Server = {
                 port = $('#port_' + id).html().trim(),
                 username = $('#username_' + id).html().trim(),
                 password = $('#username_' + id).data('password'),
+                parameters = $('#protocol_' + id).data('parameters'),
                 comments = $('#comments_' + id).html().trim();
             $('#dialog_title').html('编辑KVM主机：' + hostname);
             $('#edit_dialog').modal();
@@ -358,6 +360,7 @@ route.Server = {
             $('#port').val(port);
             $('#username').val(username);
             $('#password').val(password);
+            $('#parameters').val(parameters);
             $('#comments').val(comments);
             $('#saveBtn').data('hostname', hostname);
         });
@@ -370,12 +373,13 @@ route.Server = {
                 port = $('#port').val().trim(),
                 username = $('#username').val().trim(),
                 password = $('#password').val().trim(),
+                parameters = $('#parameters').val().trim(),
                 comments = $('#comments').val().trim(),
                 api = hostname0 === '' ? 'create' : 'update';
             $.ajax({
                 type: "POST",
                 url: "/server/" + api,
-                data: {hostname0: hostname0, hostname: hostname, protocol: protocol, port: port, username: username, password: password, comments: comments},
+                data: {hostname0: hostname0, hostname: hostname, protocol: protocol, port: port, username: username, password: password, parameters: parameters, comments: comments},
                 dataType: "json",
                 success: function (resp) {
                     let code = resp['code'],

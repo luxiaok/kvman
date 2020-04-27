@@ -35,6 +35,7 @@ class CreateHandler(BaseHandler):
         protocol = self.get_argument('protocol')
         username = self.get_argument('username')
         password = self.get_argument('password')
+        parameters = self.get_argument('parameters')
         comments = self.get_argument('comments')
         if not hostname or not protocol:
             return self.returnJson({'code': -1, 'msg': u'请填写主机名和协议！'})
@@ -47,6 +48,7 @@ class CreateHandler(BaseHandler):
             'protocol': protocol,
             'username': username or '',
             'password': password or '',
+            'parameters': parameters or '',
             #'default': False,
             'comments': comments or ''
         }
@@ -68,6 +70,7 @@ class UpdateHandler(BaseHandler):
         protocol = self.get_argument('protocol')
         username = self.get_argument('username')
         password = self.get_argument('password')
+        parameters = self.get_argument('parameters')
         comments = self.get_argument('comments')
         delete_host0 = False
         if not hostname or not protocol:
@@ -84,6 +87,7 @@ class UpdateHandler(BaseHandler):
         host['protocol'] = protocol
         host['username'] = username or ''
         host['password'] = password or ''
+        host['parameters'] = parameters or ''
         host['comments'] = comments or ''
         self.redis.hset(self.application.settings['kvm_servers_key'], hostname, json.dumps(host))
         if delete_host0:

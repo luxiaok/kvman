@@ -26,7 +26,7 @@
             <!--<th scope="row"></th>-->
             <td id="hostname_{{ loop.index }}">{{ d.hostname }}</td>
             <td id="port_{{ loop.index }}">{{ d.port }}</td>
-            <td id="protocol_{{ loop.index }}">{{ d.protocol }}</td>
+            <td id="protocol_{{ loop.index }}" data-parameters="{{ d.parameters or '' }}">{{ d.protocol }}</td>
             <td id="username_{{ loop.index }}" data-password="{{ d.password or '' }}">{{ d.username or '' }}</td>
             <td><a href="/guest?sid={{ d.hostname }}">{{ d.guests or '' }}</a></td>
             <td id="comments_{{ loop.index }}">{{ d.comments }}</td>
@@ -95,6 +95,12 @@
                         <label for="password" class="col-sm-2 col-form-label">密 码</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="password" placeholder="仅限 QEMU+TCP 模式">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="parameters" class="col-sm-2 col-form-label">连接参数</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="parameters" placeholder="例如：keyfile=/root/.ssh/id_rsa.pub&socket=/var/run/libvirt-sock">
                         </div>
                     </div>
                     <div class="form-group row">
