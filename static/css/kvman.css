@@ -5,7 +5,7 @@
 
 body {
     font-size: 14px;
-    font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
+    font-family: -apple-system, "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -21,7 +21,7 @@ body {
 }
 
 .btn:focus, .btn.focus {
-  box-shadow: 0 0 0 0 transparent !important;
+    box-shadow: 0 0 0 0 transparent !important;
 }
 
 .form-control {
