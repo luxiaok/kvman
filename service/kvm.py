@@ -51,8 +51,7 @@ class kvm:
                 uri = '%s://%s:%s/system' % (config['protocol'],config['hostname'],config['port'])
             else:
                 uri = '%s://%s/system' % (config['protocol'], config['hostname'])
-        parameters = config.get('parameters',None)
-        if parameters:
+        if config.get('parameters'):
             uri = '%s?%s' % (uri,config['parameters'])
         return uri
 
