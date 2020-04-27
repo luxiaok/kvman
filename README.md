@@ -57,7 +57,9 @@ See https://redis.io/
 
 ### Configure for Kvman
 
-Change configurations for **redis** via [settings.py](config/settings.py), such as `host` `port` `password`
+* Copy [config/settings-sample.py](config/settings-sample.py) to **config/settings.py**
+
+* Change configurations for **redis** in settings.py, such as `host` `port` `password`
 
 
 ### Run Kvman
