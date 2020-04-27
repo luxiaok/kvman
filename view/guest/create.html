@@ -5,6 +5,162 @@
     <div class="col-sm"><h5>创建虚拟机实例</h5></div>
     <div class="col-sm"><div class="float-right"><a href="/guest" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-arrow-left"></i> 返回</a></div></div>
 </div>
-<div class="row mb-3">
-</div>
+<form class="pr-5 pl-5">
+    <div class="form-group row">
+        <label for="server" class="col-sm-1 col-form-label">宿主机</label>
+        <div class="col-sm-5">
+            <select id="server" class="form-control">
+                {% for i in servers %}
+                <option value="{{ i.hostname }}">{{ i.hostname }}{% if i.comments %} ({{ i.comments }}){% endif %}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="name" class="col-sm-1 col-form-label">实例名称</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="name" placeholder="请使用英文，不要使用中文">
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="title" class="col-sm-1 col-form-label">主机名</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="title" placeholder="请使用英文，不要使用中文">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="cpu" class="col-sm-1 col-form-label">CPUs</label>
+        <div class="col-sm-5">
+            <select id="cpu" class="form-control">
+                <option value="0">请选择CPU核数</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="8">8</option>
+                <option value="16">16</option>
+                <option value="24">24</option>
+                <option value="32">32</option>
+                <option value="48">48</option>
+                <option value="64">64</option>
+                <option value="128">128</option>
+            </select>
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="hdd" class="col-sm-1 col-form-label">硬盘</label>
+        <div class="col-sm-5">
+            <select id="hdd" class="form-control">
+                <option value="0">请选择硬盘容量</option>
+                <option value="256">256 M</option>
+                <option value="512">512 M</option>
+                <option value="16">16 G</option>
+                <option value="32">32 G</option>
+                <option value="64">64 G</option>
+                <option value="128">128 G</option>
+                <option value="256">256 G</option>
+                <option value="512">512 G</option>
+            </select>
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="mem" class="col-sm-1 col-form-label">内存</label>
+        <div class="col-sm-5">
+            <select id="mem" class="form-control">
+                <option value="0">请选择内存大小</option>
+                <option value="256">256 M</option>
+                <option value="512">512 M</option>
+                <option value="1">1 G</option>
+                <option value="2">2 G</option>
+                <option value="4">4 G</option>
+                <option value="8">8 G</option>
+                <option value="16">16 G</option>
+                <option value="32">32 G</option>
+                <option value="64">64 G</option>
+            </select>
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="network" class="col-sm-1 col-form-label">网络</label>
+        <div class="col-sm-5">
+            <select id="network" class="form-control">
+                <option value="default">default</option>
+                <option value="bridge">bridge</option>
+            </select>
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="os" class="col-sm-1 col-form-label">操作系统</label>
+        <div class="col-sm-5">
+            <select id="hdd" class="form-control">
+                <option value="0">请选择操作系统</option>
+                <optgroup label="Linux">
+                    <option value="centos5.9">CentOS 5</option>
+                    <option value="centos6.9">CentOS 6</option>
+                    <option value="centos7.0">CentOS 7</option>
+                    <option value="centos5.9">CentOS 8</option>
+                    <option value="rhel5.9">RHEL 5</option>
+                    <option value="rhel6.9">RHEL 6</option>
+                    <option value="rhel7.7">RHEL 7</option>
+                    <option value="rhel8.0">RHEL 8</option>
+                    <option value="ubuntu18.04">Ubuntu</option>
+                    <option value="fedora29">Fedora</option>
+                    <option value="ubuntu18.04">OpenWrt</option>
+                    <option value="">Other Linux kernel OS</option>
+                </optgroup>
+                <optgroup label="Windows">
+                    <option value="win2k3">Windows Server 2003</option>
+                    <option value="win2k8">Windows Server 2008</option>
+                    <option value="winxp">Windows XP</option>
+                    <option value="win7">Windows 7</option>
+                    <option value="win8">Windows 8</option>
+                    <option value="win8">Windows 10</option>
+                </optgroup>
+                <optgroup label="macOS">
+                    <option value="macosx10.7">macOS Sierra 10.12.6</option>
+                    <option value="macosx10.7">macOS High Sierra 10.13.6</option>
+                    <option value="macosx10.7">macOS Mojave 10.14.6</option>
+                    <option value="macosx10.7">macOS Catalina 10.15.4</option>
+                </optgroup>
+                <optgroup label="Android">
+                    <option value="">Android x86 4.0</option>
+                    <option value="">Android x86 5.0</option>
+                    <option value="">Android x86 6.0</option>
+                    <option value="">Android x86 7.0</option>
+                    <option value="">Android x86 8.0</option>
+                    <option value="">Android x86 9.0</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="network" class="col-sm-1 col-form-label">CDROM</label>
+        <div class="col-sm-5">
+            <select id="network" class="form-control">
+                <option>请选择安装镜像</option>
+                <option value="">CentOS 5.11 x86_64</option>
+                <option value="">CentOS 6.10 x86_64</option>
+                <option value="">CentOS 7.8 x86_64</option>
+                <option value="">CentOS 8.2 x86_64</option>
+            </select>
+        </div>
+        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+    </div>
+    <div class="form-group row">
+        <label for="desc" class="col-sm-1 col-form-label">描述</label>
+        <div class="col-sm-5">
+            <input type="text" class="form-control" id="desc" value="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2 text-right"><button type="button" class="btn btn-outline-dark" id="createBtn"><i class="fa fa-fw fa-plus"></i> 创 建</button></div>
+    </div>
+</form>
 {% endblock %}
