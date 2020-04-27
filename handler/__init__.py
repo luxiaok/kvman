@@ -9,6 +9,7 @@ import storage
 import network
 import monitor
 import setting
+import event
 import page
 import user
 
@@ -33,6 +34,7 @@ route = [
     (r'/monitor',monitor.IndexHandler),
     (r'/setting',setting.IndexHandler),
     (r'/setting/install',setting.InstallHandler),
+    (r'/event',event.IndexHandler),
     (r'/user/login',user.LoginHandler),
     (r'/user/logout',user.LogoutHandler),
     (r'/user/passwd',user.PasswdHandler),
