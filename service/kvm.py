@@ -31,17 +31,26 @@ class kvm:
 
 
     def getUri(self,config=None):
+        print config
         if not config:
             return None
         if config['protocol'] == 'qemu' and config['hostname'] in ['localhost','127.0.0.1']:
             uri = 'qemu:///system'
+        elif config['protocol'] in ['qemu+ssh','qemu+libssh2','qemu+libssh']:
+            if config['port']:
+                uri = '%s://%s@%s:%s/system' % (config['protocol'], config['username'], config['hostname'], config['port'])
+            else:
+                uri = '%s://%s@%s/system' % (config['protocol'], config['username'], config['hostname'])
         elif config['protocol'] == 'qemu+tcp':
-            port = config.get('port',16509)
-            uri = '%s://%s:%s/system' % (config['protocol'],config['hostname'],port)
-        elif config['protocol'] == 'qemu+ssh':
-            uri = '%s://%s@%s:%s/system' % (config['protocol'],config['username'], config['hostname'], config['port'])
+            if config['port']:
+                uri = '%s://%s:%s/system' % (config['protocol'], config['hostname'], config['port'])
+            else:
+                uri = '%s://%s/system' % (config['protocol'], config['hostname'])
         else:
-            uri = '%s://%s:%s/system' % (config['protocol'],config['hostname'],config['port'])
+            if config['port']:
+                uri = '%s://%s:%s/system' % (config['protocol'],config['hostname'],config['port'])
+            else:
+                uri = '%s://%s/system' % (config['protocol'], config['hostname'])
         return uri
 
 
