@@ -56,6 +56,8 @@ const guest_start = function (name, status) {
         return false;
     }
     layer.confirm(msg, {icon: 3, title: '开机提示'}, function (index) {
+        layer.close(index);
+        let loading = layer.load(1,{shade:0.4});
         $.ajax({
             type: "POST",
             url: "/guest/start",
@@ -65,19 +67,19 @@ const guest_start = function (name, status) {
                 let code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
-                    layer.close(index);
+                    layer.close(loading);
                     layer.msg(msg);
                     location.reload();
                 } else if (code < 0) {
-                    layer.close(index);
+                    layer.close(loading);
                     layer.msg(msg);
                 } else {
-                    layer.close(index);
+                    layer.close(loading);
                     layer.alert('开机失败，请稍后再试！', {title: '开机提示', icon: 0});
                 }
             },
             error: function () {
-                layer.close(index);
+                layer.close(loading);
                 layer.alert('系统繁忙，请稍后再试！', {title: '开机提示', icon: 2});
             }
         });
@@ -92,6 +94,8 @@ const guest_shutdown = function (name, status) {
         return false;
     }
     layer.confirm(msg, {icon: 3, title: '关机提示'}, function (index) {
+        layer.close(index);
+        let loading = layer.load(1,{shade:0.4});
         $.ajax({
             type: "POST",
             url: "/guest/shutdown",
@@ -101,19 +105,19 @@ const guest_shutdown = function (name, status) {
                 let code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
-                    layer.close(index);
+                    layer.close(loading);
                     layer.msg(msg);
                     location.reload();
                 } else if (code < 0) {
-                    layer.close(index);
+                    layer.close(loading);
                     layer.msg(msg);
                 } else {
-                    layer.close(index);
+                    layer.close(loading);
                     layer.alert('关机失败，请稍后再试！', {title: '关机提示', icon: 0});
                 }
             },
             error: function () {
-                layer.close(index);
+                layer.close(loading);
                 layer.alert('系统繁忙，请稍后再试！', {title: '关机提示', icon: 2});
             }
         });
