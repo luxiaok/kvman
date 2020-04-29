@@ -27,9 +27,19 @@
             <td>{% if i.autostart %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td>{% if i.state == 2 %}<span style="color:green;">running</span>{% endif %}</td>
             <td>
-                <a href="javascript:void(0);" class="edit-pool" data-pool="{{ i.name }}">编辑</a>
-                |
-                <a href="javascript:void(0);" class="delete-pool" data-pool="{{ i.name }}">删除</a>
+                <div class="btn-group">
+                    <a class="btn btn-outline-dark btn-sm" href="/storage/volume?pool={{ i.name }}"><i class="fa fa-fw fa-info-circle"></i>详情</a>
+                    <button type="button" class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item refresh-btn" href="javascript:void(0);"><i class="fa fa-fw fa-refresh"></i> 刷新</a>
+                        <a class="dropdown-item start-btn" href="javascript:void(0);"><i class="fa fa-fw fa-power-off"></i> 启动</a>
+                        <a class="dropdown-item edit-btn" href="javascript:void(0);"><i class="fa fa-fw fa-edit"></i> 编辑</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item delete-btn" href="javascript:void(0);" style="color:#dc3545;"><i class="fa fa-fw fa-trash"></i> 删除</a>
+                    </div>
+                </div>
             </td>
         </tr>
         {% endfor %}
