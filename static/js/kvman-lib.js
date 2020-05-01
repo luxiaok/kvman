@@ -64,17 +64,15 @@ const guest_start = function (name, status) {
             data: {name: name},
             dataType: "json",
             success: function (resp) {
+                layer.close(loading);
                 let code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
-                    layer.close(loading);
                     layer.msg(msg);
                     location.reload();
                 } else if (code < 0) {
-                    layer.close(loading);
                     layer.msg(msg);
                 } else {
-                    layer.close(loading);
                     layer.alert('开机失败，请稍后再试！', {title: '开机提示', icon: 0});
                 }
             },
@@ -102,17 +100,15 @@ const guest_shutdown = function (name, status) {
             data: {name: name, force: 'no'},
             dataType: "json",
             success: function (resp) {
+                layer.close(loading);
                 let code = resp['code'],
                     msg = resp['msg'];
                 if (code === 0) {
-                    layer.close(loading);
                     layer.msg(msg);
                     location.reload();
                 } else if (code < 0) {
-                    layer.close(loading);
                     layer.msg(msg);
                 } else {
-                    layer.close(loading);
                     layer.alert('关机失败，请稍后再试！', {title: '关机提示', icon: 0});
                 }
             },
