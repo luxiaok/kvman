@@ -11,6 +11,7 @@ import { setCapture, stopEvent, getPointerEvent } from '../util/events.js';
 const WHEEL_STEP = 10; // Delta threshold for a mouse wheel step
 const WHEEL_STEP_TIMEOUT = 50; // ms
 const WHEEL_LINE_HEIGHT = 19;
+const MOUSE_MOVE_DELAY = 17; // Minimum wait (ms) between two mouse moves
 
 export default class Mouse {
     constructor(target) {
@@ -22,6 +23,7 @@ export default class Mouse {
         this._pos = null;
         this._wheelStepXTimer = null;
         this._wheelStepYTimer = null;
+        this._oldMouseMoveTime = 0;
         this._accumulatedWheelDeltaX = 0;
         this._accumulatedWheelDeltaY = 0;
 
@@ -35,11 +37,12 @@ export default class Mouse {
 
         // ===== PROPERTIES =====
 
-        this.touchButton = 1;                 // Button mask (1, 2, 4) for touch devices (0 means ignore clicks)
+        this.touchButton = 1; // Button mask (1, 2, 4) for touch devices
+                              // (0 means ignore clicks)
 
         // ===== EVENT HANDLERS =====
 
-        this.onmousebutton = () => {}; // Handler for mouse button click/release
+        this.onmousebutton = () => {}; // Handler for mouse button press/release
         this.onmousemove = () => {}; // Handler for mouse movement
     }
 
@@ -73,14 +76,16 @@ export default class Mouse {
                     const ys = this._lastTouchPos.y - pos.y;
                     const d = Math.sqrt((xs * xs) + (ys * ys));
 
-                    // The goal is to trigger on a certain physical width, the
-                    // devicePixelRatio brings us a bit closer but is not optimal.
+                    // The goal is to trigger on a certain physical width,
+                    // the devicePixelRatio brings us a bit closer but is
+                    // not optimal.
                     const threshold = 20 * (window.devicePixelRatio || 1);
                     if (d < threshold) {
                         pos = this._lastTouchPos;
                     }
                 }
-                this._doubleClickTimer = setTimeout(this._resetDoubleClickTimer.bind(this), 500);
+                this._doubleClickTimer =
+                    setTimeout(this._resetDoubleClickTimer.bind(this), 500);
             }
             bmask = this.touchButton;
             // If bmask is set
@@ -195,7 +200,19 @@ export default class Mouse {
 
     _handleMouseMove(e) {
         this._updateMousePosition(e);
-        this.onmousemove(this._pos.x, this._pos.y);
+
+        // Limit mouse move events to one every MOUSE_MOVE_DELAY ms
+        clearTimeout(this.mouseMoveTimer);
+        const newMouseMoveTime = Date.now();
+        if (newMouseMoveTime < this._oldMouseMoveTime + MOUSE_MOVE_DELAY) {
+            this.mouseMoveTimer = setTimeout(this.onmousemove.bind(this),
+                                             MOUSE_MOVE_DELAY,
+                                             this._pos.x, this._pos.y);
+        } else {
+            this.onmousemove(this._pos.x, this._pos.y);
+        }
+        this._oldMouseMoveTime = newMouseMoveTime;
+
         stopEvent(e);
     }
 
@@ -238,39 +255,42 @@ export default class Mouse {
     // ===== PUBLIC METHODS =====
 
     grab() {
+        const t = this._target;
         if (isTouchDevice) {
-            this._target.addEventListener('touchstart', this._eventHandlers.mousedown);
-            this._target.addEventListener('touchend', this._eventHandlers.mouseup);
-            this._target.addEventListener('touchmove', this._eventHandlers.mousemove);
+            t.addEventListener('touchstart', this._eventHandlers.mousedown);
+            t.addEventListener('touchend', this._eventHandlers.mouseup);
+            t.addEventListener('touchmove', this._eventHandlers.mousemove);
         }
-        this._target.addEventListener('mousedown', this._eventHandlers.mousedown);
-        this._target.addEventListener('mouseup', this._eventHandlers.mouseup);
-        this._target.addEventListener('mousemove', this._eventHandlers.mousemove);
-        this._target.addEventListener('wheel', this._eventHandlers.mousewheel);
+        t.addEventListener('mousedown', this._eventHandlers.mousedown);
+        t.addEventListener('mouseup', this._eventHandlers.mouseup);
+        t.addEventListener('mousemove', this._eventHandlers.mousemove);
+        t.addEventListener('wheel', this._eventHandlers.mousewheel);
 
-        /* Prevent middle-click pasting (see above for why we bind to document) */
+        // Prevent middle-click pasting (see above for why we bind to document)
         document.addEventListener('click', this._eventHandlers.mousedisable);
 
-        /* preventDefault() on mousedown doesn't stop this event for some
-           reason so we have to explicitly block it */
-        this._target.addEventListener('contextmenu', this._eventHandlers.mousedisable);
+        // preventDefault() on mousedown doesn't stop this event for some
+        // reason so we have to explicitly block it
+        t.addEventListener('contextmenu', this._eventHandlers.mousedisable);
     }
 
     ungrab() {
+        const t = this._target;
+
         this._resetWheelStepTimers();
 
         if (isTouchDevice) {
-            this._target.removeEventListener('touchstart', this._eventHandlers.mousedown);
-            this._target.removeEventListener('touchend', this._eventHandlers.mouseup);
-            this._target.removeEventListener('touchmove', this._eventHandlers.mousemove);
+            t.removeEventListener('touchstart', this._eventHandlers.mousedown);
+            t.removeEventListener('touchend', this._eventHandlers.mouseup);
+            t.removeEventListener('touchmove', this._eventHandlers.mousemove);
         }
-        this._target.removeEventListener('mousedown', this._eventHandlers.mousedown);
-        this._target.removeEventListener('mouseup', this._eventHandlers.mouseup);
-        this._target.removeEventListener('mousemove', this._eventHandlers.mousemove);
-        this._target.removeEventListener('wheel', this._eventHandlers.mousewheel);
+        t.removeEventListener('mousedown', this._eventHandlers.mousedown);
+        t.removeEventListener('mouseup', this._eventHandlers.mouseup);
+        t.removeEventListener('mousemove', this._eventHandlers.mousemove);
+        t.removeEventListener('wheel', this._eventHandlers.mousewheel);
 
         document.removeEventListener('click', this._eventHandlers.mousedisable);
 
-        this._target.removeEventListener('contextmenu', this._eventHandlers.mousedisable);
+        t.removeEventListener('contextmenu', this._eventHandlers.mousedisable);
     }
 }
