@@ -99,42 +99,13 @@
         <div class="col-sm-5">
             <select id="hdd" class="form-control">
                 <option value="0">请选择操作系统</option>
-                <optgroup label="Linux">
-                    <option value="centos5.11">CentOS 5</option>
-                    <option value="centos6.10">CentOS 6</option>
-                    <option value="centos7.0">CentOS 7</option>
-                    <option value="rhel8.0">CentOS 8</option>
-                    <option value="rhel5.11">RHEL 5</option>
-                    <option value="rhel6.10">RHEL 6</option>
-                    <option value="rhel7.8">RHEL 7</option>
-                    <option value="rhel8.0">RHEL 8</option>
-                    <option value="ubuntu18.04">Ubuntu</option>
-                    <option value="fedora29">Fedora</option>
-                    <option value="ubuntu18.04">OpenWrt</option>
-                    <option value="">Other Linux kernel OS</option>
+                {% for i in os %}
+                <optgroup label="{{ i }}">
+                    {% for x in os[i] %}
+                    <option value="{{ x['os_id'] }}">{{ x['name'] }}</option>
+                    {% endfor %}
                 </optgroup>
-                <optgroup label="Windows">
-                    <option value="win2k3">Windows Server 2003</option>
-                    <option value="win2k8">Windows Server 2008</option>
-                    <option value="winxp">Windows XP</option>
-                    <option value="win7">Windows 7</option>
-                    <option value="win8">Windows 8</option>
-                    <option value="win10">Windows 10</option>
-                </optgroup>
-                <optgroup label="macOS">
-                    <option value="macosx10.7">macOS Sierra 10.12.6</option>
-                    <option value="macosx10.7">macOS High Sierra 10.13.6</option>
-                    <option value="macosx10.7">macOS Mojave 10.14.6</option>
-                    <option value="macosx10.7">macOS Catalina 10.15.4</option>
-                </optgroup>
-                <optgroup label="Android">
-                    <option value="">Android x86 4.0</option>
-                    <option value="">Android x86 5.0</option>
-                    <option value="">Android x86 6.0</option>
-                    <option value="">Android x86 7.0</option>
-                    <option value="">Android x86 8.0</option>
-                    <option value="">Android x86 9.0</option>
-                </optgroup>
+                {% endfor %}
             </select>
         </div>
         <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
