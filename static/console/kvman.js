@@ -5,7 +5,7 @@
  * */
 
 // RFB holds the API to connect and communicate with a VNC server
-import RFB from './core/rfb.js';
+import RFB from './core/rfb.js?v=20200502';
 
 const init = function () {
     let rfb, desktopName;
