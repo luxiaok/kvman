@@ -8,6 +8,9 @@ from service.kvm import kvm
 
 class KvmanHandler:
 
+    ##
+    kvm_os_type = kvm.os_type
+
     ### Kvm Object Instance
     __kvm__ = None
     kvm_sid_update = True
