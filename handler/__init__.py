@@ -28,6 +28,7 @@ route = [
     (r'/guest/reboot',guest.RebootHandler),
     (r'/guest/console',guest.ConsoleHandler),
     (r'/guest/console-exit',guest.ConsoleExitHandler),
+    (r'/guest/screenshot',guest.screenshotHandler),
     (r'/storage',storage.IndexHandler),
     (r'/storage/volume',storage.VolumeHandler),
     (r'/network',network.IndexHandler),
