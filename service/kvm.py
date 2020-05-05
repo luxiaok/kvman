@@ -9,6 +9,7 @@ import time
 import os
 from libvirt_qemu import qemuAgentCommand
 from xml.dom import minidom
+from PIL import Image
 
 
 class kvm:
@@ -510,3 +511,14 @@ class kvm:
         #print "MIME Type:", mimetype ### image/x-portable-pixmap
         fd = os.open(filename, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0644)
         stream.recvAll(self.screenshotHandler, fd)
+
+
+    def getScreenshotImg(self,name):
+        path = 'static/img/console'
+        filename_raw = '%s/%s.pbm' % (path, name)
+        filename_img = '%s/%s.jpg' % (path, name)
+        self.screenshot(name,filename_raw)
+        i = Image.open(filename_raw)
+        i.convert('RGB').save(filename_img)
+        i.close()
+        return filename_img
