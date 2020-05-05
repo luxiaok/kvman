@@ -514,11 +514,12 @@ class kvm:
 
 
     def getScreenshotImg(self,name):
-        path = 'static/img/console'
-        filename_raw = '%s/%s.pbm' % (path, name)
-        filename_img = '%s/%s.jpg' % (path, name)
+        app_dir = os.getcwd()
+        base_dir = 'static/img/console'
+        filename_raw = '%s/%s/%s.pbm' % (app_dir, base_dir, name)
+        filename_img = '/%s/%s.jpg' % (base_dir, name)
         self.screenshot(name,filename_raw)
-        i = Image.open(filename_raw)
-        i.convert('RGB').save(filename_img)
-        i.close()
+        img = Image.open(filename_raw)
+        img.convert('RGB').save(app_dir + filename_img)
+        img.close()
         return filename_img
