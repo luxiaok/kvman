@@ -281,36 +281,36 @@ route.GuestDetail = {
     init: function () {
         //开机
         $('#startBtn').click(function () {
-            let name = $('#name').val().trim(),
-                status = $('#name').data('status');
+            let name = $('#uuid').data('name'),
+                status = $('#uuid').data('status');
             guest_start(name,status);
         });
 
         //关机
         $('#haltBtn').click(function () {
-            let name = $('#name').val().trim(),
-                status = $('#name').data('status');
+            let name = $('#uuid').data('name'),
+                status = $('#uuid').data('status');
             guest_shutdown(name,status);
         });
 
         //重启
         $('#rebootBtn').click(function () {
-            let name = $('#name').val().trim(),
-                status = $('#name').data('status');
+            let name = $('#uuid').data('name'),
+                status = $('#uuid').data('status');
             guest_reboot(name,status);
         });
 
         //远程连接
         $('#consoleBtn').click(function () {
-            let name = $('#name').val().trim(),
-                status = $('#name').data('status');
+            let name = $('#uuid').data('name'),
+                status = $('#uuid').data('status');
             guest_console(name,status);
         });
 
         //销毁虚拟机
         $('#destroyBtn').click(function () {
-            let name = $('#name').val().trim(),
-                status = $('#name').data('status');
+            let name = $('#uuid').data('name'),
+                status = $('#uuid').data('status');
             guest_destroy(name,status);
         });
 
