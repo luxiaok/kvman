@@ -6,6 +6,7 @@ import libvirt
 import json
 import base64
 import time
+import os
 from libvirt_qemu import qemuAgentCommand
 from xml.dom import minidom
 
@@ -497,3 +498,15 @@ class kvm:
             networks.append(data)
         return sorted(networks,key=lambda item : item['name']) # Sort by name
 
+
+    def screenshotHandler(self,stream, buf, fd):
+        os.write(fd, buf)
+
+
+    def screenshot(self,name,filename='screenshot.pbm'):
+        domain = self.getGuest(name)
+        stream = self.conn.newStream(0)
+        mimetype = domain.screenshot(stream, 0, 0)
+        #print "MIME Type:", mimetype ### image/x-portable-pixmap
+        fd = os.open(filename, os.O_WRONLY | os.O_TRUNC | os.O_CREAT, 0644)
+        stream.recvAll(self.screenshotHandler, fd)
