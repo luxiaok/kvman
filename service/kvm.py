@@ -519,7 +519,11 @@ class kvm:
         filename_raw = '%s/%s/%s.pbm' % (app_dir, base_dir, name)
         filename_img = '/%s/%s.jpg' % (base_dir, name)
         self.screenshot(name,filename_raw)
-        img = Image.open(filename_raw)
-        img.convert('RGB').save(app_dir + filename_img)
-        img.close()
+        try:
+            img = Image.open(filename_raw)
+            img.convert('RGB').save(app_dir + filename_img)
+            img.close()
+            os.remove(filename_raw)
+        except:
+            filename_img = ''
         return filename_img
