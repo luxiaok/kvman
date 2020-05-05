@@ -153,3 +153,13 @@ class ConsoleExitHandler(BaseHandler):
         key = "%s%s" % (self.application.settings['kvman_console_token_key_pre'], uuid)
         self.redis.delete(key)
         return self.returnJson({'code': 0, 'msg': 'success'})
+
+
+# 控制台屏幕截图
+class screenshotHandler(BaseHandler):
+
+    @Auth
+    def get(self):
+        name = self.get_argument('name',None)
+        img = self.kvm.getScreenshotImg(name)
+        return self.returnJson({'code': 0, 'data': {'img': img}})
