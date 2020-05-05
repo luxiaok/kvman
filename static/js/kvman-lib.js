@@ -323,6 +323,23 @@ route.GuestDetail = {
         $('#editBtn').click(function () {
             layer.msg('暂不支持编辑配置！');
         });
+
+        //加载控制台预览图片
+        let name = $('#uuid').data('name');
+        $.ajax({
+            type: "GET",
+            url: "/guest/screenshot",
+            data: {name: name},
+            dataType: "json",
+            success: function (resp) {
+                let code = resp['code'];
+                if (code === 0) {
+                    $('#preview_img').attr('src', resp.data.img);
+                }
+            },
+            error: function () {
+            }
+        });
     }
 };
 
