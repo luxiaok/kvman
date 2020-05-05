@@ -610,7 +610,7 @@ route.Login = {
     uri: '/user/login',
     init: function () {
         //登录
-        $('#login_btn').click(function () {
+        let login = function () {
             let username = $('#username').val().trim(),
                 password = $('#password').val().trim();
             if (username === '') {
@@ -651,6 +651,16 @@ route.Login = {
                     layer.alert('系统繁忙，请稍后再试！', {title: '登录提示', icon: 2}); // icon = x
                 }
             });
+        };
+
+        //点击登录按钮
+        $('#login_btn').click(login);
+
+        //敲回车事件
+        $("html").keydown(function (e) {
+            if (e.which === 13) {
+                login();
+            }
         });
     }
 };
