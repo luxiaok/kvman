@@ -16,8 +16,10 @@
             <div class="btn-group" role="group">
                 <a href="/guest" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-arrow-left"></i>返回</a>
                 <button type="button" class="btn btn-outline-dark btn-sm" id="consoleBtn"><i class="fa fa-fw fa-television"></i>远程连接</button>
-                <button type="button" class="btn btn-outline-dark btn-sm" id="saveBtn" style="display: none;"><i class="fa fa-fw fa-check-circle-o"></i>保存</button>
-                <button type="button" class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-outline-dark btn-sm" id="saveBtn" style="display: none;"><i class="fa fa-fw fa-check-circle-o"></i>保存
+                </button>
+                <button type="button" class="btn btn-outline-dark btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
@@ -38,7 +40,12 @@
     <div class="col-5">
         <div class="card">
             <div class="card-header">
-                <span>{{ name }}</span>：{{ state[guest['state']] }}
+                <div class="row">
+                    <div class="col-6">{{ name }}</div>
+                    <div class="col-6 text-right">
+                        {{ state[guest['state']] }}
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <h5 class="card-title">Console Preview</h5>
