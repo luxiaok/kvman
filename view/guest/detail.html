@@ -37,23 +37,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-5">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-6">{{ name }}</div>
-                    <div class="col-6 text-right">
-                        {{ state[guest['state']] }}
-                    </div>
-                </div>
-            </div>
-            <div class="card-body" style="padding: 0;">
-                <!--<h5 class="card-title">Console Preview</h5>-->
-                <img style="max-width: 100%;" src="/static/img/console/guest0-win7.jpg">
-            </div>
-        </div>
-    </div>
-    <div class="col-7">
+    <div class="col-6">
         <form class="pr-5 pl-5">
             <div class="form-group row">
                 <label for="uuid" class="col-sm-2 col-form-label">UUID</label>
@@ -136,6 +120,22 @@
                 </div>
             </div>
         </form>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-6">{{ name }}</div>
+                    <div class="col-6 text-right">
+                        {{ state[guest['state']] }}
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" style="padding: 0;">
+                <!--<h5 class="card-title">Console Preview</h5>-->
+                <img style="max-width: 100%;" src="/static/img/console/guest0-win7.jpg">
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
