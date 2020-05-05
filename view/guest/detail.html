@@ -34,83 +34,100 @@
         </div>
     </div>
 </div>
-<form class="pr-5 pl-5">
-    <div class="form-group row">
-        <label for="name" class="col-sm-1 col-form-label">实例名称</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" id="name" value="{{ name }}" data-status="{{ guest.status }}">
-        </div>
-        <label for="uuid" class="col-sm-1 col-form-label">UUID</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" id="uuid" value="{{ guest.uuid }}">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">标 题</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" value="{{ guest.title }}">
-        </div>
-        <label for="" class="col-sm-1 col-form-label">描 述</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" value="{{ guest.desc }}">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">主机名</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" value="{{ guest.hostname }}">
-        </div>
-        <label for="" class="col-sm-1 col-form-label">操作系统</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" value="{{ guest.os }}">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">IP地址</label>
-        <div class="col-sm-5">
-            <div class="pt-2">{{ '<br>'.join(guest.ip) }}</div>
-        </div>
-        <label for="" class="col-sm-1 col-form-label">VNC端口</label>
-        <div class="col-sm-5">
-            <div class="pt-2">{{ guest.vnc_port }}</div>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">CPUs</label>
-        <div class="col-sm-5">
-            <input type="text" readonly class="form-control-plaintext" value="{{ guest.cpu }}">
-        </div>
-        <label for="" class="col-sm-1 col-form-label">内 存</label>
-        <div class="col-sm-5">
-            <div class="pt-2">
-                <span>{{ guest.mem }}</span>
+<div class="row">
+    <div class="col-5">
+        <div class="card">
+            <div class="card-header">
+                <span>{{ name }}</span>：{{ state[guest['state']] }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Console Preview</h5>
             </div>
         </div>
     </div>
-    <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">硬 盘</label>
-        <div class="col-sm-5">
-            <div class="pt-2"><span data-toggle="tooltip" title="已使用 / 总容量">{{ '<br>'.join(guest.hdd) }}</span></div>
-        </div>
-        <label for="" class="col-sm-1 col-form-label">CDROM</label>
-        <div class="col-sm-5">
-            <div class="pt-2">无</div>
-        </div>
+    <div class="col-7">
+        <form class="pr-5 pl-5">
+            <div class="form-group row">
+                <label for="uuid" class="col-sm-2 col-form-label">UUID</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" id="uuid" data-name="{{ name }}" data-status="{{ guest.status }}" value="{{ guest.uuid }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">标 题</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" value="{{ guest.title }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">描 述</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" value="{{ guest.desc }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">主机名</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" value="{{ guest.hostname }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">操作系统</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" value="{{ guest.os }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">IP地址</label>
+                <div class="col-sm-10">
+                    <div class="pt-2">{{ '<br>'.join(guest.ip) }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">VNC端口</label>
+                <div class="col-sm-10">
+                    <div class="pt-2">{{ guest.vnc_port }}</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">CPUs</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control-plaintext" value="{{ guest.cpu }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">内 存</label>
+                <div class="col-sm-10">
+                    <div class="pt-2">
+                        <span>{{ guest.mem }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">硬 盘</label>
+                <div class="col-sm-10">
+                    <div class="pt-2"><span data-toggle="tooltip" title="已使用 / 总容量">{{ '<br>'.join(guest.hdd) }}</span></div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">CDROM</label>
+                <div class="col-sm-10">
+                    <div class="pt-2">无</div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label" title="QEMU Guest Agent" data-toggle="tooltip">QGA版本</label>
+                <div class="col-sm-10">
+                    <div class="pt-2">{% if guest.qga_version %}<span title="QEMU Guest Agent" data-toggle="tooltip">{{ guest.qga_version }}</span>{% else %}
+                        <span style="color:red;">客户机未运行qemu-guest-agent</span>{% endif %}</div>
+                </div>
+            </div>
+            <div class="form-group row" style="display: none;" id="xml_box">
+                <div class="col-sm-12">
+                    <textarea class="form-control" rows="25" placeholder="Libvirt XML For QEMU-KVM Guest">{{ guest.xml | trim }}</textarea>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="form-group row">
-        <label for="" class="col-sm-1 col-form-label">状 态</label>
-        <div class="col-sm-5">
-            <div class="pt-2">{{ state[guest['state']] }}</div>
-        </div>
-        <label for="" class="col-sm-1 col-form-label" title="QEMU Guest Agent" data-toggle="tooltip">QGA版本</label>
-        <div class="col-sm-5">
-            <div class="pt-2">{% if guest.qga_version %}<span title="QEMU Guest Agent" data-toggle="tooltip">{{ guest.qga_version }}</span>{% else %}<span style="color:red;">客户机未运行qemu-guest-agent</span>{% endif %}</div>
-        </div>
-    </div>
-    <div class="form-group row" style="display: none;" id="xml_box">
-        <div class="col-sm-12">
-            <textarea class="form-control" rows="25" placeholder="Libvirt XML For QEMU-KVM Guest">{{ guest.xml | trim }}</textarea>
-        </div>
-    </div>
-</form>
+</div>
 {% endblock %}
