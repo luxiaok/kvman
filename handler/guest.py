@@ -161,6 +161,6 @@ class screenshotHandler(BaseHandler):
     @Auth
     def get(self):
         name = self.get_argument('name',None)
-        img = '/static/img/console/guest0-win7.jpg' # Just for Testing
+        img = '/static/img/console/guest0-win7.jpg?delta=' + fun.random_str(32) # Just for Testing
         #img = self.kvm.getScreenshotImg(name)
         return self.returnJson({'code': 0, 'data': {'img': img}})
