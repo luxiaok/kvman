@@ -540,9 +540,11 @@ class kvm:
             elif os.path.exists(filename_img_full_path):
                 stat = os.stat(filename_img_full_path)
                 if time.time() - stat.st_mtime > 300:
+                    #print 'More than 300 Seconds'
                     self.screenshot(name,filename_raw)
                     return self.convertImg(filename_raw, filename_img)
                 else:
+                    #print 'Less 300 Seconds'
                     return filename_img
             else:
                 self.screenshot(name, filename_raw)
