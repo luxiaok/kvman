@@ -161,7 +161,7 @@ class screenshotHandler(BaseHandler):
     @Auth
     def get(self):
         name = self.get_argument('name',None)
-        force = self.get_argument('name',None)
+        force = self.get_argument('force',None)
         #img = '/static/img/console/guest0-win7.jpg' # Just for Testing
         img = self.kvm.getScreenshotImg(name,force)
         if img:
