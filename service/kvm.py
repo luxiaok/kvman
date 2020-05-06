@@ -513,17 +513,38 @@ class kvm:
         stream.recvAll(self.screenshotHandler, fd)
 
 
-    def getScreenshotImg(self,name):
+    def convertImg(self,raw,pic):
+        try:
+            img = Image.open(raw)
+            img.convert('RGB').save(os.getcwd()+pic)
+            img.close()
+            os.remove(raw)
+        except:
+            pic = ''
+        return pic
+
+
+    def getScreenshotImg(self,name,force=False):
         app_dir = os.getcwd()
         base_dir = 'static/img/console'
         filename_raw = '%s/%s/%s.pbm' % (app_dir, base_dir, name)
         filename_img = '/%s/%s.jpg' % (base_dir, name)
-        self.screenshot(name,filename_raw)
-        try:
-            img = Image.open(filename_raw)
-            img.convert('RGB').save(app_dir + filename_img)
-            img.close()
-            os.remove(filename_raw)
-        except:
-            filename_img = ''
-        return filename_img
+        filename_img_full_path = app_dir + filename_img
+        guest = self.getGuest(name)
+        if guest.isActive():
+            if force:
+                self.screenshot(name, filename_raw)
+                return self.convertImg(filename_raw,filename_img)
+            elif os.path.exists(filename_img_full_path):
+                stat = os.stat(filename_img_full_path)
+                if time.time() - stat.st_mtime > 300:
+                    self.screenshot(name,filename_raw)
+                    return self.convertImg(filename_raw, filename_img)
+                else:
+                    return filename_img
+            else:
+                self.screenshot(name, filename_raw)
+                return self.convertImg(filename_raw, filename_img)
+        else:
+            return ''
+
