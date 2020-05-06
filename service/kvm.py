@@ -521,6 +521,8 @@ class kvm:
             os.remove(raw)
         except:
             pic = ''
+            self.code = -1
+            self.msg = u'生成控制台缩率图失败(-1)'
         return pic
 
 
@@ -546,5 +548,7 @@ class kvm:
                 self.screenshot(name, filename_raw)
                 return self.convertImg(filename_raw, filename_img)
         else:
+            self.code = -1
+            self.msg = u'已关机'
             return ''
 

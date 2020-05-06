@@ -166,4 +166,6 @@ class screenshotHandler(BaseHandler):
         img = self.kvm.getScreenshotImg(name,force)
         if img:
             img += '?delta=' + fun.random_str(32)
-        return self.returnJson({'code': 0, 'data': {'img': img}})
+        data = {'code': self.kvm.code, 'data': {'img': img},'msg':self.kvm.msg}
+        return self.returnJson(data)
+
