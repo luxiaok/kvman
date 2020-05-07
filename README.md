@@ -103,7 +103,7 @@ stdout_logfile=/tmp/kvman_console.log
 
 ```shell
 ssh-keygen
-ssh-copy-id KvmServerAddress
+ssh-copy-id kvm_server_hostname
 ```
  
 Test:
@@ -112,7 +112,7 @@ Test:
 
 ### How to save data for redis?
 
-> redis-cli -p REDIS_PORT save
+> redis-cli -h redis_host -p redis_port save
 
 
 ## Related Links
