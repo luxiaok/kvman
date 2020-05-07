@@ -460,7 +460,12 @@ class kvm:
         vols = []
         if not self.conn:
             return vols
-        pl = self.conn.storagePoolLookupByName(pool)
+        try:
+            pl = self.conn.storagePoolLookupByName(pool)
+        except Exception, e:
+            self.code = -1
+            self.msg = e.message
+            return vols
         vls = pl.listVolumes()
         for i in vls:
             vol = pl.storageVolLookupByName(i)
