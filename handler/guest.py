@@ -86,7 +86,8 @@ class CreateGuestHandler(BaseHandler):
     @Auth
     def get(self):
         servers = self.get_kvm_server()
-        self.render('guest/create.html',servers=servers,os=self.kvm_os_type)
+        iso = self.kvm.getStorageVols('iso')
+        self.render('guest/create.html',servers=servers,os=self.kvm_os_type,iso=iso)
 
 
 class DetailHandler(BaseHandler):
