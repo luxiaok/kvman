@@ -294,7 +294,7 @@ class kvm:
                 'status': i.isActive()
             }
             guests.append(dom)
-        return sorted(guests,key=lambda item : item['name']) # Sort by Name
+        return sorted(guests,key=lambda item : item['name'].lower()) # Sort by Name
 
 
     def getIPAddress(self,guest,ignore127=True,ignoreIPv6=True):
@@ -453,7 +453,7 @@ class kvm:
                 'state': info[0]
             }
             storages.append(sp)
-        return sorted(storages,key=lambda item : item['name']) # Sort by name
+        return sorted(storages,key=lambda item : item['name'].lower()) # Sort by name
 
 
     def getStorageVols(self,pool):
