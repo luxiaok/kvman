@@ -478,7 +478,7 @@ class kvm:
                 'used': self.formatNum(info[2])
             }
             vols.append(_vl)
-        return sorted(vols,key=lambda item : item['name']) # Sort by name
+        return sorted(vols,key=lambda item : item['name'].lower()) # 按name字段排序，忽略大小写！！！
 
 
     def getNetworks(self):
