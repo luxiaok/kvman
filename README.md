@@ -13,7 +13,7 @@ Version: v1.0.0-Dev
 
 ### Based environments
 
-* CentOS 7.7 x86_64
+* CentOS 7.8 x86_64
 
 * Python 2.7.xx
 
