@@ -21,3 +21,4 @@ class VolumeHandler(BaseHandler):
         pool = self.get_argument('pool')
         vols = self.kvm.getStorageVols(pool)
         self.render('storage/volume.html',vols=vols,pool=pool)
+
