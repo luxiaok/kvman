@@ -337,8 +337,7 @@ route.GuestDetail = {
                     $('#preview_img').attr('src', resp.data.img);
                 }
             },
-            error: function () {
-            }
+            error: function () {}
         });
     }
 };
