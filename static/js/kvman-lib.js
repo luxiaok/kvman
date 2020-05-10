@@ -334,7 +334,6 @@ route.GuestDetail = {
             success: function (resp) {
                 let code = resp['code'];
                 if (code === 0) {
-                    $('#preview_btn').attr('href', resp.data.img);
                     $('#preview_img').attr('src', resp.data.img);
                 }
             },
