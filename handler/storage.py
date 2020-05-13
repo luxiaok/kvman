@@ -4,14 +4,12 @@
 
 from BaseHandler import BaseHandler
 from tornado.web import authenticated as Auth
-import libvirt
 
 
 class IndexHandler(BaseHandler):
 
     @Auth
     def get(self):
-        print storage_type
         storages = self.kvm.getStoragePools()
         self.render('storage/index.html',storages=storages)
 
