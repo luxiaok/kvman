@@ -682,6 +682,22 @@ route.Login = {
 };
 
 
+route.Storage = {
+    uri: '/storage',
+    init: function () {
+        //新增
+        $('#createStorageBtn').click(function () {
+            $('#dialog_title').html('新增存储池');
+            $('#edit_dialog').modal();
+            $('#name').val('');
+            $('#type').val('');
+            $('#target').val('');
+            $('#saveBtn').data('name', '');
+        });
+    }
+};
+
+
 /********** 导出方法 **********/
 
 //export default function(){
