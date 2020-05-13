@@ -3,7 +3,7 @@
 {% block body %}
 <div class="row mt-4 mb-3">
     <div class="col-sm"><h5>存储</h5></div>
-    <div class="col-sm"><div class="float-right"><a href="javascript:void(0);" class="btn btn-outline-dark btn-sm"><i class="fa fa-fw fa-plus"></i> 新建存储</a></div></div>
+    <div class="col-sm"><div class="float-right"><a href="javascript:void(0);" class="btn btn-outline-dark btn-sm" id="createStorageBtn"><i class="fa fa-fw fa-plus"></i> 新建存储</a></div></div>
 </div>
 {% include "layout/kvm_server_list.html" %}
 <div class="rom mb-3">
@@ -45,5 +45,50 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+<div class="modal fade" id="edit_dialog" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dialog_title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="pr-5 pl-5">
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 col-form-label">存储名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="name" placeholder="请使用英文">
+                        </div>
+                        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="type" class="col-sm-2 col-form-label">存储类型</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="type">
+                                <option value="">-- 请选择存储类型 --</option>
+                                <option value="dir">目录</option>
+                                <option value="lvm">LVM</option>
+                                <option value="nfs">NFS</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-1" style="margin-top: 6px"><i class="fa fa-asterisk" style="color: red;font-size: 10px"></i></div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="target" class="col-sm-2 col-form-label">目标路径</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="target" placeholder="请填写目标路径">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="saveBtn" class="btn btn-outline-dark">保 存</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">关 闭</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
