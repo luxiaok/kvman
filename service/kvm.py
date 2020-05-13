@@ -440,12 +440,15 @@ class kvm:
         pools = self.conn.listAllStoragePools(0)
         for i in pools:
             info = i.info()
+            raw_xml = i.XMLDesc(0)
+            xml = minidom.parseString(raw_xml)
             sp = {
                 'name': i.name(),
                 'uuid': i.UUIDString(),
                 'size': self.formatNum(info[1]),
                 'used': self.formatNum(info[2]),
                 'free': self.formatNum(info[3]),
+                'type': xml.getElementsByTagName('pool')[0].getAttribute('type'),
                 'vol_num': i.numOfVolumes(),
                 'vols': i.listVolumes(),
                 'autostart': i.autostart(),
