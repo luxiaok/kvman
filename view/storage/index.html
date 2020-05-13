@@ -13,6 +13,7 @@
             <th scope="col">名称</th>
             <th scope="col">容量 [已使用/总量]</th>
             <th scope="col">存储卷数量</th>
+            <th scope="col">类型</th>
             <th scope="col">自动启动</th>
             <th scope="col">状态</th>
             <th scope="col">操作</th>
@@ -24,6 +25,7 @@
             <td><a href="/storage/volume?pool={{ i.name }}">{{ i.name }}</a></td>
             <td>{{ i.used }} / {{ i.size }}</td>
             <td><a href="/storage/volume?pool={{ i.name }}">{{ i.vol_num }}</a></td>
+            <td>{{ i.type }}</td>
             <td>{% if i.autostart %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td>{% if i.state == 2 %}<span style="color:green;">running</span>{% endif %}</td>
             <td>
