@@ -691,7 +691,9 @@ route.Storage = {
             $('#edit_dialog').modal();
             $('#name').val('');
             $('#type').val('');
+            $('#source').val('');
             $('#target').val('');
+            $('#autostart').val('y');
             $('#saveBtn').data('name', '');
         });
     }
