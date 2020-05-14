@@ -489,7 +489,7 @@ class kvm:
         f = open('/proc/net/dev','r')
         content = f.readlines()
         f.close()
-        filter = '%s:' % interface
+        filter = '%s:' % interface # ':' is important!!!
         traffic_in = 0
         traffic_out = 0
         for line in content:
