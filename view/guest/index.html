@@ -15,7 +15,7 @@
             <th scope="col">CPUs</th>
             <th scope="col">内存</th>
             <th scope="col">硬盘 [已使用/总量]</th>
-            <th scope="col">网卡</th>
+            <!--<th scope="col">网卡</th>-->
             <th scope="col">备注</th>
             <th scope="col">自动启动</th>
             <th scope="col">状态</th>
@@ -30,7 +30,7 @@
             <td>{{ d['cpu'] }}</td>
             <td>{{ d['mem'] }}</td>
             <td>{{ '<br>'.join(d.hdd) }}</td>
-            <td>{{ '<br>'.join(d.network) }}</td>
+            <!--<td>{{ '<br>'.join(d.network) }}</td>-->
             <td>{{ d['desc'] }}</td>
             <td>{% if d.autostart %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td>{{ state[d['state']] }}</td>
