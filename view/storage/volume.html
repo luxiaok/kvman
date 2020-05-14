@@ -16,7 +16,7 @@
         <tr>
             <th scope="col">名称</th>
             <th scope="col">路径</th>
-            <th scope="col">类型</th>
+            <th scope="col">格式</th>
             <th scope="col">容量 [已使用/总量]</th>
             <th scope="col">操作</th>
         </tr>
@@ -26,7 +26,7 @@
         <tr>
             <td><div class="text-cut-220" data-toggle="tooltip" title="{{ i.name }}">{{ i.name }}</div></td>
             <td><div class="text-cut-460" data-toggle="tooltip" title="{{ i.path }}">{{ i.path }}</div></td>
-            <td>{{ i.type }}</td>
+            <td></td>
             <td>{{ i.used }} / {{ i.total }}</td>
             <td><a href="javascript:void(0);" class="delete-vol" data-pool="{{ pool }}" data-vol="{{ i.name }}">删除</a></td>
         </tr>
