@@ -498,7 +498,7 @@ class kvm:
                 traffic_in = raw[1]
                 traffic_out = raw[9]
                 break
-        return {'in': self.formatNum(traffic_in), 'out': self.formatNum(traffic_out)}
+        return {'in': self.formatNum(int(traffic_in)), 'out': self.formatNum(int(traffic_out))}
 
 
     def getNetworks(self):
