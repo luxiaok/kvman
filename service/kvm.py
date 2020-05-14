@@ -511,7 +511,7 @@ class kvm:
             raw_xml = network.XMLDesc(0)
             xml = minidom.parseString(raw_xml)
             ip = xml.getElementsByTagName('ip')
-            traffic = self.getNetworkTraffic(i)
+            traffic = self.getNetworkTraffic(network.bridgeName())
             data = {
                 'name': i,
                 'uuid': network.UUIDString(),
