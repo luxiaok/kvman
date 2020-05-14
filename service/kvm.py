@@ -495,7 +495,7 @@ class kvm:
         for line in content:
             if filter in line:
                 raw = line.split()
-                traffic_in = raw[2]
+                traffic_in = raw[1]
                 traffic_out = raw[9]
                 break
         return {'in': self.formatNum(traffic_in), 'out': self.formatNum(traffic_out)}
