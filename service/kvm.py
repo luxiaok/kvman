@@ -484,6 +484,23 @@ class kvm:
         return sorted(vols,key=lambda item : item['name'].lower()) # 按name字段排序，忽略大小写！！！
 
 
+    # 获取网卡流量，仅限Kvm本机
+    def getNetworkTraffic(self,interface='eth0'):
+        f = open('/proc/net/dev','r')
+        content = f.readlines()
+        f.close()
+        filter = '%s:' % interface
+        traffic_in = 0
+        traffic_out = 0
+        for line in content:
+            if filter in line:
+                raw = line.split()
+                traffic_in = raw[2]
+                traffic_out = raw[9]
+                break
+        return {'in': self.formatNum(traffic_in), 'out': self.formatNum(traffic_out)}
+
+
     def getNetworks(self):
         networks = []
         if not self.conn:
