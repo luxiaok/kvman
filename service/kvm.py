@@ -511,6 +511,7 @@ class kvm:
             raw_xml = network.XMLDesc(0)
             xml = minidom.parseString(raw_xml)
             ip = xml.getElementsByTagName('ip')
+            traffic = self.getNetworkTraffic(i)
             data = {
                 'name': i,
                 'uuid': network.UUIDString(),
@@ -519,6 +520,8 @@ class kvm:
                 'ip': ip[0].getAttribute('address'),
                 'netmask': ip[0].getAttribute('netmask'),
                 'dhcp': len(network.DHCPLeases()),
+                'traffic_in': traffic['in'],
+                'traffic_out': traffic['out'],
                 'active': network.isActive()
             }
             networks.append(data)
