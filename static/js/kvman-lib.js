@@ -700,6 +700,40 @@ route.Storage = {
 };
 
 
+route.StorageVolume = {
+    uri: '/storage/volume',
+    init: function () {
+        //刷新存储池
+        $('#refreshStorageBtn').click(function () {
+            let loading = layer.load(1, {shade: [0.4, '#000']});
+            const pool = $(this).data('pool');
+            $.ajax({
+                type: "POST",
+                url: "/storage/refresh",
+                data: {pool:pool},
+                dataType: "json",
+                success: function (resp) {
+                    layer.close(loading);
+                    let code = resp['code'],
+                        msg = resp['msg'];
+                    if (code === 0) {
+                        location.reload();
+                    } else if (code < 0) {
+                        layer.msg(msg);
+                    } else {
+                        layer.alert('操作失败，请稍后再试！', {title: '登录提示', icon: 0}); //icon = !
+                    }
+                },
+                error: function () {
+                    layer.close(loading);
+                    layer.alert('系统繁忙，请稍后再试！', {title: '登录提示', icon: 2}); // icon = x
+                }
+            });
+        });
+    }
+};
+
+
 /********** 导出方法 **********/
 
 //export default function(){
