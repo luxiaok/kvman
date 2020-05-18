@@ -31,6 +31,7 @@ route = [
     (r'/guest/screenshot',guest.screenshotHandler),
     (r'/storage',storage.IndexHandler),
     (r'/storage/volume',storage.VolumeHandler),
+    (r'/storage/refresh',storage.RefreshStorageHandler),
     (r'/network',network.IndexHandler),
     (r'/monitor',monitor.IndexHandler),
     (r'/setting',setting.IndexHandler),
