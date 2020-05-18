@@ -484,6 +484,12 @@ class kvm:
         return sorted(vols,key=lambda item : item['name'].lower()) # 按name字段排序，忽略大小写！！！
 
 
+    # 刷新存储池
+    def refreshStorage(self,pool_name):
+        pool = self.conn.storagePoolLookupByName(pool_name)
+        return pool.refresh()
+
+
     # 获取网卡流量，仅限Kvm本机
     def getNetworkTraffic(self,interface='eth0'):
         f = open('/proc/net/dev','r')
