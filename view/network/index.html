@@ -31,7 +31,7 @@
             <td>{{ d.ip }}</td>
             <td>{{ d.netmask }}</td>
             <td><i class="fa fa-fw fa-arrow-up"></i>{{ d.traffic_out }}</td>
-            <td>{{ d.traffic_in }}</td>
+            <td><i class="fa fa-fw fa-arrow-down"></i>{{ d.traffic_in }}</td>
             <td>{% if d.autostart %}<i class="fa fa-check" style="color:green;"></i>{% endif %}</td>
             <td>{% if d['active'] %}<span style="color:green;">running</span>{% endif %}</td>
             <td>
