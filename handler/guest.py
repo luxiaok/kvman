@@ -81,6 +81,7 @@ class RebootHandler(BaseHandler):
         self.returnJson({'code':0,'result':result,'msg':self.kvm.msg})
 
 
+# 创建虚拟机
 class CreateGuestHandler(BaseHandler):
 
     @Auth
