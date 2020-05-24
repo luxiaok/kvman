@@ -94,8 +94,8 @@ class CreateGuestHandler(BaseHandler):
     def post(self):
         name = self.get_argument('name')
         cpus = self.get_argument('cpus') # CPU数量
-        mem = self.get_argument('mem')
-        hdd = self.get_argument('hdd')
+        mem = self.get_argument('mem') # 内存大小，单位：KB
+        hdd = self.get_argument('hdd') # 硬盘大小，单位：KB
         network = self.get_argument('network')
         cdrom = self.get_argument('cdrom')
         os = self.get_argument('os')
