@@ -89,6 +89,15 @@ class CreateGuestHandler(BaseHandler):
         iso = self.kvm.getStorageVols('iso')
         self.render('guest/create.html',servers=servers,os=self.kvm_os_type,iso=iso)
 
+    @Auth
+    def post(self):
+        name = self.get_argument('name')
+        cpu = self.get_argument('cpu')
+        mem = self.get_argument('mem')
+        hdd = self.get_argument('hdd')
+        network = self.get_argument('network')
+        cdrom = self.get_argument('cdrom')
+
 
 class DetailHandler(BaseHandler):
 
