@@ -93,7 +93,7 @@ class CreateGuestHandler(BaseHandler):
     @Auth
     def post(self):
         name = self.get_argument('name')
-        cpu = self.get_argument('cpu')
+        cpus = self.get_argument('cpus') # CPU数量
         mem = self.get_argument('mem')
         hdd = self.get_argument('hdd')
         network = self.get_argument('network')
