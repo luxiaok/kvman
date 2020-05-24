@@ -97,6 +97,7 @@ class CreateGuestHandler(BaseHandler):
         hdd = self.get_argument('hdd')
         network = self.get_argument('network')
         cdrom = self.get_argument('cdrom')
+        os = self.get_argument('os')
 
 
 class DetailHandler(BaseHandler):
