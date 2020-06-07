@@ -110,6 +110,8 @@ class CreateGuestHandler(BaseHandler):
             self.returnJson({'code':-1,'msg':u'请指定硬盘设置'})
         if not network:
             self.returnJson({'code':-1,'msg':u'请指定网络设置'})
+        if not os:
+            self.returnJson({'code':-1,'msg':u'请选择操作系统类型'})
 
 
 class DetailHandler(BaseHandler):
