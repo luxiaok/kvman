@@ -100,6 +100,8 @@ class CreateGuestHandler(BaseHandler):
         cdrom = self.get_argument('cdrom')
         os = self.get_argument('os')
         desc = self.get_argument('desc')
+        if not name:
+            self.returnJson({'code':-1,'msg':u'实例名称不能为空'})
 
 
 class DetailHandler(BaseHandler):
