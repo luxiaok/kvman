@@ -102,6 +102,8 @@ class CreateGuestHandler(BaseHandler):
         desc = self.get_argument('desc')
         if not name:
             self.returnJson({'code':-1,'msg':u'实例名称不能为空'})
+        if not cpus:
+            self.returnJson({'code':-1,'msg':u'请指定CPU设置'})
 
 
 class DetailHandler(BaseHandler):
